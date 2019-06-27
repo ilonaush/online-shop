@@ -1,3 +1,5 @@
-interface IRequestService {
-    service: object;
+import {AxiosInstance} from "axios";
+
+export interface IRequestService {
+    service: AxiosInstance;
 }

@@ -1,6 +1,6 @@
 <template>
     <v-toolbar color="primary" dark class="header-navigation">
-        <router-link to="/"><font-awesome-icon :icon="['fas', 'flower-tulip']" size="2x"/></router-link>
+        <router-link to="/"><font-awesome-icon :icon="['fas', 'paw']" size="2x"/></router-link>
         <v-toolbar-title>Online Pet Shop</v-toolbar-title>
         <v-spacer/>
         <v-toolbar-items>

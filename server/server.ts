@@ -1,4 +1,5 @@
-import express, {Response, NextFunction, Request} from "express";
+
+import express, {Request, Response, NextFunction} from "express";
 const bodyParser = require("body-parser");
 const fs = require("fs");
 const path = require("path");
@@ -18,7 +19,7 @@ server.use(bodyParser.json());
  * @param next next request
  */
 const crossOrigin = (req: Request, res: Response, next: NextFunction) => {
-    res.header("Access-Control-Allow-Origin", "http://localhost:3000");
+    res.header("Access-Control-Allow-Origin", "http://localhost:8080");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     res.header("Access-Control-Allow-Methods", "PUT, POST, GET, DELETE, PATCH, OPTIONS");
     res.header("Allow", "PUT, POST, GET, PATCH, DELETE, OPTIONS");
@@ -34,29 +35,26 @@ const port = 5000;
 server.use(crossOrigin);
 
 /**
- * handler for get request; gives all cats
+ * handler for get food request; gives all food
  */
-server.get("/", async (req, res) => {
+server.get("/food", async (req, res) => {
     try {
-        const cats = await readDataFromJson("currentCats");
-        res.send(cats);
+        const data = await readDataFromJson("food");
+        res.send(data);
     } catch (e) {
-        res.status(500).send({status: false});
+        res.status(500).send({success: false});
     }
 });
 
-/**
- * handler for get history request
- */
-server.get("/history", async (req, res) => {
+server.get("/filters", async (req, res) => {
     try {
-        const history = await readDataFromJson("history");
-        res.send(history);
-    } catch(e) {
-        res.status(500).send({status: false});
+        const data = await readDataFromJson("filters");
+        console.log(data);
+        res.send(data);
+    } catch (e) {
+        res.status(500).send({success: false});
     }
 });
-
 
 /**
  * handler for post request for adding new worker

@@ -1,0 +1,24 @@
+{
+  "items": [
+    {
+      "id": 1,
+      "animalType": "Dog",
+      "brand": "Cesar",
+      "name": "Taste of the Wild High Prairie Canine Recipe with Roasted Bison and Roasted Venison Grain-Free Dry Dog Food, 28 Lb,",
+      "rating": 5,
+      "reviews": [
+        {
+          "id": 1,
+          "reviewerName": "Anna",
+          "reviewText": "Meow"
+        }
+      ],
+      "price": "$9.48",
+      "quantity": "12",
+      "availableCount": [1, 2, 6, 24],
+      "shipping": "2-day delivery",
+      "mainImage": "https://i5.walmartimages.com/asr/004b8939-6bef-4590-bde8-355e1a15db00_1.822d25712d3d9a374265aa2f448c7716.jpeg?odnHeight=450&odnWidth=450&odnBg=FFFFFF",
+      "healthFeature": ["Weight Management", "Grain Free", "Digestive Care", "Skin & Coat Care"]
+    }
+  ]
+}
