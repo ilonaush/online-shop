@@ -1,0 +1,3 @@
+interface IResponse {
+    header: () => any;
+}

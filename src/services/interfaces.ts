@@ -1,0 +1,3 @@
+interface IRequestService {
+    service: object;
+}
