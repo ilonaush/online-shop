@@ -1,4 +1,4 @@
-interface IStore {
+interface IStore extends IFiltersModule, IProductsModule{
 }
 
 interface IFiltersModule {

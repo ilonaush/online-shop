@@ -1,6 +1,6 @@
 <template>
-    <div>
-        <div v-for="product in productsList"
+    <div class="product-list">
+        <div v-for="product in products"
              :key="product.id">
             <product-card :product="product"/>
         </div>
@@ -9,14 +9,22 @@
 
 <script lang="ts">
     import {Component, Prop, Vue} from "vue-property-decorator";
-    import RequestService from '../../services/RequestService'
-    import ProductCard from "../Product/ProductCard";
+    import ProductCard from "../Product/ProductCard.vue";
+
     @Component({
         components: {ProductCard},
     })
     export default class ProductList extends Vue {
         @Prop(Array) products!: object[];
-        productsList = this.products;
+
+        created() {
+            console.log("mount product list");
+            console.log(this.products);
+        }
+        updated() {
+            console.log("updated product list");
+            console.log(this.products);
+        }
     }
 </script>
 

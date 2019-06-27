@@ -4,15 +4,15 @@ import {filterModule, productsModule} from "@/store/modules";
 
 Vue.use(Vuex);
 
-const store = new Vuex.Store<IStore>({
+const store = new Vuex.Store({
     modules: {
         filterModule,
-        productsModule
-    }
+        productsModule,
+    },
 });
 
 store.subscribe((mutation, state) => {
-    console.log(state, "subscribe")
+    console.log(state, "subscribe");
 });
 
 export default store;

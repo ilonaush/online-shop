@@ -40,6 +40,7 @@ server.use(crossOrigin);
 server.get("/food", async (req, res) => {
     try {
         const data = await readDataFromJson("food");
+        console.log(data);
         res.send(data);
     } catch (e) {
         res.status(500).send({success: false});

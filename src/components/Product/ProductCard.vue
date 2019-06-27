@@ -1,20 +1,20 @@
 <template>
     <v-card flat>
-        <v-card-text>{{ productItem.name }}</v-card-text>
+        <v-card-text>{{ product.name }}</v-card-text>
     </v-card>
 </template>
 
 <script lang="ts">
     import {Component, Prop, Vue} from "vue-property-decorator";
-    import RequestService from '../../services/RequestService'
     import {IProduct} from "./interfaces";
     @Component({
-        props: ['productItem']
     })
     export default class ProductCard extends Vue {
-        @Prop({type: () => Object as IProduct}) product!: IProduct;
-        productItem = this.product;
+        @Prop({type: Object as () => IProduct}) product!: IProduct;
 
+        updated() {
+            console.log(this.product, "card");
+        }
     }
 </script>
 
@@ -28,4 +28,12 @@
     .v-toolbar__items
         a
             height 100%
+
+    .v-tabs .v-window__container,
+    .v-tabs .v-window-item
+        height 100%
+
+    /* customise the dimensions of the card content here */
+    .v-tabs .v-card
+        height 100%
 </style>

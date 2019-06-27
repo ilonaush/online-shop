@@ -28,7 +28,7 @@
     import {Component, Prop, Vue} from "vue-property-decorator";
 
     @Component
-    export default class Filter extends Vue {
+    export default class productsList extends Vue {
         @Prop(Array) filters!: object[];
         filtersList = this.filters;
         updated() {

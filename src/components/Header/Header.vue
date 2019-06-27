@@ -25,7 +25,7 @@
         a
             display block
             margin-left auto
-            .fa-shopping-cart, .fa-flower-tulip
+            .fa-shopping-cart, .fa-paw
                 color white
     .v-toolbar__items
         a
