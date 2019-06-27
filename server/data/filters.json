@@ -1,0 +1,8 @@
+{
+  "filters": [
+    {
+      "name": "Animal Type",
+      "options": ["Cat", "Dog"]
+    }
+  ]
+}
