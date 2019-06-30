@@ -1,4 +1,7 @@
-export enum RequestName {
+export enum REQUEST_NAME {
     getFilters = "/filters",
-    getFoodProducts = "/food"
+    getProducts = "/",
+}
+export enum NOTIFICATION_TYPES {
+    addToCart = "/addToCart",
 }

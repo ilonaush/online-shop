@@ -83,13 +83,13 @@ server.use(crossOrigin);
 /**
  * handler for get food request; gives all food
  */
-server.get("/food", function (req, res) { return __awaiter(_this, void 0, void 0, function () {
+server.get("/", function (req, res) { return __awaiter(_this, void 0, void 0, function () {
     var data, e_1;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
                 _a.trys.push([0, 2, , 3]);
-                return [4 /*yield*/, readDataFromJson("food")];
+                return [4 /*yield*/, readDataFromJson("items")];
             case 1:
                 data = _a.sent();
                 res.send(data);
@@ -111,7 +111,6 @@ server.get("/filters", function (req, res) { return __awaiter(_this, void 0, voi
                 return [4 /*yield*/, readDataFromJson("filters")];
             case 1:
                 data = _a.sent();
-                console.log(data);
                 res.send(data);
                 return [3 /*break*/, 3];
             case 2:

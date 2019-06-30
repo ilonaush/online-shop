@@ -1,0 +1,88 @@
+{
+  "items": [
+    {
+      "id": 1,
+      "category": "food",
+      "animalType": "Dog",
+      "brand": "Cesar",
+      "name": "Taste of the Wild High Prairie Canine Recipe with Roasted Bison and Roasted Venison Grain-Free Dry Dog Food, 28 Lb,",
+      "rating": 4,
+      "reviews": [
+        {
+          "id": 1,
+          "reviewerName": "Anna",
+          "reviewText": "Meow"
+        }
+      ],
+      "price": 9.48,
+      "quantity": "12",
+      "availableCount": [1, 2, 6, 24],
+      "shipping": "2-day delivery",
+      "mainImage": "https://s7d2.scene7.com/is/image/PetSmart/5110141?$sclp-prd-main_large$",
+      "healthFeature": ["Weight Management","Digestive Care", "Skin & Coat Care"]
+    }, {
+      "id": 2,
+      "animalType": "Dog",
+      "category": "food",
+      "brand": "Cesar",
+      "name": "Taste",
+      "rating": 5,
+      "reviews": [
+        {
+          "id": 1,
+          "reviewerName": "Anna",
+          "reviewText": "Meow"
+        }
+      ],
+      "price": 9.48,
+      "quantity": "12",
+      "availableCount": [1, 2, 6, 24],
+      "shipping": "2-day delivery",
+      "mainImage": "https://s7d2.scene7.com/is/image/PetSmart/5110141?$sclp-prd-main_large$",
+
+      "healthFeature": ["Weight Management", "Grain Free", "Digestive Care"]
+    }, {
+      "id": 3,
+      "category": "toys",
+      "animalType": "Cat",
+      "brand": "Cesar",
+      "name": "Wild",
+      "rating": 5,
+      "reviews": [
+        {
+          "id": 1,
+          "reviewerName": "Anna",
+          "reviewText": "Meow"
+        }
+      ],
+      "price": 9.48,
+      "quantity": "12",
+      "availableCount": [1, 2, 6, 24],
+      "shipping": "2-day delivery",
+      "mainImage": "https://s7d2.scene7.com/is/image/PetSmart/5110141?$sclp-prd-main_large$",
+
+      "healthFeature": ["Weight Management", "Grain Free", "Digestive Care", "Skin & Coat Care"]
+    }, {
+      "id": 4,
+      "category": "bath",
+      "animalType": "Dog",
+      "brand": "Cesar",
+      "name": "Canine",
+      "rating": 5,
+      "reviews": [
+        {
+          "id": 1,
+          "reviewerName": "Anna",
+          "reviewText": "Meow"
+        }
+      ],
+      "price": 9.48,
+      "quantity": "12",
+      "availableCount": [1, 2, 6, 24],
+      "shipping": "2-day delivery",
+      "mainImage": "https://s7d2.scene7.com/is/image/PetSmart/5110141?$sclp-prd-main_large$",
+
+      "healthFeature": ["Weight Management", "Grain Free", "Digestive Care", "Skin & Coat Care"]
+    }
+  ]
+}

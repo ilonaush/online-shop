@@ -1,53 +1,67 @@
 <template>
-    <!--<v-navigation-drawer-->
-            <!--v-model="filters"-->
-            <!--absolute-->
-            <!--temporary-->
-    <!--&gt;-->
-        <!--<v-list class="pt-0" dense>-->
-            <!--<v-divider></v-divider>-->
+    <ul class="filter-list">
+        <li
+                v-for="filter in filters"
+                :key="filter.name"
+                class="filter-section"
+                @click=""
+        >
+                <div>{{filter.title}}</div>
+                <div>
+                    <div v-for="filterOption in filter.options">
+                        <input type="checkbox" :value="`${filter.name}.${filterOption}`" v-model="selectedFilters">
+                        <label>{{filterOption}}</label>
+                    </div>
+                </div>
 
-            <!--<v-list-tile-->
-                    <!--v-for="filter in filtersList"-->
-                    <!--:key="filter.name"-->
-                    <!--@click=""-->
-            <!--&gt;-->
-                <!--<v-list-tile-action>-->
-                    <!--<font-awesome-icon :icon="['fas', 'list']" size="2x"/>-->
-                <!--</v-list-tile-action>-->
-
-                <!--<v-list-tile-content>-->
-                    <!--<v-list-tile-title>{{ filter.name }}</v-list-tile-title>-->
-                <!--</v-list-tile-content>-->
-            <!--</v-list-tile>-->
-        <!--</v-list>-->
-    <!--</v-navigation-drawer>-->
+        </li>
+    </ul>
 </template>
 
 <script lang="ts">
-    import {Component, Prop, Vue} from "vue-property-decorator";
+    import {Component, Prop, Vue, Watch} from "vue-property-decorator";
+    import {createNamespacedHelpers} from "vuex";
 
-    @Component
-    export default class productsList extends Vue {
+    const { mapMutations} = createNamespacedHelpers("filterModule/");
+
+    interface IFilter {
+        setSelectedFilters: (filterArr: string[]) => void;
+    }
+    @Component({
+        methods: {
+            ...mapMutations(['setSelectedFilters'])
+        }
+    })
+    export default class FilterNavigation extends Vue implements  IFilter{
         @Prop(Array) filters!: object[];
-        filtersList = this.filters;
-        updated() {
-            console.log("updated");
+        setSelectedFilters!: (filterArr: object) => void;
+
+        selectedFilters: string[] = [];
+
+        @Watch("selectedFilters")
+        fireFilteringProducts(filterArr: string[]) {
+            const filterObj = filterArr.reduce<{[key: string]: string[]}>((acc, nextValue) => {
+                const [filter="", option]: string[] = nextValue.split(".");
+                acc[filter] = [...(acc[filter] ? acc[filter] : []), option];
+                return acc;
+            }, {});
+            console.log(filterObj);
+            this.setSelectedFilters(filterObj);
         }
-        mounted() {
-            console.log("mounted", this.filters);
-        }
+
     }
 </script>
 
 <style lang="stylus">
-    .header-navigation
-        a
-            display block
-            margin-left auto
-            .fa-shopping-cart, .fa-flower-tulip
-                color white
-    .v-toolbar__items
-        a
-            height 100%
+
+    .filter-list
+        background-color white
+        padding 0
+        margin 0
+        width 250px
+    .filter-section
+        padding 15px
+        .v-list__tile
+            flex-direction column
+            height auto
 </style>

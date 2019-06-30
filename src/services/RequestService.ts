@@ -1,6 +1,6 @@
 import axios, {AxiosError, AxiosResponse, AxiosInstance} from "axios";
 import {IRequestService} from "@/services/interfaces";
-import {RequestName} from "@/services/enums";
+import {REQUEST_NAME} from "@/services/enums";
 
 export class RequestService implements IRequestService {
   private static _instance: RequestService | null;
@@ -46,7 +46,7 @@ export class RequestService implements IRequestService {
     document.location.pathname = path;
   }
 
-  get(path: RequestName, params = "") {
+  get(path: string, params = "") {
     return this.service.get(path, {
       params,
     });

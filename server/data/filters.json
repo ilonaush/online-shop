@@ -1,8 +1,14 @@
 {
   "filters": [
     {
-      "name": "Animal Type",
+      "name": "animalType",
+      "title": "Animal Type",
       "options": ["Cat", "Dog"]
+    },
+    {
+      "name": "healthFeature",
+      "title": "Health",
+      "options": ["Weight Management", "Grain Free", "Digestive Care", "Skin & Coat Care"]
     }
   ]
 }

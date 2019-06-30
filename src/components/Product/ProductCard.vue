@@ -1,39 +1,63 @@
 <template>
-    <v-card flat>
-        <v-card-text>{{ product.name }}</v-card-text>
+    <v-card class="product-card" flat>
+            <img  class="product-card-image" :src="product.mainImage"/>
+            <div class="stars">
+                <star-rating :starQuantity="product.rating"/>
+            ({{product.reviews.length}} reviews)
+            </div>
+            <v-card-text>{{ product.name }}</v-card-text>
+            <v-card-text>{{ product.price }}</v-card-text>
+            <v-btn v-on:click="handleAddToCartClick" class="add-cart-btn" color="primary">Add to cart</v-btn>
     </v-card>
 </template>
 
 <script lang="ts">
     import {Component, Prop, Vue} from "vue-property-decorator";
     import {IProduct} from "./interfaces";
-    @Component({
-    })
-    export default class ProductCard extends Vue {
-        @Prop({type: Object as () => IProduct}) product!: IProduct;
+    import {createNamespacedHelpers} from "vuex";
+    import StartRating from "../StarRating/StartRating.vue";
 
-        updated() {
-            console.log(this.product, "card");
+    const { mapMutations } = createNamespacedHelpers('cartModule/');
+
+    interface IProductCard {
+        addItemToCart: (item: {id: number, quantity: number, name: string, price: number}) => void;
+    }
+
+    @Component({
+        components: {
+            "star-rating": StartRating
+        },
+        methods: {
+            ...mapMutations(['addItemToCart']),
+        }
+    })
+    export default class ProductCard extends Vue implements  IProductCard {
+        @Prop({type: Object as () => IProduct}) product!: IProduct;
+        addItemToCart!: (item: {id: number, quantity: number, name: string, price: number}) => void;
+
+        handleAddToCartClick() {
+            this.addItemToCart({id: this.product.id, quantity: 1, name: this.product.name, price: this.product.price});
         }
     }
 </script>
 
-<style lang="stylus">
-    .header-navigation
-        a
-            display block
-            margin-left auto
-            .fa-shopping-cart, .fa-flower-tulip
-                color white
-    .v-toolbar__items
-        a
-            height 100%
+<style lang="stylus" scoped>
 
-    .v-tabs .v-window__container,
-    .v-tabs .v-window-item
-        height 100%
+    img
+        max-width 100%
+    .product-card-image
+        height 45%
+        display block
+        margin 0 auto
 
-    /* customise the dimensions of the card content here */
-    .v-tabs .v-card
+    .product-card
         height 100%
+        padding 15px
+        .v-card__text
+            padding 0
+            height 60px
+
+    .add-cart-btn
+        margin 0 auto
+        display block
 </style>

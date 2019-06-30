@@ -1,11 +1,12 @@
 export interface IProduct {
     id: number;
     animalType: ANIMAL_TYPE;
+    category: string;
     brand: string;
     name: string;
     rating: number;
     reviews: IReview[];
-    price: string;
+    price: number;
     quantity: number;
     availableCount: number[];
     shipping: DELIVERY_TERMS;

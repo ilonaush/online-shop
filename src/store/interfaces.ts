@@ -1,10 +1,24 @@
-interface IStore extends IFiltersModule, IProductsModule{
+import {IProduct} from "@/components/Product/interfaces";
+import {FilterType} from "@/store/types";
+
+export interface IStore extends IFiltersModule, IProductsModule {
 }
 
-interface IFiltersModule {
+export interface IFiltersModule {
     filters: object[];
+    selectedFilters: Record<FilterType, string[]>;
 }
 
-interface IProductsModule {
-    foodProducts: object[];
+export interface IProductsModule {
+    products: IProduct[];
+    filteredProducts: IProduct[];
+    activeCategory: string;
+}
+
+export interface ICartModule {
+    quantity: number;
+    generalPrice: number;
+    items: number[];
+    showNotification: boolean;
+    notifications: string[];
 }

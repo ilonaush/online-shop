@@ -37,10 +37,9 @@ server.use(crossOrigin);
 /**
  * handler for get food request; gives all food
  */
-server.get("/food", async (req, res) => {
+server.get("/", async (req, res) => {
     try {
-        const data = await readDataFromJson("food");
-        console.log(data);
+        const data = await readDataFromJson("items");
         res.send(data);
     } catch (e) {
         res.status(500).send({success: false});
@@ -50,7 +49,6 @@ server.get("/food", async (req, res) => {
 server.get("/filters", async (req, res) => {
     try {
         const data = await readDataFromJson("filters");
-        console.log(data);
         res.send(data);
     } catch (e) {
         res.status(500).send({success: false});

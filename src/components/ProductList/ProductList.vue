@@ -1,8 +1,8 @@
 <template>
     <div class="product-list">
-        <div v-for="product in products"
+        <div class="product-card-holder" v-for="product in products"
              :key="product.id">
-            <product-card :product="product"/>
+            <product-card   :product="product"/>
         </div>
     </div>
 </template>
@@ -17,14 +17,6 @@
     export default class ProductList extends Vue {
         @Prop(Array) products!: object[];
 
-        created() {
-            console.log("mount product list");
-            console.log(this.products);
-        }
-        updated() {
-            console.log("updated product list");
-            console.log(this.products);
-        }
     }
 </script>
 
@@ -38,5 +30,15 @@
     .v-toolbar__items
         a
             height 100%
+
+    .product-list
+        max-width 930px
+        display flex
+        width  100%
+        flex-wrap wrap
+    .product-card-holder
+        margin 5px
+        height 430px
+        width 30%
 </style>
 

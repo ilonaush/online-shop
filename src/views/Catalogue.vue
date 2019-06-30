@@ -1,70 +1,68 @@
 <template>
     <div class="catalogue-page">
         <filter-navigation :filters="filters"/>
-        <catalogue-list :products="foodProducts"/>
+        <product-list :products="filteredProducts"/>
     </div>
 </template>
 
 <script lang="ts">
-    import CatalogueList from "@/components/CatalogueList/CatalogueList.vue";
     import Promotion from "@/components/Promotion/Promotion.vue";
     import FilterNavigation from "@/components/Filter/Filter.vue";
     import {createNamespacedHelpers} from "vuex";
-    import {RequestName} from "@/services/enums";
     import { Component, Vue } from "vue-property-decorator";
+    import ProductList from "@/components/ProductList/ProductList.vue";
+    import {IStore} from "@/store/interfaces";
+
+    const { mapState: filterState } = createNamespacedHelpers("filterModule/");
+    const { mapState: productState, mapGetters, mapMutations } = createNamespacedHelpers("productsModule/");
 
     interface ICatalogue {
-        filters: object[];
-        getFilters: () => void;
-        getProducts: (type: string) => void;
+        setActiveCategory: (category: string)=> void;
     }
 
-    const { mapState: filterState, mapActions: filterActions } = createNamespacedHelpers('filterModule/');
-    const { mapState: productState, mapActions: productActions } = createNamespacedHelpers('productsModule/');
+    Component.registerHooks([
+        'beforeRouteUpdate' // for vue-router 2.2+
+    ]);
 
     @Component({
         components: {
-            "catalogue-list": CatalogueList,
+            ProductList,
             "promotion": Promotion,
             "filter-navigation": FilterNavigation,
         },
         computed: {
-        ...filterState<IStore>({
-                filters: state => state.filters,
+            ...filterState<IStore>({
+                filters: (state) => state.filters,
             }),
-        ...productState<IStore>({
-                foodProducts: state =>  state.foodProducts
+            ...productState<IStore>({
+                products: (state) => state.products,
             }),
+            ...mapGetters(["filteredProducts"]),
         },
         methods: {
-        ...filterActions(['getFilters']),
-        ...productActions(['getProducts']),
+            ...mapMutations(["setActiveCategory"])
         }
     })
-
     export default class Catalogue extends Vue implements ICatalogue{
-        filters!: object[];
-        foodProducts!: object[];
-        getFilters!: () => Promise<any>;
-        getProducts!: (type: string) => void;
-
+        setActiveCategory!: (category: string)=> void;
         created() {
             console.log("created");
-            this.getFilters();
-            this.getProducts(RequestName.getFoodProducts);
+            this.setActiveCategory(this.$route.params.category);
         }
 
-        updated() {
-            console.log("updated catalogue");
-            console.log(this.filters);
-            console.log(this.foodProducts);
+        beforeRouteUpdate (to, from, next) {
+            debugger;
+            this.setActiveCategory(to.params.category);
+            next();
         }
+
     }
 </script>
 
 <style lang="stylus">
     .catalogue-page
         display flex
+        height 100%
         .v-expansion-panel
             width 30%
         .v-tabs
