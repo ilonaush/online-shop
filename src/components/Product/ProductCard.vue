@@ -7,7 +7,7 @@
             </div>
             <v-card-text>{{ product.name }}</v-card-text>
             <v-card-text>{{ product.price }}</v-card-text>
-            <v-btn v-on:click="handleAddToCartClick" class="add-cart-btn" color="primary">Add to cart</v-btn>
+            <u-i-button color="primary" v-on:click.native="handleAddToCartClick" class="add-cart-btn">Add to cart</u-i-button>
     </v-card>
 </template>
 
@@ -16,8 +16,9 @@
     import {IProduct} from "./interfaces";
     import {createNamespacedHelpers} from "vuex";
     import StartRating from "../StarRating/StartRating.vue";
+    import UIButton from "@/components/Button/Button.vue";
 
-    const { mapMutations } = createNamespacedHelpers('cartModule/');
+    const { mapMutations } = createNamespacedHelpers("cartModule/");
 
     interface IProductCard {
         addItemToCart: (item: {id: number, quantity: number, name: string, price: number}) => void;
@@ -25,10 +26,11 @@
 
     @Component({
         components: {
-            "star-rating": StartRating
+            "star-rating": StartRating,
+            UIButton
         },
         methods: {
-            ...mapMutations(['addItemToCart']),
+            ...mapMutations(["addItemToCart"]),
         }
     })
     export default class ProductCard extends Vue implements  IProductCard {

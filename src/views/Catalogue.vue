@@ -6,12 +6,12 @@
 </template>
 
 <script lang="ts">
-    import Promotion from "@/components/Promotion/Promotion.vue";
     import FilterNavigation from "@/components/Filter/Filter.vue";
     import {createNamespacedHelpers} from "vuex";
     import { Component, Vue } from "vue-property-decorator";
     import ProductList from "@/components/ProductList/ProductList.vue";
     import {IStore} from "@/store/interfaces";
+    import {Route, NavigationGuard, RawLocation} from "vue-router";
 
     const { mapState: filterState } = createNamespacedHelpers("filterModule/");
     const { mapState: productState, mapGetters, mapMutations } = createNamespacedHelpers("productsModule/");
@@ -21,13 +21,12 @@
     }
 
     Component.registerHooks([
-        'beforeRouteUpdate' // for vue-router 2.2+
+        "beforeRouteUpdate" // for vue-router 2.2+
     ]);
 
     @Component({
         components: {
             ProductList,
-            "promotion": Promotion,
             "filter-navigation": FilterNavigation,
         },
         computed: {
@@ -45,13 +44,13 @@
     })
     export default class Catalogue extends Vue implements ICatalogue{
         setActiveCategory!: (category: string)=> void;
+
         created() {
             console.log("created");
             this.setActiveCategory(this.$route.params.category);
         }
 
-        beforeRouteUpdate (to, from, next) {
-            debugger;
+        beforeRouteUpdate (to: Route, from: Route, next: (to?: RawLocation | false | ((vm: Vue) => any) | void) => void) {
             this.setActiveCategory(to.params.category);
             next();
         }

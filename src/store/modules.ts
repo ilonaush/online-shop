@@ -3,7 +3,7 @@ import {Module} from "vuex";
 import {NOTIFICATION_TYPES, REQUEST_NAME} from "@/services/enums";
 import {getNotificationMessage} from "@/services/NotificationService";
 import {IProduct} from "@/components/Product/interfaces";
-import {ICartModule, IFiltersModule, IProductsModule, IStore} from "@/store/interfaces";
+import {ICartModule, IFiltersModule, IModalModule, IProductsModule, IStore} from "@/store/interfaces";
 import {FilterType, CategoryType} from "@/store/types";
 import get = Reflect.get;
 
@@ -38,7 +38,6 @@ export const productsModule: Module<IProductsModule, IStore> = {
     namespaced: true,
     getters: {
         filteredProducts: (state, getters, rootState, rootGetters) => {
-            debugger;
             const selectedFilters = rootGetters["filterModule/selectedFilters"];
             if (Object.keys(selectedFilters).length) {
                 return getters[state.activeCategory as CategoryType].filter((product: IProduct) => {
@@ -58,7 +57,6 @@ export const productsModule: Module<IProductsModule, IStore> = {
             }
         },
         food: (state) => {
-            debugger;
              return state.products.filter((product) => product.category === "food");
         },
         toys: (state) => {
@@ -111,6 +109,17 @@ export const cartModule: Module<ICartModule, IStore> = {
         },
         deleteFirstNotification(state: ICartModule) {
             state.notifications.shift();
+        },
+    },
+};
+
+export const modalModule: Module<IModalModule, IStore> = {
+    state: {
+        showModal: false,
+    },
+    mutations: {
+        toggleModal(state: IModalModule, isModalShown) {
+            state.showModal = isModalShown;
         },
     },
 };

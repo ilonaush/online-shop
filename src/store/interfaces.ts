@@ -1,7 +1,7 @@
 import {IProduct} from "@/components/Product/interfaces";
 import {FilterType} from "@/store/types";
 
-export interface IStore extends IFiltersModule, IProductsModule {
+export interface IStore extends IFiltersModule, IProductsModule, IModalModule {
 }
 
 export interface IFiltersModule {
@@ -21,4 +21,7 @@ export interface ICartModule {
     items: number[];
     showNotification: boolean;
     notifications: string[];
+}
+export interface IModalModule {
+    showModal: boolean;
 }

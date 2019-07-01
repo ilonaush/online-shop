@@ -19,17 +19,19 @@
 </template>
 
 <script lang="ts">
-    import {Component, Prop, Vue, Watch} from "vue-property-decorator";
     import {createNamespacedHelpers} from "vuex";
+    import Vue from "vue";
+    import {Prop, Component, Watch} from "vue-property-decorator";
 
     const { mapMutations} = createNamespacedHelpers("filterModule/");
 
     interface IFilter {
         setSelectedFilters: (filterArr: string[]) => void;
     }
+
     @Component({
         methods: {
-            ...mapMutations(['setSelectedFilters'])
+            ...mapMutations(["setSelectedFilters"])
         }
     })
     export default class FilterNavigation extends Vue implements  IFilter{

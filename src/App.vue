@@ -1,15 +1,17 @@
 <template>
-  <v-app>
+  <div>
     <header-navigation/>
     <router-view/>
     <notification/>
-  </v-app>
+    <cart-modal/>
+  </div>
 </template>
 
 <script>
 import Header from "./components/Header/Header";
 import Notification from "./components/Notification/Notification";
 import {createNamespacedHelpers} from "vuex";
+import CartModal from "./components/Modal/CartModal/CartModal";
 
 const { mapActions: filterActions } = createNamespacedHelpers("filterModule/");
 const { mapActions: productActions } = createNamespacedHelpers("productsModule/");
@@ -17,6 +19,7 @@ const { mapActions: productActions } = createNamespacedHelpers("productsModule/"
 export default {
   name: "App",
   components: {
+    CartModal,
     "header-navigation": Header,
     "notification": Notification,
   },

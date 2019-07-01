@@ -1,6 +1,6 @@
 import Vue from "vue";
 import Vuex from "vuex";
-import {cartModule, filterModule, productsModule} from "@/store/modules";
+import {cartModule, filterModule, modalModule, productsModule} from "@/store/modules";
 
 Vue.use(Vuex);
 
@@ -8,7 +8,8 @@ const store = new Vuex.Store({
     modules: {
         filterModule,
         productsModule,
-        cartModule
+        cartModule,
+        modalModule
     },
 });
 

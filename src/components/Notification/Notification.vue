@@ -1,22 +1,25 @@
 <template>
     <div v-if="isNotificationShown" class="notification">
         {{message}}
-        <v-btn class="go-cart-btn" color="primary">Go to cart</v-btn>
+        <u-i-button @click.native="openCartModal" class="go-cart-btn" color="primary">Go to cart</u-i-button>
     </div>
 </template>
 
 <script lang="ts">
-    import {Component, Prop, Vue, Watch} from "vue-property-decorator";
-    import ProductCard from "../Product/ProductCard.vue";
+    import {Component, Vue, Watch} from "vue-property-decorator";
     import {createNamespacedHelpers} from "vuex";
+    import UIButton from "@/components/Button/Button.vue";
 
-    const { mapMutations } = createNamespacedHelpers('cartModule/');
+    const { mapMutations } = createNamespacedHelpers("cartModule/");
 
     interface INotification {
         deleteFirstNotification: () => void;
     }
 
     @Component({
+        components: {
+            UIButton
+        },
         methods: {
             ...mapMutations(["deleteFirstNotification"])
         },
@@ -31,7 +34,7 @@
             return this.$store.state.cartModule.notifications;
         }
 
-        @Watch('notifications', { immediate: true, deep: true })
+        @Watch("notifications", { immediate: true, deep: true })
         toggleNotification(val: string[]) {
             if (val && val.length) {
                 this.message = this.notifications[0];
@@ -49,6 +52,11 @@
         showNotification() {
             this.isNotificationShown = true;
             this.timer = setTimeout(() => this.hideNotification(this.message), 5000)
+        }
+
+
+        openCartModal() {
+            this.$store.commit('toggleModal', true);
         }
 
     }
