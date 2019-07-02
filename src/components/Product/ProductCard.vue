@@ -21,7 +21,7 @@
     const { mapMutations } = createNamespacedHelpers("cartModule/");
 
     interface IProductCard {
-        addItemToCart: (item: {id: number, quantity: number, name: string, price: number}) => void;
+        addItemToCart: (item: {id: number, name: string, price: number, mainImage: string}) => void;
     }
 
     @Component({
@@ -35,10 +35,15 @@
     })
     export default class ProductCard extends Vue implements  IProductCard {
         @Prop({type: Object as () => IProduct}) product!: IProduct;
-        addItemToCart!: (item: {id: number, quantity: number, name: string, price: number}) => void;
+        addItemToCart!: (item: {id: number, name: string, price: number, mainImage: string}) => void;
 
         handleAddToCartClick() {
-            this.addItemToCart({id: this.product.id, quantity: 1, name: this.product.name, price: this.product.price});
+            this.addItemToCart({
+                id: this.product.id,
+                name: this.product.name,
+                price: this.product.price,
+                mainImage: this.product.mainImage
+            });
         }
     }
 </script>

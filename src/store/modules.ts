@@ -3,7 +3,7 @@ import {Module} from "vuex";
 import {NOTIFICATION_TYPES, REQUEST_NAME} from "@/services/enums";
 import {getNotificationMessage} from "@/services/NotificationService";
 import {IProduct} from "@/components/Product/interfaces";
-import {ICartModule, IFiltersModule, IModalModule, IProductsModule, IStore} from "@/store/interfaces";
+import {ICartItem, ICartModule, IFiltersModule, IModalModule, IProductsModule, IStore} from "@/store/interfaces";
 import {FilterType, CategoryType} from "@/store/types";
 import get = Reflect.get;
 
@@ -89,23 +89,47 @@ export const productsModule: Module<IProductsModule, IStore> = {
 
 export const cartModule: Module<ICartModule, IStore> = {
     namespaced: true,
-
+    getters: {
+        generalPrice: (state) => {
+            console.log("count");
+            return state.items.reduce((sumAcc, currentItem) => sumAcc + (currentItem.price * currentItem.quantity), 0)
+        }
+    },
     state: {
         items: [],
         quantity: 0,
         showNotification: false,
         notifications: [],
-        generalPrice: 0,
     },
     mutations: {
-        setQty(state: ICartModule, quantity) {
-            state.quantity = state.quantity + quantity;
+        setCartItemQty(state: ICartModule, {id, quantity, replace}) {
+            state.items = state.items.map((item: ICartItem) => {
+                if (id === item.id) {
+                    if (replace) {
+                        item.quantity = quantity;
+                    } else {
+                        item.quantity += quantity;
+                    }
+                }
+                return item;
+            });
         },
         addItemToCart(state: ICartModule, item) {
-            state.items.push(item.id);
-            state.quantity = state.quantity + item.quantity;
-            state.generalPrice = state.generalPrice + item.price;
+            const cartItem = {
+                id: item.id,
+                quantity: 1,
+                price: item.price,
+                name: item.name,
+                img: item.mainImage
+
+            };
+            state.items = [...state.items, cartItem ];
+            state.quantity = state.quantity + cartItem.quantity;
             state.notifications.push(getNotificationMessage(NOTIFICATION_TYPES.addToCart, {item}));
+        },
+        deleteItemFromCart(state: ICartModule, itemId) {
+            state.items = state.items.filter(cartItem => cartItem.id !== itemId);
+            state.quantity = state.quantity  - 1;
         },
         deleteFirstNotification(state: ICartModule) {
             state.notifications.shift();
@@ -116,10 +140,12 @@ export const cartModule: Module<ICartModule, IStore> = {
 export const modalModule: Module<IModalModule, IStore> = {
     state: {
         showModal: false,
+        activeModal: null
     },
     mutations: {
-        toggleModal(state: IModalModule, isModalShown) {
-            state.showModal = isModalShown;
+        toggleModal(state: IModalModule, {isShown, type}) {
+            state.showModal = isShown;
+            state.activeModal = type;
         },
     },
 };

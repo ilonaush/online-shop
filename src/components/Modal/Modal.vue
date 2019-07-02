@@ -20,15 +20,6 @@
             </section>
             <footer class="modal-footer">
                 <slot name="footer">
-                    I'm the default footer!
-
-                    <button
-                            type="button"
-                            class="btn-green"
-                            @click="close"
-                    >
-                        Close me!
-                    </button>
                 </slot>
             </footer>
         </div>
@@ -86,12 +77,11 @@
 
     .modal-body
         position: relative
-        padding: 20px 10px
+        padding: 15px
 
     .btn-close
         border: none
         font-size: 20px
-        padding: 20px
         cursor: pointer
         font-weight: bold
         color: #4AAE9B

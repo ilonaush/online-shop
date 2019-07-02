@@ -9,6 +9,7 @@
     import {Component, Vue, Watch} from "vue-property-decorator";
     import {createNamespacedHelpers} from "vuex";
     import UIButton from "@/components/Button/Button.vue";
+    import {MODAL_TYPE} from "@/store/enums";
 
     const { mapMutations } = createNamespacedHelpers("cartModule/");
 
@@ -56,7 +57,7 @@
 
 
         openCartModal() {
-            this.$store.commit('toggleModal', true);
+            this.$store.commit('toggleModal', {isShown: true, type: MODAL_TYPE.cart});
         }
 
     }

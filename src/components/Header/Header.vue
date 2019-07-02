@@ -36,16 +36,18 @@
     import Notification from "@/components/Notification/Notification.vue";
     import UIButton from "@/components/Button/Button.vue";
     import {ICartModule} from "@/store/interfaces";
+    import {MODAL_TYPE} from "@/store/enums";
 
-    const { mapState } = createNamespacedHelpers("cartModule/");
+    const { mapState, mapGetters } = createNamespacedHelpers("cartModule/");
 
     @Component({
         components: {Notification, UIButton},
         computed: {
             ...mapState<ICartModule>({
                 quantity: state => state.quantity,
-                generalPrice: state => state.generalPrice,
-            })
+            }),
+            ...mapGetters(["generalPrice"]),
+
         }
     })
     export default class Header extends Vue {
@@ -53,7 +55,7 @@
         isCatalogueListShown: boolean = false;
 
         openCartModal() {
-            this.$store.commit('toggleModal', true);
+            this.$store.commit('toggleModal', {isShown: true, type: MODAL_TYPE.cart});
         }
     }
 </script>
