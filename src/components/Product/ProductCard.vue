@@ -1,8 +1,12 @@
 <template>
     <v-card class="product-card" flat>
-            <img  class="product-card-image" :src="product.mainImage"/>
+            <div class="product-card_image-holder">
+                <router-link :to="{name: 'product', params: {product: product.id}}">
+                    <img  class="product-card-image" :src="product.mainImage"/>
+                </router-link>
+            </div>
             <div class="stars">
-                <star-rating :starQuantity="product.rating"/>
+                <stars-rating :starQuantity="product.rating"/>
             ({{product.reviews.length}} reviews)
             </div>
             <v-card-text>{{ product.name }}</v-card-text>
@@ -15,7 +19,7 @@
     import {Component, Prop, Vue} from "vue-property-decorator";
     import {IProduct} from "./interfaces";
     import {createNamespacedHelpers} from "vuex";
-    import StartRating from "../StarRating/StartRating.vue";
+    import StarsRating from "../StarRating/StarRating.vue";
     import UIButton from "@/components/Button/Button.vue";
 
     const { mapMutations } = createNamespacedHelpers("cartModule/");
@@ -26,7 +30,7 @@
 
     @Component({
         components: {
-            "star-rating": StartRating,
+            StarsRating,
             UIButton
         },
         methods: {
@@ -52,10 +56,11 @@
 
     img
         max-width 100%
-    .product-card-image
+    .product-card_image-holder
         height 45%
-        display block
-        margin 0 auto
+        .product-card-image
+            display block
+            margin 0 auto
 
     .product-card
         height 100%

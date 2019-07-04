@@ -1,6 +1,9 @@
 import Vue from "vue";
 import Vuex from "vuex";
-import {cartModule, filterModule, modalModule, productsModule} from "@/store/modules";
+import {cartModule} from "@/store/modules/cartModule";
+import {productsModule} from "@/store/modules/productsModule";
+import {modalModule} from "@/store/modules/modalModule";
+import {filterModule} from "@/store/modules/filterModule";
 
 Vue.use(Vuex);
 

@@ -12,7 +12,7 @@
     @Component({
 
     })
-    export default class StartRating extends Vue {
+    export default class StarsRating extends Vue {
         @Prop(Number) starQuantity!: number;
     }
 </script>

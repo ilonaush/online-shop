@@ -12,20 +12,18 @@ export default new Router({
       path: "/",
       name: "home",
       component: Home,
-    },
-    {
-      path: "/about",
-      name: "about",
-      component: () => import(/* webpackChunkName: "about" */ "./views/About.vue"),
-    },{
+    }, {
       path: "/cart",
       name: "cart",
       component: () => import(/* webpackChunkName: "about" */ "./views/Cart.vue"),
-    },
-    {
-      path: "/:category",
+    }, {
+      path: "/category/:category",
       name: "catalogue",
       component: () => import(/* webpackChunkName: "catalogue" */ "./views/Catalogue.vue"),
+    }, {
+      path: "/product/:product",
+      name: "product",
+      component: () => import(/* webpackChunkName: "catalogue" */ "./views/Product.vue"),
     },
   ],
 });

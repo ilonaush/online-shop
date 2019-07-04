@@ -11,7 +11,7 @@
     import { Component, Vue } from "vue-property-decorator";
     import ProductList from "@/components/ProductList/ProductList.vue";
     import {IStore} from "@/store/interfaces";
-    import {Route, NavigationGuard, RawLocation} from "vue-router";
+    import {Route, RawLocation} from "vue-router";
 
     const { mapState: filterState } = createNamespacedHelpers("filterModule/");
     const { mapState: productState, mapGetters, mapMutations } = createNamespacedHelpers("productsModule/");
@@ -21,13 +21,13 @@
     }
 
     Component.registerHooks([
-        "beforeRouteUpdate" // for vue-router 2.2+
+        "beforeRouteUpdate"
     ]);
 
     @Component({
         components: {
             ProductList,
-            "filter-navigation": FilterNavigation,
+            FilterNavigation,
         },
         computed: {
             ...filterState<IStore>({
@@ -51,6 +51,7 @@
         }
 
         beforeRouteUpdate (to: Route, from: Route, next: (to?: RawLocation | false | ((vm: Vue) => any) | void) => void) {
+            console.log("changed");
             this.setActiveCategory(to.params.category);
             next();
         }

@@ -2,7 +2,7 @@
     <div class="product-list">
         <div class="product-card-holder" v-for="product in products"
              :key="product.id">
-            <product-card   :product="product"/>
+            <product-card :product="product"/>
         </div>
     </div>
 </template>
