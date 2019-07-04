@@ -18,7 +18,7 @@
             <div class="cart-info">
                 <span v-if="quantity > 0">
                     There is {{quantity}} items for {{generalPrice}} $
-                    <u-i-button color="primary">Check out</u-i-button>
+                    <router-link :to="{name: 'checkout'}">Check out</router-link>
                      <span class="line"></span>
                     <u-i-button color="primary" @click.native="openCartModal">Go to cart</u-i-button>
                 </span>
@@ -55,7 +55,7 @@
         isCatalogueListShown: boolean = false;
 
         openCartModal() {
-            this.$store.commit('toggleModal', {isShown: true, type: MODAL_TYPE.cart});
+            window.location.hash = "#" + MODAL_TYPE.cart;
         }
     }
 </script>

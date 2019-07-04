@@ -7,6 +7,7 @@ export interface IProduct {
     rating: number;
     reviews: IReview[];
     price: number;
+    oldPrice?: number;
     quantity: number;
     availableCount: number[];
     shipping: DELIVERY_TERMS;
@@ -14,10 +15,14 @@ export interface IProduct {
     healthFeature: string[];
 }
 
-interface IReview {
+
+export interface IReview {
     id: number;
     reviewerName: string;
-    review: string;
+    reviewText: string;
+    mark: number;
+    advantages: string;
+    disadvantages: string;
 }
 
 enum DELIVERY_TERMS {

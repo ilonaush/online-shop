@@ -11,11 +11,11 @@
             <template v-if="items.length" v-slot:footer>
                 <div class="cart_footer">
                     <div class="cart_total-sum">
-                        Total: {{totalSum.toFixed(2)}} $
+                        Total: {{generalPrice.toFixed(2)}} $
                     </div>
                     <div class="cart_controls">
                         <u-i-button @click="closeCartModal" color="primary">Go on shopping</u-i-button>
-                        <u-i-button @click="openPlaceOrderModal" color="primary">Place order</u-i-button>
+                        <router-link :to="{name: 'checkout'}" >Place order</router-link>
                     </div>
                 </div>
             </template>
@@ -26,13 +26,12 @@
 <script lang="ts">
     import { Component, Vue } from "vue-property-decorator";
     import {createNamespacedHelpers} from "vuex";
-    import {ICartModule} from "@/store/interfaces";
     import ProductCartItem from "@/components/Cart/ProductCartItem/ProductCartItem.vue";
     import Modal from "../Modal.vue";
     import UIButton from "@/components/Button/Button.vue";
-    import {MODAL_TYPE} from "@/store/enums";
+    import {ICartModuleState} from "@/store/interfaces";
 
-    const { mapState: mapCartState} = createNamespacedHelpers("cartModule/");
+    const { mapState: mapCartState, mapGetters} = createNamespacedHelpers("cartModule/");
 
     @Component({
         components: {
@@ -41,18 +40,16 @@
             UIButton
         },
         computed: {
-            ...mapCartState<ICartModule>({
+            ...mapCartState<ICartModuleState>({
                 items: state => state.items,
-                totalSum: state => state.items.reduce((accSum, currentItem) => accSum + (currentItem.price * currentItem.quantity), 0)
             }),
+            ...mapGetters(['generalPrice'])
         }
     })
     export default class Cart extends Vue {
+
         closeCartModal() {
-            this.$store.commit("toggleModal", {isShown: false, type: null})
-        }
-        openPlaceOrderModal() {
-            this.$store.commit("toggleModal", {isShown: true, type: MODAL_TYPE.checkout})
+            window.location.hash = "";
         }
     }
 </script>

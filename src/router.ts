@@ -16,6 +16,10 @@ export default new Router({
       path: "/cart",
       name: "cart",
       component: () => import(/* webpackChunkName: "about" */ "./views/Cart.vue"),
+    },{
+      path: "/checkout",
+      name: "checkout",
+      component: () => import(/* webpackChunkName: "about" */ "./views/Checkout.vue"),
     }, {
       path: "/category/:category",
       name: "catalogue",

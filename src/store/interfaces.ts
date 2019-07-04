@@ -31,6 +31,7 @@ export interface IProductsModuleMutations {
 
 export interface IProductsModuleGetters {
     filteredProducts: IProduct[];
+    promotionProducts: IProduct[];
     bath: IProduct[];
     food: IProduct[];
     toys: IProduct[];
@@ -52,7 +53,8 @@ export interface ICartModuleMutations {
         id: number;
         quantity: number;
         replace: boolean;
-    },
+    };
+    addItemToCart: IProduct;
     deleteItemFromCart: number;
     deleteFirstNotification: undefined;
 }

@@ -6,7 +6,9 @@ import {
     ICartModuleState,
     IStore
 } from "@/store/interfaces";
-import { DefineGetters, DefineMutations } from 'vuex-type-helper'
+import { DefineGetters, DefineMutations } from 'vuex-type-helper';
+import {getNotificationMessage} from "@/services/NotificationService";
+import {NOTIFICATION_TYPES} from "@/services/enums";
 
 const getters: DefineGetters<ICartModuleGetters, ICartModuleState> = {
     generalPrice: (state) => {
@@ -26,6 +28,19 @@ const mutations: DefineMutations<ICartModuleMutations, ICartModuleState> = {
             }
             return item;
         });
+    },
+    addItemToCart(state: ICartModuleState, item) {
+        const cartItem = {
+            id: item.id,
+            quantity: 1,
+            price: item.price,
+            name: item.name,
+            img: item.mainImage
+
+        };
+        state.items = [...state.items, cartItem ];
+        state.quantity = state.quantity + cartItem.quantity;
+        state.notifications.push(getNotificationMessage(NOTIFICATION_TYPES.addToCart, {item}));
     },
     deleteItemFromCart(state: ICartModuleState, itemId) {
         state.items = state.items.filter((cartItem : ICartItem) => cartItem.id !== itemId);

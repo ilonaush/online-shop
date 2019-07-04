@@ -12,16 +12,19 @@
     @Component({
     })
     export default class Tab extends Vue {
-        @Prop(String) name: string;
-        @Prop(Boolean) selected: boolean;
+        @Prop(String) name!: string;
+        @Prop(Boolean) defaultSelected!: boolean;
         isActive: boolean = false;
 
         get href() {
+            if (this.defaultSelected) {
+                return '#';
+            }
             return '#' + this.name.toLowerCase().replace(/ /g, '-');
         }
 
         mounted() {
-            this.isActive = this.selected;
+            this.isActive = this.defaultSelected;
         }
     }
 </script>

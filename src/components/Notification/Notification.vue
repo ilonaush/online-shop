@@ -57,7 +57,7 @@
 
 
         openCartModal() {
-            this.$store.commit('toggleModal', {isShown: true, type: MODAL_TYPE.cart});
+            window.location.hash = "#" + MODAL_TYPE.cart;
         }
 
     }

@@ -14,7 +14,6 @@ import {ActionContext, DefineActions, DefineGetters, DefineMutations} from "vuex
 const getters: DefineGetters<IProductsModuleGetters, IProductsModuleState> = {
     filteredProducts: (state, getters, rootState) => {
         const selectedFilters = rootState.filterModule.selectedFilters;
-        debugger;
         if (Object.keys(selectedFilters).length) {
             return getters[state.activeCategory as CategoryType].filter((product: IProduct) => {
                 for (const filter in selectedFilters) {
@@ -31,6 +30,9 @@ const getters: DefineGetters<IProductsModuleGetters, IProductsModuleState> = {
         } else {
             return getters[state.activeCategory as CategoryType];
         }
+    },
+    promotionProducts: (state) => {
+        return state.products.filter((product: IProduct) => product.oldPrice);
     },
     food: (state) => {
         return state.products.filter((product) => product.category === "food");

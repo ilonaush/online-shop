@@ -7,11 +7,15 @@
       "brand": "Cesar",
       "name": "Taste of the Wild High Prairie Canine Recipe with Roasted Bison and Roasted Venison Grain-Free Dry Dog Food, 28 Lb,",
       "rating": 4,
+      "oldPrice": 50,
       "reviews": [
         {
           "id": 1,
           "reviewerName": "Anna",
-          "reviewText": "Meow"
+          "reviewText": "Meow",
+          "advantages": "Meow",
+          "disadvantages": "Meow",
+          "mark": 1
         }
       ],
       "price": 9.48,
@@ -31,7 +35,10 @@
         {
           "id": 1,
           "reviewerName": "Anna",
-          "reviewText": "Meow"
+          "reviewText": "Meow",
+          "advantages": "Meow",
+          "disadvantages": "Meow",
+          "mark": 1
         }
       ],
       "price": 9.48,
@@ -46,13 +53,17 @@
       "category": "toys",
       "animalType": "Cat",
       "brand": "Cesar",
+      "oldPrice": 50,
       "name": "Wild",
       "rating": 5,
       "reviews": [
         {
           "id": 1,
           "reviewerName": "Anna",
-          "reviewText": "Meow"
+          "reviewText": "Meow",
+          "advantages": "Meow",
+          "disadvantages": "Meow",
+          "mark": 1
         }
       ],
       "price": 9.48,
@@ -67,13 +78,17 @@
       "category": "bath",
       "animalType": "Dog",
       "brand": "Cesar",
+      "oldPrice": 50,
       "name": "Canine",
       "rating": 5,
       "reviews": [
         {
           "id": 1,
           "reviewerName": "Anna",
-          "reviewText": "Meow"
+          "reviewText": "Meow",
+          "advantages": "Meow",
+          "disadvantages": "Meow",
+          "mark": 1
         }
       ],
       "price": 9.48,

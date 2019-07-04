@@ -22,22 +22,19 @@
     import {createNamespacedHelpers} from "vuex";
     import Vue from "vue";
     import {Prop, Component, Watch} from "vue-property-decorator";
+    import {Route, RawLocation} from "vue-router";
 
     const { mapMutations} = createNamespacedHelpers("filterModule/");
-
-    interface IFilter {
-        setSelectedFilters: (filterArr: string[]) => void;
-    }
 
     @Component({
         methods: {
             ...mapMutations(["setSelectedFilters"])
         }
     })
-    export default class FilterNavigation extends Vue implements  IFilter{
+    export default class FilterNavigation extends Vue {
         @Prop(Array) filters!: object[];
+        @Prop(Boolean) shouldResetFilter!: boolean;
         setSelectedFilters!: (filterArr: object) => void;
-
         selectedFilters: string[] = [];
 
         @Watch("selectedFilters")
@@ -50,6 +47,13 @@
             console.log(filterObj);
             this.setSelectedFilters(filterObj);
         }
+
+        @Watch("shouldResetFilter")
+        resetFilter() {
+            this.selectedFilters = [];
+        }
+
+
 
     }
 </script>

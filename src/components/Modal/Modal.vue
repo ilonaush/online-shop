@@ -33,7 +33,7 @@
     @Component
     export default  class Modal extends  Vue {
         close() {
-            this.$store.commit('toggleModal', false);
+            window.location.hash = "";
         }
     }
 </script>

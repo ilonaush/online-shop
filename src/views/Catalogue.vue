@@ -1,6 +1,6 @@
 <template>
     <div class="catalogue-page">
-        <filter-navigation :filters="filters"/>
+        <filter-navigation :shouldResetFilter="shouldResetFilter" :filters="filters"/>
         <product-list :products="filteredProducts"/>
     </div>
 </template>
@@ -44,15 +44,14 @@
     })
     export default class Catalogue extends Vue implements ICatalogue{
         setActiveCategory!: (category: string)=> void;
-
+        shouldResetFilter = false;
         created() {
-            console.log("created");
             this.setActiveCategory(this.$route.params.category);
         }
 
         beforeRouteUpdate (to: Route, from: Route, next: (to?: RawLocation | false | ((vm: Vue) => any) | void) => void) {
-            console.log("changed");
             this.setActiveCategory(to.params.category);
+            this.shouldResetFilter = true;
             next();
         }
 

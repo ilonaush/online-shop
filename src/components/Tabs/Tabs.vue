@@ -3,7 +3,7 @@
         <div>
             <ul class="tabs-menu">
                 <li v-for="tab in tabs" :class="{ 'is-active': tab.isActive }">
-                    <a :href="tab.href" @click="selectTab(tab)">{{ tab.name }}</a>
+                    <a :href="tab.href" @click="selectTab(tab.href)">{{ tab.name }}</a>
                 </li>
             </ul>
         </div>
@@ -26,25 +26,22 @@
     @Component({
     })
     export default class Tabs extends Vue {
-        tabs = [];
+        tabs: any[] = [];
+
+        mounted() {
+            this.selectTab(window.location.hash);
+        }
 
         created() {
             this.tabs = this.$children;
         }
 
-        beforeRouteUpdate(to: Route, from: Route, next: (to?: RawLocation | false | ((vm: Vue) => any) | void) => void) {
-            console.log("updated");
-            // this.tabs.forEach((tab : ITabsMenuItem) => {
-            //
-            //     tab.isActive = (tab.href == to.hash);
-            // });
-            next();
-        }
-
-        selectTab(selectedTab) {
-            this.tabs.forEach((tab : ITabsMenuItem) => {
-                tab.isActive = (tab.name == selectedTab.name);
-            });
+        selectTab(selectedHref) {
+            if (selectedHref) {
+                this.tabs.forEach((tab : ITabsMenuItem) => {
+                    tab.isActive = (tab.href == selectedHref);
+                });
+            }
         }
     }
 </script>

@@ -10,7 +10,14 @@
             ({{product.reviews.length}} reviews)
             </div>
             <v-card-text>{{ product.name }}</v-card-text>
-            <v-card-text>{{ product.price }}</v-card-text>
+            <v-card-text>
+                <span :class="{'product-card_price': true, sale: product.oldPrice}">
+                    {{product.price}} $
+                </span>
+                <span  v-if="product.oldPrice" class="product-card_oldPrice">
+                    {{product.oldPrice}} $
+                </span>
+            </v-card-text>
             <u-i-button color="primary" v-on:click.native="handleAddToCartClick" class="add-cart-btn">Add to cart</u-i-button>
     </v-card>
 </template>
@@ -24,9 +31,6 @@
 
     const { mapMutations } = createNamespacedHelpers("cartModule/");
 
-    interface IProductCard {
-        addItemToCart: (item: {id: number, name: string, price: number, mainImage: string}) => void;
-    }
 
     @Component({
         components: {
@@ -37,7 +41,7 @@
             ...mapMutations(["addItemToCart"]),
         }
     })
-    export default class ProductCard extends Vue implements  IProductCard {
+    export default class ProductCard extends Vue  {
         @Prop({type: Object as () => IProduct}) product!: IProduct;
         addItemToCart!: (item: {id: number, name: string, price: number, mainImage: string}) => void;
 
@@ -67,9 +71,22 @@
         padding 15px
         .v-card__text
             padding 0
-            height 60px
 
     .add-cart-btn
         margin 0 auto
         display block
+
+    .product-card_price
+        &.sale
+            color red
+
+    .product-card_oldPrice
+        position relative
+        &:before
+            content ''
+            border-bottom 1px solid black
+            width 100%
+            position absolute
+            right 0
+            top 50%
 </style>
