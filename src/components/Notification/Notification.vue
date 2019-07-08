@@ -1,17 +1,17 @@
 <template>
     <div v-if="isNotificationShown" class="notification">
         {{message}}
-        <u-i-button @click.native="openCartModal" class="go-cart-btn" color="primary">Go to cart</u-i-button>
+        <v-button @click.native="openModal(modalType.cart)" class="go-cart-btn" color="primary">Go to cart</v-button>
     </div>
 </template>
 
 <script lang="ts">
     import {Component, Vue, Watch} from "vue-property-decorator";
-    import {createNamespacedHelpers} from "vuex";
-    import UIButton from "@/components/Button/Button.vue";
+    import {createNamespacedHelpers, mapMutations} from "vuex";
+    import VButton from "@/components/VButton/Button.vue";
     import {MODAL_TYPE} from "@/store/enums";
 
-    const { mapMutations } = createNamespacedHelpers("cartModule/");
+    const { mapMutations: mapCartMutations } = createNamespacedHelpers("cartModule/");
 
     interface INotification {
         deleteFirstNotification: () => void;
@@ -19,10 +19,11 @@
 
     @Component({
         components: {
-            UIButton
+            VButton
         },
         methods: {
-            ...mapMutations(["deleteFirstNotification"])
+            ...mapCartMutations(["deleteFirstNotification"]),
+            ...mapMutations(["openModal"])
         },
     })
     export default class Notification extends Vue implements INotification {
@@ -30,6 +31,7 @@
         timer: number = 0;
         deleteFirstNotification!: () => void;
         isNotificationShown: boolean = false;
+        modalType = MODAL_TYPE;
 
         get notifications() {
             return this.$store.state.cartModule.notifications;
@@ -43,23 +45,16 @@
             }
         }
 
-        hideNotification(message: string) {
+        hideNotification() {
             this.isNotificationShown = false;
             this.deleteFirstNotification();
-            clearTimeout(this.timer);
-
         }
 
         showNotification() {
+            clearTimeout(this.timer);
             this.isNotificationShown = true;
-            this.timer = setTimeout(() => this.hideNotification(this.message), 5000)
+            this.timer = setTimeout(() => this.hideNotification(), 3000)
         }
-
-
-        openCartModal() {
-            window.location.hash = "#" + MODAL_TYPE.cart;
-        }
-
     }
 </script>
 

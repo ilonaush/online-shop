@@ -53,7 +53,7 @@
     import {createNamespacedHelpers} from "vuex";
     import { Component, Vue } from "vue-property-decorator";
     import {IProduct} from "@/components/Product/interfaces";
-    import UIButton from "@/components/Button/Button.vue";
+    import UIButton from "@/components/VButton/Button.vue";
     import Tabs from "@/components/Tabs/Tabs.vue";
     import Tab from "@/components/Tabs/Tab.vue";
     import StarRating from "@/components/StarRating/StarRating.vue";
@@ -97,6 +97,10 @@
 </script>
 
 <style lang="stylus">
+    @import "../vars.styl";
+
+    .product-page
+        padding $page-padding
     .product-info
         display flex
 

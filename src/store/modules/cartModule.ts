@@ -9,6 +9,7 @@ import {
 import { DefineGetters, DefineMutations } from 'vuex-type-helper';
 import {getNotificationMessage} from "@/services/NotificationService";
 import {NOTIFICATION_TYPES} from "@/services/enums";
+import LocalStorageVuexPlugin from "@/plugins/LocalStorageVuexPlugin";
 
 const getters: DefineGetters<ICartModuleGetters, ICartModuleState> = {
     generalPrice: (state) => {
@@ -54,11 +55,6 @@ const mutations: DefineMutations<ICartModuleMutations, ICartModuleState> = {
 export const cartModule: Module<ICartModuleState, IStore> = {
     namespaced: true,
     getters,
-    state: {
-        items: [],
-        quantity: 0,
-        showNotification: false,
-        notifications: [],
-    },
+    state: LocalStorageVuexPlugin.getLocalStorageModuleState<ICartModuleState>("cartModule"),
     mutations
 };

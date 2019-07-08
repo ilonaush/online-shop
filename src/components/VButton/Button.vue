@@ -5,26 +5,21 @@
 </template>
 
 <script lang="ts">
-    import { Component, Vue, Prop } from "vue-property-decorator";
+    import Vue from "vue";
 
-    @Component({
-        components: {
-
+    export default Vue.extend({
+        functional: true,
+        props: {
+            color: String,
         },
     })
 
-    export default class UIButton extends Vue {
-        @Prop(String) color!: boolean;
-
-        created() {
-            console.log(this);
-        }
-
-    }
 </script>
 
 <style lang="stylus">
+
     @import "../../vars.styl";
+
     .btn
         align-items center
         border-radius 2px

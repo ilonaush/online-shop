@@ -12,7 +12,7 @@ import Header from "./components/Header/Header";
 import Notification from "./components/Notification/Notification";
 import {createNamespacedHelpers} from "vuex";
 import CartModal from "./components/Modal/CartModal/CartModal";
-import ShopModals from "./components/ShopModals/ShopModals";
+import ShopModals from "./components/HashModal/HashModal";
 
 const { mapActions: filterActions } = createNamespacedHelpers("filterModule/");
 const { mapActions: productActions } = createNamespacedHelpers("productsModule/");

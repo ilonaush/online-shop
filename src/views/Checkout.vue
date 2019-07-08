@@ -14,7 +14,7 @@
                         </div>
                         <div class="checkout-item_price">
                             <div class="checkout-item_quantity">
-                                {{item.quantity}} items
+                                {{item.quantity}} {{'item' | pluralize(item.quantity)}}
                             </div>
                             <div class="checkout-item_generalPrice">
                                 {{(item.price * item.quantity).toFixed(2)}} $
@@ -23,35 +23,45 @@
                     </div>
                 </div>
                 Total: {{generalPrice}} $
+                <v-button color="primary" @click.native="openModal(modalType.cart)">Edit order</v-button>
             </div>
         </div>
-        <u-i-button color="primary">Place the order</u-i-button>
+        <v-button color="primary">Place the order</v-button>
     </div>
 </template>
 
 <script lang="ts">
     import {Component, Vue} from "vue-property-decorator";
-    import {createNamespacedHelpers} from "vuex";
+    import {createNamespacedHelpers, mapMutations} from "vuex";
     import CheckoutForm from "@/components/Forms/CheckoutForm/CheckoutForm.vue";
-    import UIButton from "@/components/Button/Button.vue";
+    import VButton from "@/components/VButton/Button.vue";
+    import {MODAL_TYPE} from "../store/enums";
 
     const { mapState, mapGetters } = createNamespacedHelpers("cartModule/");
 
     @Component({
-        components: {CheckoutForm, UIButton},
+        components: {CheckoutForm, VButton},
         computed: {
             ...mapState(['items']),
             ...mapGetters(['generalPrice'])
+        },
+        methods: {
+            ...mapMutations(["openModal"])
         }
     })
     export default class Checkout extends Vue {
-
+        modalType = MODAL_TYPE;
     }
 </script>
 
 <style lang="stylus">
+    @import "../vars.styl";
+
+    .checkout-page
+        padding $page-padding
     .checkout-page_content
         display flex
+        justify-content space-between
 
     .checkout-items
         border 1px solid aquamarine

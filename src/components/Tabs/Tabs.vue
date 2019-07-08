@@ -14,10 +14,8 @@
 </template>
 
 <script lang="ts">
-    import {Component, Prop, Vue} from "vue-property-decorator";
-    import ProductCard from "../Product/ProductCard.vue";
+    import {Component, Vue} from "vue-property-decorator";
     import {ITabsMenuItem} from "./interfaces";
-    import {RawLocation, Route} from "vue-router";
 
     Component.registerHooks([
         "beforeRouteUpdate"

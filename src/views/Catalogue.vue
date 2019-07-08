@@ -59,9 +59,12 @@
 </script>
 
 <style lang="stylus">
+    @import "../vars.styl";
+
     .catalogue-page
         display flex
         height 100%
+        padding $page-padding
         .v-expansion-panel
             width 30%
         .v-tabs

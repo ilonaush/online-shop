@@ -8,16 +8,21 @@
 </template>
 
 <script lang="ts">
-    import {Component, Prop, Vue} from "vue-property-decorator";
+    import Vue from "vue";
     import ProductCard from "../Product/ProductCard.vue";
+    import {IProduct} from "../Product/interfaces";
 
-    @Component({
-        components: {ProductCard},
+    //functional component
+    export default Vue.extend({
+        functional: true,
+        props: {
+            products: Array as () => IProduct[]
+        },
+        components: {
+            ProductCard
+        }
     })
-    export default class ProductList extends Vue {
-        @Prop(Array) products!: object[];
 
-    }
 </script>
 
 <style lang="stylus">

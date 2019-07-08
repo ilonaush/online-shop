@@ -14,7 +14,7 @@
                         Total: {{generalPrice.toFixed(2)}} $
                     </div>
                     <div class="cart_controls">
-                        <u-i-button @click="closeCartModal" color="primary">Go on shopping</u-i-button>
+                        <v-button @click="closeModal" color="primary">Go on shopping</v-button>
                         <router-link :to="{name: 'checkout'}" >Place order</router-link>
                     </div>
                 </div>
@@ -25,11 +25,12 @@
 
 <script lang="ts">
     import { Component, Vue } from "vue-property-decorator";
-    import {createNamespacedHelpers} from "vuex";
+    import {createNamespacedHelpers, mapMutations} from "vuex";
     import ProductCartItem from "@/components/Cart/ProductCartItem/ProductCartItem.vue";
     import Modal from "../Modal.vue";
-    import UIButton from "@/components/Button/Button.vue";
+    import VButton from "@/components/VButton/Button.vue";
     import {ICartModuleState} from "@/store/interfaces";
+    import {modalMixin} from "../../../mixins/ModalMixin";
 
     const { mapState: mapCartState, mapGetters} = createNamespacedHelpers("cartModule/");
 
@@ -37,20 +38,20 @@
         components: {
             ProductCartItem,
             Modal,
-            UIButton
+            VButton
         },
+        mixins: [modalMixin],
         computed: {
             ...mapCartState<ICartModuleState>({
                 items: state => state.items,
             }),
             ...mapGetters(['generalPrice'])
+        },
+        methods: {
+            ...mapMutations(["closeModal"])
         }
     })
     export default class Cart extends Vue {
-
-        closeCartModal() {
-            window.location.hash = "";
-        }
     }
 </script>
 

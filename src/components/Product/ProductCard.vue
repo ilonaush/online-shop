@@ -1,5 +1,5 @@
 <template>
-    <v-card class="product-card" flat>
+    <div class="product-card">
             <div class="product-card_image-holder">
                 <router-link :to="{name: 'product', params: {product: product.id}}">
                     <img  class="product-card-image" :src="product.mainImage"/>
@@ -9,17 +9,17 @@
                 <stars-rating :starQuantity="product.rating"/>
             ({{product.reviews.length}} reviews)
             </div>
-            <v-card-text>{{ product.name }}</v-card-text>
-            <v-card-text>
+            <div>{{ product.name }}</div>
+            <div>
                 <span :class="{'product-card_price': true, sale: product.oldPrice}">
                     {{product.price}} $
                 </span>
                 <span  v-if="product.oldPrice" class="product-card_oldPrice">
                     {{product.oldPrice}} $
                 </span>
-            </v-card-text>
+            </div>
             <u-i-button color="primary" v-on:click.native="handleAddToCartClick" class="add-cart-btn">Add to cart</u-i-button>
-    </v-card>
+    </div>
 </template>
 
 <script lang="ts">
@@ -27,10 +27,9 @@
     import {IProduct} from "./interfaces";
     import {createNamespacedHelpers} from "vuex";
     import StarsRating from "../StarRating/StarRating.vue";
-    import UIButton from "@/components/Button/Button.vue";
+    import UIButton from "@/components/VButton/Button.vue";
 
     const { mapMutations } = createNamespacedHelpers("cartModule/");
-
 
     @Component({
         components: {

@@ -4,6 +4,7 @@ import {cartModule} from "@/store/modules/cartModule";
 import {productsModule} from "@/store/modules/productsModule";
 import {modalModule} from "@/store/modules/modalModule";
 import {filterModule} from "@/store/modules/filterModule";
+import LocalStorageVuexPlugin from "@/plugins/LocalStorageVuexPlugin";
 
 Vue.use(Vuex);
 
@@ -14,10 +15,7 @@ const store = new Vuex.Store({
         cartModule,
         modalModule
     },
-});
-
-store.subscribe((mutation, state) => {
-    console.log(state, "subscribe");
+    plugins: [LocalStorageVuexPlugin.setLocalStorageState()]
 });
 
 export default store;

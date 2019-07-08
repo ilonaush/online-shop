@@ -3,8 +3,6 @@
         <div class="modal">
             <header class="modal-header">
                 <slot name="header">
-
-
                 </slot>
                 <button
                         type="button"
@@ -29,12 +27,12 @@
 <script lang="ts">
     import Vue from "vue";
     import {Component} from "vue-property-decorator";
+    import {modalMixin} from "../../mixins/ModalMixin";
 
-    @Component
+    @Component({
+        mixins: [modalMixin]
+    })
     export default  class Modal extends  Vue {
-        close() {
-            window.location.hash = "";
-        }
     }
 </script>
 

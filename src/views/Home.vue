@@ -22,3 +22,10 @@
   })
   export default class Home extends Vue {}
 </script>
+
+<style lang="stylus">
+  @import "../vars.styl";
+
+  .home-page
+    padding $page-padding
+</style>

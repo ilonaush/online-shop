@@ -76,8 +76,7 @@ export interface IModalModuleState {
 }
 
 export interface IModalModuleMutations {
-    toggleModal: {
-        isShown: boolean;
-        type: MODAL_TYPE;
-    }
+    openModal: MODAL_TYPE;
+    closeModal: void;
+
 }

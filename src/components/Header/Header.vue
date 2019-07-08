@@ -17,10 +17,10 @@
             <span class="cart-quantity">{{quantity}}</span>
             <div class="cart-info">
                 <span v-if="quantity > 0">
-                    There is {{quantity}} items for {{generalPrice}} $
+                    There is {{quantity}} {{ 'item' | pluralize(quantity) }}  for {{generalPrice}} $
                     <router-link :to="{name: 'checkout'}">Check out</router-link>
                      <span class="line"></span>
-                    <u-i-button color="primary" @click.native="openCartModal">Go to cart</u-i-button>
+                    <u-i-button color="primary" @click.native="openModal(modalType.cart)">Go to cart</u-i-button>
                 </span>
                 <span v-else>
                     У вашому кошику ше немає замовлень
@@ -32,9 +32,9 @@
 
 <script lang="ts">
     import { Component, Vue } from "vue-property-decorator";
-    import {createNamespacedHelpers} from "vuex";
+    import {createNamespacedHelpers, mapMutations} from "vuex";
     import Notification from "@/components/Notification/Notification.vue";
-    import UIButton from "@/components/Button/Button.vue";
+    import UIButton from "@/components/VButton/Button.vue";
     import {ICartModule} from "@/store/interfaces";
     import {MODAL_TYPE} from "@/store/enums";
 
@@ -47,16 +47,15 @@
                 quantity: state => state.quantity,
             }),
             ...mapGetters(["generalPrice"]),
-
+        },
+        methods: {
+            ...mapMutations(['openModal'])
         }
     })
     export default class Header extends Vue {
-        menuItems: string[] = ["Food", "Toys", "Bath"];
         isCatalogueListShown: boolean = false;
-
-        openCartModal() {
-            window.location.hash = "#" + MODAL_TYPE.cart;
-        }
+        menuItems: string[] = ["Food", "Toys", "Bath"];
+        modalType = MODAL_TYPE;
     }
 </script>
 

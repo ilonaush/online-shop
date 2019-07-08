@@ -13,10 +13,6 @@ export default new Router({
       name: "home",
       component: Home,
     }, {
-      path: "/cart",
-      name: "cart",
-      component: () => import(/* webpackChunkName: "about" */ "./views/Cart.vue"),
-    },{
       path: "/checkout",
       name: "checkout",
       component: () => import(/* webpackChunkName: "about" */ "./views/Checkout.vue"),
