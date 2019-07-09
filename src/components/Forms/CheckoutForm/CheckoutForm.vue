@@ -3,6 +3,7 @@
         <custom-input label="Name" v-model="name"></custom-input>
         <custom-input label="Surname" v-model="surname"></custom-input>
         <custom-input label="City" v-model="city"></custom-input>
+        <v-button type="submit" v-on:submit="handleCheckoutFormSubmit"></v-button>
     </form>
 </template>
 
@@ -10,10 +11,11 @@
     import {Component, Vue} from "vue-property-decorator";
     import {createNamespacedHelpers} from "vuex";
     import CustomInput from "@/components/CustomInput/CustomInput";
+    import VButton from "@/components/VButton/VButton.vue";
     const { mapState, mapGetters } = createNamespacedHelpers("cartModule/");
 
     @Component({
-        components: {CustomInput},
+        components: {CustomInput, VButton},
         computed: {
             ...mapState(['items']),
             ...mapGetters(['generalPrice'])
@@ -23,6 +25,10 @@
         name: string = "";
         surname: string = "";
         city: string = "";
+
+        handleCheckoutFormSubmit(values) {
+            console.log(values);
+        }
     }
 </script>
 

@@ -44,7 +44,7 @@
 
        incrementQuantity() {
            this.itemQuantity++;
-           this.$store.commit('cartModule/setCartItemQty', {id: this.cartItem.id, quantity:+1});
+           this.$store.commit("cartModule/setCartItemQty", {id: this.cartItem.id, quantity:+1});
        }
 
        setQuantity() {
@@ -53,7 +53,7 @@
 
        decrementQuantity() {
            this.itemQuantity--;
-           this.$store.commit('cartModule/setCartItemQty', {id: this.cartItem.id, quantity: -1});
+           this.$store.commit("cartModule/setCartItemQty", {id: this.cartItem.id, quantity: -1});
        }
 
        removeCartItem() {

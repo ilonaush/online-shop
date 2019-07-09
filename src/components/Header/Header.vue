@@ -4,14 +4,14 @@
             <font-awesome-icon :icon="['fas', 'paw']" size="2x"/>
         </router-link>
         <h4>Online Pet Shop</h4>
-        <u-i-button color="primary" class="catalogue-btn" @click.native="isCatalogueListShown = !isCatalogueListShown">
+        <v-button color="primary" class="catalogue-btn" @click.native="isCatalogueListShown = !isCatalogueListShown">
             Catalogue
             <div v-if="isCatalogueListShown" class="catalogue-list">
                 <router-link v-for="item in menuItems" :to="{ name: 'catalogue', params: { category: item.toLowerCase() }}">
                     {{item}}
                 </router-link>
             </div>
-        </u-i-button>
+        </v-button>
         <div class="cart-icon">
             <font-awesome-icon :icon="['fas', 'shopping-cart']" size="2x"/>
             <span class="cart-quantity">{{quantity}}</span>
@@ -20,7 +20,7 @@
                     There is {{quantity}} {{ 'item' | pluralize(quantity) }}  for {{generalPrice}} $
                     <router-link :to="{name: 'checkout'}">Check out</router-link>
                      <span class="line"></span>
-                    <u-i-button color="primary" @click.native="openModal(modalType.cart)">Go to cart</u-i-button>
+                    <v-button color="primary" @click.native="openModal(modalType.cart)">Go to cart</v-button>
                 </span>
                 <span v-else>
                     У вашому кошику ше немає замовлень
@@ -34,14 +34,14 @@
     import { Component, Vue } from "vue-property-decorator";
     import {createNamespacedHelpers, mapMutations} from "vuex";
     import Notification from "@/components/Notification/Notification.vue";
-    import UIButton from "@/components/VButton/Button.vue";
+    import VButton from "@/components/VButton/VButton";
     import {ICartModule} from "@/store/interfaces";
     import {MODAL_TYPE} from "@/store/enums";
 
     const { mapState, mapGetters } = createNamespacedHelpers("cartModule/");
 
     @Component({
-        components: {Notification, UIButton},
+        components: {Notification, VButton},
         computed: {
             ...mapState<ICartModule>({
                 quantity: state => state.quantity,

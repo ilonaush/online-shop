@@ -18,7 +18,7 @@
                     {{product.oldPrice}} $
                 </span>
             </div>
-            <u-i-button color="primary" v-on:click.native="handleAddToCartClick" class="add-cart-btn">Add to cart</u-i-button>
+            <v-button color="primary" v-on:click.native="handleAddToCartClick" class="add-cart-btn">Add to cart</v-button>
     </div>
 </template>
 
@@ -26,21 +26,21 @@
     import {Component, Prop, Vue} from "vue-property-decorator";
     import {IProduct} from "./interfaces";
     import {createNamespacedHelpers} from "vuex";
-    import StarsRating from "../StarRating/StarRating.vue";
-    import UIButton from "@/components/VButton/Button.vue";
+    import StarsRating from "../StarRating/StarRating";
+    import VButton from "@/components/VButton/VButton";
 
     const { mapMutations } = createNamespacedHelpers("cartModule/");
 
     @Component({
         components: {
             StarsRating,
-            UIButton
+            VButton
         },
         methods: {
             ...mapMutations(["addItemToCart"]),
         }
     })
-    export default class ProductCard extends Vue  {
+    export default class ProductCard extends Vue {
         @Prop({type: Object as () => IProduct}) product!: IProduct;
         addItemToCart!: (item: {id: number, name: string, price: number, mainImage: string}) => void;
 

@@ -5,15 +5,16 @@
 </template>
 
 <script lang="ts">
-    import Vue from "vue";
+    import { Component, Vue, Prop } from "vue-property-decorator";
 
-    export default Vue.extend({
-        functional: true,
-        props: {
-            color: String,
+    @Component({
+        components: {
+
         },
     })
-
+    export default class VButton extends Vue {
+        @Prop(String) color!: boolean;
+    }
 </script>
 
 <style lang="stylus">
@@ -39,7 +40,7 @@
         vertical-align middle
         padding 0 16px
         cursor pointer
-    &.primary
-        background-color $lighten-4
-        border none
+        &.primary
+            background-color $lighten-4
+            border none
 </style>

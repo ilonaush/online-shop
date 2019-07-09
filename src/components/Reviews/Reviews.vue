@@ -19,8 +19,7 @@
 </template>
 
 <script lang="ts">
-    import {Component, Prop, Vue} from "vue-property-decorator";
-    import ProductCard from "../Product/ProductCard.vue";
+    import  Vue from "vue";
     import {IReview} from "../Product/interfaces";
     import StarRating from "@/components/StarRating/StarRating.vue";
 

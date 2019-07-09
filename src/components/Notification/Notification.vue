@@ -8,7 +8,7 @@
 <script lang="ts">
     import {Component, Vue, Watch} from "vue-property-decorator";
     import {createNamespacedHelpers, mapMutations} from "vuex";
-    import VButton from "@/components/VButton/Button.vue";
+    import VButton from "@/components/VButton/VButton.vue";
     import {MODAL_TYPE} from "@/store/enums";
 
     const { mapMutations: mapCartMutations } = createNamespacedHelpers("cartModule/");

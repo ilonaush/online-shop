@@ -34,10 +34,10 @@
             this.tabs = this.$children;
         }
 
-        selectTab(selectedHref) {
+        selectTab(selectedHref: string) {
             if (selectedHref) {
                 this.tabs.forEach((tab : ITabsMenuItem) => {
-                    tab.isActive = (tab.href == selectedHref);
+                    tab.isActive = (tab.href === selectedHref);
                 });
             }
         }

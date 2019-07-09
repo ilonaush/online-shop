@@ -34,7 +34,7 @@
     import {Component, Vue} from "vue-property-decorator";
     import {createNamespacedHelpers, mapMutations} from "vuex";
     import CheckoutForm from "@/components/Forms/CheckoutForm/CheckoutForm.vue";
-    import VButton from "@/components/VButton/Button.vue";
+    import VButton from "@/components/VButton/VButton.vue";
     import {MODAL_TYPE} from "../store/enums";
 
     const { mapState, mapGetters } = createNamespacedHelpers("cartModule/");

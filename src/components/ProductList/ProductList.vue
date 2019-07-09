@@ -1,28 +1,23 @@
-<template>
+<template functional>
     <div class="product-list">
-        <div class="product-card-holder" v-for="product in products"
+        <div class="product-card-holder" v-for="product in props.products"
              :key="product.id">
-            <product-card :product="product"/>
+            <product-card :product="product"></product-card>
         </div>
     </div>
 </template>
 
 <script lang="ts">
-    import Vue from "vue";
+    import {Component, Prop, Vue} from "vue-property-decorator";
     import ProductCard from "../Product/ProductCard.vue";
-    import {IProduct} from "../Product/interfaces";
 
-    //functional component
-    export default Vue.extend({
-        functional: true,
-        props: {
-            products: Array as () => IProduct[]
-        },
-        components: {
-            ProductCard
-        }
+    @Component({
+        components: {ProductCard},
     })
+    export default class ProductList extends Vue {
+        @Prop(Array) products!: object[];
 
+    }
 </script>
 
 <style lang="stylus">

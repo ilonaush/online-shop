@@ -28,7 +28,7 @@
     import {createNamespacedHelpers, mapMutations} from "vuex";
     import ProductCartItem from "@/components/Cart/ProductCartItem/ProductCartItem.vue";
     import Modal from "../Modal.vue";
-    import VButton from "@/components/VButton/Button.vue";
+    import VButton from "@/components/VButton/VButton.vue";
     import {ICartModuleState} from "@/store/interfaces";
     import {modalMixin} from "../../../mixins/ModalMixin";
 
