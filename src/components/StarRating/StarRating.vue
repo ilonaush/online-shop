@@ -7,15 +7,14 @@
 </template>
 
 <script lang="ts">
-    import Vue from "vue";
+    import { Component, Vue, Prop } from "vue-property-decorator";
 
-    //functional component
-    export default Vue.extend({
-        functional: true,
-        props: {
-            starQuantity: Number
-        },
+    @Component({
+
     })
+    export default class StarsRating extends Vue {
+        @Prop(Number) starQuantity!: number;
+    }
 </script>
 
 <style lang="stylus">
