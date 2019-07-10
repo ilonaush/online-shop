@@ -36,11 +36,11 @@
                     </div>
                 </div>
             </tab>
-            <!--<tab name="Reviews">-->
-                <!--<div class="product-info">-->
-                  <!--<reviews :reviews="product.reviews"/>-->
-                <!--</div>-->
-            <!--</tab>-->
+            <tab name="Reviews">
+                <div class="product-info">
+                  <reviews :reviews="product.reviews"/>
+                </div>
+            </tab>
         </tabs>
         <div class="other-products">
             <h4>Other products</h4>
@@ -70,9 +70,7 @@
             ...mapCartMutations(["addItemToCart"])
         }
     })
-    export default class Product extends Vue{
-
-
+    export default class Product extends Vue {
         get product(): IProduct {
             return this.$store.state["productsModule"].products.find((product : IProduct) => {
                 return product.id === +this.$route.params["product"]

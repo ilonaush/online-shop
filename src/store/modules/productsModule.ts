@@ -1,15 +1,17 @@
 
 import {
+    IFiltersModuleState,
     IProductModuleActions,
     IProductsModuleGetters,
     IProductsModuleMutations,
-    IProductsModuleState,
+    IProductsModuleState, IStore,
 } from "@/store/interfaces";
 import {CategoryType, FilterType} from "@/store/types";
 import RequestService from "@/services/RequestService";
 import {ActionContext, DefineActions, DefineGetters, DefineMutations} from "vuex-type-helper";
 import {Product} from "@/interfaces";
 import IProduct = Product.IProduct;
+import {ActionTree, Module} from "vuex";
 
 const getters: DefineGetters<IProductsModuleGetters, IProductsModuleState> = {
     filteredProducts: (state, getters, rootState) => {
@@ -54,7 +56,7 @@ const mutations: DefineMutations<IProductsModuleMutations, IProductsModuleState>
     },
 };
 
-const actions: DefineActions<IProductModuleActions, IProductsModuleState, IProductsModuleMutations, IProductsModuleGetters> = {
+const actions: ActionTree<IProductsModuleState, IStore>  = {
     init(context: ActionContext<IProductsModuleState, IProductsModuleGetters, IProductModuleActions, IProductsModuleMutations>) {
         context.dispatch({type: "getProducts"});
     },
@@ -64,7 +66,7 @@ const actions: DefineActions<IProductModuleActions, IProductsModuleState, IProdu
     },
 };
 
-export const productsModule = {
+export const productsModule: Module<IProductsModuleState, IStore> = {
     namespaced: true,
     getters,
     state: {

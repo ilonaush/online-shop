@@ -2,7 +2,7 @@ import {FilterType} from "@/store/types";
 import {MODAL_TYPE} from "@/store/enums";
 import {Cart, Product} from "@/interfaces";
 
-export interface IStore extends IFiltersModuleState, IProductsModuleState, IModalModuleState {
+export interface IStore {
 }
 
 export interface IFiltersModuleState {
