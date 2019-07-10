@@ -9,6 +9,11 @@
       "name": "healthFeature",
       "title": "Health",
       "options": ["Weight Management", "Grain Free", "Digestive Care", "Skin & Coat Care"]
+    },
+    {
+      "name": "brand",
+      "title": "Brand",
+      "options": ["Cesar", "Grain Free", "Digestive Care", "Skin & Coat Care"]
     }
   ]
 }

@@ -1,15 +1,15 @@
-import {Module} from "vuex";
+
 import {
     IProductModuleActions,
     IProductsModuleGetters,
     IProductsModuleMutations,
     IProductsModuleState,
-    IStore
 } from "@/store/interfaces";
 import {CategoryType, FilterType} from "@/store/types";
-import {IProduct} from "@/components/Product/interfaces";
 import RequestService from "@/services/RequestService";
 import {ActionContext, DefineActions, DefineGetters, DefineMutations} from "vuex-type-helper";
+import {Product} from "@/interfaces";
+import IProduct = Product.IProduct;
 
 const getters: DefineGetters<IProductsModuleGetters, IProductsModuleState> = {
     filteredProducts: (state, getters, rootState) => {
@@ -55,13 +55,16 @@ const mutations: DefineMutations<IProductsModuleMutations, IProductsModuleState>
 };
 
 const actions: DefineActions<IProductModuleActions, IProductsModuleState, IProductsModuleMutations, IProductsModuleGetters> = {
+    init(context: ActionContext<IProductsModuleState, IProductsModuleGetters, IProductModuleActions, IProductsModuleMutations>) {
+        context.dispatch({type: "getProducts"});
+    },
     async getProducts(context: ActionContext<IProductsModuleState, IProductsModuleGetters, IProductModuleActions, IProductsModuleMutations>) {
         const {data: {items}} = await RequestService.instance.get("/");
         context.commit("setProducts", items);
     },
 };
 
-export const productsModule: Module<IProductsModuleState, IStore> = {
+export const productsModule = {
     namespaced: true,
     getters,
     state: {

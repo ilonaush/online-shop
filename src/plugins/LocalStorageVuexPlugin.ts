@@ -1,12 +1,11 @@
 import {Store} from "vuex";
-import {IStore} from "@/store/interfaces";
 
 export default {
     getLocalStorageModuleState<StateType>(module: string) : StateType {
         return JSON.parse(localStorage.getItem("store") || "{}")[module];
     },
     setLocalStorageState: () => {
-        return (store: Store<IStore>) => {
+        return (store: Store<any>) => {
             store.subscribe(() => {
                 localStorage.setItem("store", JSON.stringify(store.state))
             });

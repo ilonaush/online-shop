@@ -1,8 +1,7 @@
 import axios, {AxiosError, AxiosResponse, AxiosInstance} from "axios";
-import {IRequestService} from "@/services/interfaces";
-import {REQUEST_NAME} from "@/services/enums";
+import {RequestService as Request} from "@/interfaces";
 
-export class RequestService implements IRequestService {
+export class RequestService implements Request.IRequestService {
   private static _instance: RequestService | null;
   public service!: AxiosInstance;
 

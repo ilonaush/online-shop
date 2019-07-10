@@ -1,5 +1,4 @@
-import {Module} from "vuex";
-import {IFilterModuleActions, IFilterModuleMutations, IFiltersModuleState, IStore} from "@/store/interfaces";
+import {IFilterModuleActions, IFilterModuleMutations, IFiltersModuleState} from "@/store/interfaces";
 import {FilterType} from "@/store/types";
 import RequestService from "@/services/RequestService";
 import {REQUEST_NAME} from "@/services/enums";
@@ -14,14 +13,17 @@ const mutations: DefineMutations<IFilterModuleMutations, IFiltersModuleState> = 
     }
 };
 
-const actions: DefineActions<IFilterModuleActions, IFiltersModuleState, IFilterModuleMutations> = {
+const actions: DefineActions<IFilterModuleActions, IFiltersModuleState, IFilterModuleMutations>  = {
+    async init(context: ActionContext<IFiltersModuleState, {}, IFilterModuleActions, IFilterModuleMutations>) {
+        context.dispatch({type: "getFilters"});
+    },
     async getFilters(context: ActionContext<IFiltersModuleState, {}, IFilterModuleActions, IFilterModuleMutations>) {
         const {data: {filters}} = await RequestService.instance.get(REQUEST_NAME.getFilters);
         context.commit("setFilters", filters);
     },
 };
 
-export const filterModule: Module<IFiltersModuleState, IStore> = {
+export const filterModule = {
     namespaced: true,
     state: {
         filters: [],

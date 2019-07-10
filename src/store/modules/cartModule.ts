@@ -1,15 +1,15 @@
 import {Module} from "vuex";
 import {
-    ICartItem,
     ICartModuleGetters,
     ICartModuleMutations,
     ICartModuleState,
-    IStore
 } from "@/store/interfaces";
 import { DefineGetters, DefineMutations } from 'vuex-type-helper';
 import {getNotificationMessage} from "@/services/NotificationService";
 import {NOTIFICATION_TYPES} from "@/services/enums";
 import LocalStorageVuexPlugin from "@/plugins/LocalStorageVuexPlugin";
+import {Cart} from "@/interfaces";
+import ICartItem = Cart.ICartItem;
 
 const getters: DefineGetters<ICartModuleGetters, ICartModuleState> = {
     generalPrice: (state) => {
@@ -52,7 +52,7 @@ const mutations: DefineMutations<ICartModuleMutations, ICartModuleState> = {
     },
 };
 
-export const cartModule: Module<ICartModuleState, IStore> = {
+export const cartModule = {
     namespaced: true,
     getters,
     state: LocalStorageVuexPlugin.getLocalStorageModuleState<ICartModuleState>("cartModule"),

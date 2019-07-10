@@ -20,7 +20,7 @@
                             {{product.oldPrice}} $
                             </span>
                         </div>
-                        <u-i-button color="primary">Add to cart</u-i-button>
+                        <v-button color="primary">Add to cart</v-button>
                     </div>
                 </div>
             </tab>
@@ -36,11 +36,11 @@
                     </div>
                 </div>
             </tab>
-            <tab name="Reviews">
-                <div class="product-info">
-                  <reviews :reviews="product.reviews"/>
-                </div>
-            </tab>
+            <!--<tab name="Reviews">-->
+                <!--<div class="product-info">-->
+                  <!--<reviews :reviews="product.reviews"/>-->
+                <!--</div>-->
+            <!--</tab>-->
         </tabs>
         <div class="other-products">
             <h4>Other products</h4>
@@ -52,18 +52,20 @@
 <script lang="ts">
     import {createNamespacedHelpers} from "vuex";
     import { Component, Vue } from "vue-property-decorator";
-    import {IProduct} from "@/components/Product/interfaces";
-    import UIButton from "@/components/VButton/VButton.vue";
+    import VButton from "@/components/VButton/VButton.vue";
     import Tabs from "@/components/Tabs/Tabs.vue";
     import Tab from "@/components/Tabs/Tab.vue";
     import StarRating from "@/components/StarRating/StarRating.vue";
     import Reviews from "@/components/Reviews/Reviews.vue";
     import ProductList from "@/components/ProductList/ProductList.vue";
+    import {Product} from "../interfaces";
+
+    import IProduct = Product.IProduct;
 
     const { mapMutations: mapCartMutations } = createNamespacedHelpers("cartModule/");
 
     @Component({
-        components: {ProductList, Reviews, StarRating, UIButton, Tabs, Tab},
+        components: {ProductList, Reviews, StarRating, VButton, Tabs, Tab},
         methods: {
             ...mapCartMutations(["addItemToCart"])
         }

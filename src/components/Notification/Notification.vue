@@ -1,7 +1,7 @@
 <template>
     <div v-if="isNotificationShown" class="notification">
         {{message}}
-        <v-button @click.native="openModal(modalType.cart)" class="go-cart-btn" color="primary">Go to cart</v-button>
+        <v-button @click="openModal(modalType.cart)" class="go-cart-btn" color="primary">Go to cart</v-button>
     </div>
 </template>
 
@@ -10,12 +10,11 @@
     import {createNamespacedHelpers, mapMutations} from "vuex";
     import VButton from "@/components/VButton/VButton.vue";
     import {MODAL_TYPE} from "@/store/enums";
+    import {Notification} from "@/interfaces";
+    import {Notification} from "../../interfaces";
+    import INotification = Notification.INotification;
 
     const { mapMutations: mapCartMutations } = createNamespacedHelpers("cartModule/");
-
-    interface INotification {
-        deleteFirstNotification: () => void;
-    }
 
     @Component({
         components: {

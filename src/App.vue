@@ -14,9 +14,6 @@ import {createNamespacedHelpers} from "vuex";
 import CartModal from "./components/Modal/CartModal/CartModal";
 import ShopModals from "./components/HashModal/HashModal";
 
-const { mapActions: filterActions } = createNamespacedHelpers("filterModule/");
-const { mapActions: productActions } = createNamespacedHelpers("productsModule/");
-
 export default {
   name: "App",
   components: {
@@ -25,18 +22,6 @@ export default {
     "header-navigation": Header,
     "notification": Notification,
   },
-  data() {
-    return {}
-  },
-  methods: {
-    ...filterActions(["getFilters"]),
-    ...productActions(["getProducts"]),
-  },
-  created() {
-    this.getProducts();
-    this.getFilters();
-  }
-
 }
 </script>
 <style lang="stylus">

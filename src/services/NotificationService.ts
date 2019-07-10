@@ -1,10 +1,9 @@
 import {NOTIFICATION_TYPES} from "@/services/enums";
-import {INotificationConfig} from "@/services/interfaces";
-import {IProduct} from "@/components/Product/interfaces";
+import {Notification, Product} from "@/interfaces";
 
-export function getNotificationMessage(notificationType: NOTIFICATION_TYPES, notificationConfig: INotificationConfig) {
+export function getNotificationMessage(notificationType: NOTIFICATION_TYPES, notificationConfig: Notification.INotificationConfig) {
     switch (notificationType) {
-        case NOTIFICATION_TYPES.addToCart: 
+        case NOTIFICATION_TYPES.addToCart:
             if (notificationConfig.message) {
                 return notificationConfig.message;
             } else if (notificationConfig.item) {
@@ -15,7 +14,7 @@ export function getNotificationMessage(notificationType: NOTIFICATION_TYPES, not
     }
 }
 
-function formNotificationMessage(notificationType: NOTIFICATION_TYPES, item: IProduct) {
+function formNotificationMessage(notificationType: NOTIFICATION_TYPES, item: Product.IProduct) {
     switch (notificationType) {
         case NOTIFICATION_TYPES.addToCart:
             return `${item.name} added to the cart`;

@@ -1,21 +1,8 @@
-<template>
-    <button :class="['btn', color]">
+<template functional>
+    <button v-on:click="listeners.click || null" v-on:submit="listeners.submit || null" :class="['btn', props.color]">
         <slot></slot>
     </button>
 </template>
-
-<script lang="ts">
-    import { Component, Vue, Prop } from "vue-property-decorator";
-
-    @Component({
-        components: {
-
-        },
-    })
-    export default class VButton extends Vue {
-        @Prop(String) color!: boolean;
-    }
-</script>
 
 <style lang="stylus">
 

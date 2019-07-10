@@ -1,6 +1,6 @@
 <template>
     <div class="reviews">
-        <div  class="review" :key="review.id" v-for="review in reviews">
+        <div class="review" :key="review.id" v-for="review in reviews">
             <div class="review-author">
                 {{review.reviewerName}}
                 <star-rating :starQuantity="review.mark"></star-rating>
@@ -20,14 +20,13 @@
 
 <script lang="ts">
     import  Vue from "vue";
-    import {IReview} from "../Product/interfaces";
     import StarRating from "@/components/StarRating/StarRating.vue";
+    import {Product} from "../../interfaces";
 
     //functional component
     export default Vue.extend({
-        functional: true,
         props: {
-            reviews: Array as () => IReview[]
+            reviews: Array as () => Product.IReview[]
         },
         components: {
             StarRating

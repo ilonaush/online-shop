@@ -23,7 +23,7 @@
                     </div>
                 </div>
                 Total: {{generalPrice}} $
-                <v-button color="primary" @click.native="openModal(modalType.cart)">Edit order</v-button>
+                <v-button color="primary" @click="openModal(modalType.cart)">Edit order</v-button>
             </div>
         </div>
         <v-button color="primary">Place the order</v-button>

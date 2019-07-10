@@ -12,6 +12,7 @@
     import ProductList from "@/components/ProductList/ProductList.vue";
     import {IStore} from "@/store/interfaces";
     import {Route, RawLocation} from "vue-router";
+    import {IFiltersModuleState, IProductsModuleState} from "../store/interfaces";
 
     const { mapState: filterState } = createNamespacedHelpers("filterModule/");
     const { mapState: productState, mapGetters, mapMutations } = createNamespacedHelpers("productsModule/");
@@ -30,10 +31,10 @@
             FilterNavigation,
         },
         computed: {
-            ...filterState<IStore>({
+            ...filterState<IFiltersModuleState>({
                 filters: (state) => state.filters,
             }),
-            ...productState<IStore>({
+            ...productState<IProductsModuleState>({
                 products: (state) => state.products,
             }),
             ...mapGetters(["filteredProducts"]),

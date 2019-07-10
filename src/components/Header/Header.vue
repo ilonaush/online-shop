@@ -4,7 +4,7 @@
             <font-awesome-icon :icon="['fas', 'paw']" size="2x"/>
         </router-link>
         <h4>Online Pet Shop</h4>
-        <v-button color="primary" class="catalogue-btn" @click.native="isCatalogueListShown = !isCatalogueListShown">
+        <v-button color="primary" class="catalogue-btn" v-on:click="isCatalogueListShown = !isCatalogueListShown">
             Catalogue
             <div v-if="isCatalogueListShown" class="catalogue-list">
                 <router-link v-for="item in menuItems" :to="{ name: 'catalogue', params: { category: item.toLowerCase() }}">
@@ -20,7 +20,7 @@
                     There is {{quantity}} {{ 'item' | pluralize(quantity) }}  for {{generalPrice}} $
                     <router-link :to="{name: 'checkout'}">Check out</router-link>
                      <span class="line"></span>
-                    <v-button color="primary" @click.native="openModal(modalType.cart)">Go to cart</v-button>
+                    <v-button color="primary" v-on:click="openModal(modalType.cart)">Go to cart</v-button>
                 </span>
                 <span v-else>
                     У вашому кошику ше немає замовлень

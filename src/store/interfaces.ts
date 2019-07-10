@@ -1,6 +1,6 @@
-import {IProduct} from "@/components/Product/interfaces";
 import {FilterType} from "@/store/types";
 import {MODAL_TYPE} from "@/store/enums";
+import {Cart, Product} from "@/interfaces";
 
 export interface IStore extends IFiltersModuleState, IProductsModuleState, IModalModuleState {
 }
@@ -16,34 +16,36 @@ export interface IFilterModuleMutations {
 }
 
 export interface IFilterModuleActions {
-
+    init: {};
+    getFilters: {};
 }
 
 export interface IProductsModuleState {
-    products: IProduct[];
+    products: Product.IProduct[];
     activeCategory: string;
 }
 
 export interface IProductsModuleMutations {
-    setProducts: IProduct[];
+    setProducts:  Product.IProduct[];
     setActiveCategory: string;
 }
 
 export interface IProductsModuleGetters {
-    filteredProducts: IProduct[];
-    promotionProducts: IProduct[];
-    bath: IProduct[];
-    food: IProduct[];
-    toys: IProduct[];
+    filteredProducts:  Product.IProduct[];
+    promotionProducts:  Product.IProduct[];
+    bath:  Product.IProduct[];
+    food:  Product.IProduct[];
+    toys:  Product.IProduct[];
 }
 
 export interface IProductModuleActions {
-
+    init: {},
+    getProducts: {}
 }
 
 export interface ICartModuleState {
     quantity: number;
-    items: ICartItem[];
+    items: Cart.ICartItem[];
     showNotification: boolean;
     notifications: string[];
 }
@@ -54,7 +56,7 @@ export interface ICartModuleMutations {
         quantity: number;
         replace: boolean;
     };
-    addItemToCart: IProduct;
+    addItemToCart: Product.IProduct;
     deleteItemFromCart: number;
     deleteFirstNotification: undefined;
 }
@@ -63,13 +65,6 @@ export interface ICartModuleGetters {
     generalPrice: number;
 }
 
-export interface  ICartItem {
-    id: number;
-    quantity: number;
-    price: number;
-    name: string;
-    img: string;
-}
 export interface IModalModuleState {
     showModal: boolean;
     activeModal: MODAL_TYPE | null;

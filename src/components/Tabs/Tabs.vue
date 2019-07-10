@@ -15,7 +15,9 @@
 
 <script lang="ts">
     import {Component, Vue} from "vue-property-decorator";
-    import {ITabsMenuItem} from "./interfaces";
+    import {Tabs} from "@/interfaces";
+    import {Tabs} from "../../interfaces";
+    import ITabsMenuItem = Tabs.ITabsMenuItem;
 
     Component.registerHooks([
         "beforeRouteUpdate"

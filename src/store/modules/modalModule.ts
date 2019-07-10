@@ -1,5 +1,4 @@
-import {Module} from "vuex";
-import {IModalModuleMutations, IModalModuleState, IStore} from "@/store/interfaces";
+import {IModalModuleMutations, IModalModuleState} from "@/store/interfaces";
 import {DefineMutations} from "vuex-type-helper";
 import {MODAL_TYPE} from "@/store/enums";
 
@@ -12,6 +11,6 @@ const mutations: DefineMutations<IModalModuleMutations, IModalModuleState> = {
     },
 };
 
-export const modalModule: Module<IModalModuleState, IStore> = {
+export const modalModule = {
     mutations,
 };
