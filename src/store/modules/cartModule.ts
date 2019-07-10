@@ -14,21 +14,21 @@ import ICartItem = Cart.ICartItem;
 const getters: DefineGetters<ICartModuleGetters, ICartModuleState> = {
     generalPrice: (state) => {
         return state.items.reduce((sumAcc, currentItem) => sumAcc + (currentItem.price * currentItem.quantity), 0)
+    },
+    generalQuantity: (state) => {
+        return state.items.reduce((sumAcc, currentItem) => sumAcc + currentItem.quantity, 0)
     }
 };
 
 const mutations: DefineMutations<ICartModuleMutations, ICartModuleState> = {
-    setCartItemQty(state: ICartModuleState, {id, quantity, replace}) {
+    setCartItemQty(state: ICartModuleState, {id, quantity}) {
         state.items = state.items.map((item: ICartItem) => {
             if (id === item.id) {
-                if (replace) {
-                    item.quantity = quantity;
-                } else {
-                    item.quantity += quantity;
-                }
+                item.quantity = quantity;
             }
             return item;
         });
+
     },
     addItemToCart(state: ICartModuleState, item) {
         const cartItem = {
@@ -40,21 +40,28 @@ const mutations: DefineMutations<ICartModuleMutations, ICartModuleState> = {
 
         };
         state.items = [...state.items, cartItem ];
-        state.quantity = state.quantity + cartItem.quantity;
         state.notifications.push(getNotificationMessage(NOTIFICATION_TYPES.addToCart, {item}));
     },
     deleteItemFromCart(state: ICartModuleState, itemId) {
-        state.items = state.items.filter((cartItem : ICartItem) => cartItem.id !== itemId);
-        state.quantity = state.quantity  - 1;
+        const deletingItem = state.items.find((cartItem: ICartItem) => cartItem.id === itemId);
+        state.items = state.items.filter((cartItem: ICartItem) => cartItem.id !== itemId);
+        if (deletingItem) {
+            state.quantity = state.quantity  - deletingItem.quantity;
+        }
     },
     deleteFirstNotification(state: ICartModuleState) {
         state.notifications.shift();
     },
 };
 
+const initialCartState = LocalStorageVuexPlugin.getLocalStorageModuleState<ICartModuleState>("cartModule");
+
 export const cartModule = {
     namespaced: true,
     getters,
-    state: LocalStorageVuexPlugin.getLocalStorageModuleState<ICartModuleState>("cartModule"),
+    state: {
+        items: initialCartState.items || [],
+        notifications: initialCartState.notifications || [],
+    },
     mutations
 };

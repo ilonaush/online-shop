@@ -1,11 +1,11 @@
 <template>
     <ul class="filter-list">
         <li
-                v-for="filter in filters"
+                v-for="filter in availableFilters"
                 :key="filter.name"
                 class="filter-section"
                 @click=""
-        >
+            >
                 <div>{{filter.title}}</div>
                 <div>
                     <div v-for="filterOption in filter.options">
@@ -13,7 +13,9 @@
                         <label>{{filterOption}}</label>
                     </div>
                 </div>
-
+                <div class="availableItems">
+                    {{filter.availableItems}}
+                </div>
         </li>
     </ul>
 </template>
@@ -22,25 +24,27 @@
     import {createNamespacedHelpers} from "vuex";
     import Vue from "vue";
     import {Prop, Component, Watch} from "vue-property-decorator";
-    import {Route, RawLocation} from "vue-router";
 
-    const { mapMutations} = createNamespacedHelpers("filterModule/");
+    const { mapMutations, mapGetters} = createNamespacedHelpers("filterModule/");
 
     @Component({
+        computed: {
+            ...mapGetters(["availableFilters"]),
+        },
         methods: {
             ...mapMutations(["setSelectedFilters"])
         }
     })
     export default class FilterNavigation extends Vue {
-        @Prop(Array) filters!: object[];
         @Prop(Boolean) shouldResetFilter!: boolean;
         setSelectedFilters!: (filterArr: object) => void;
         selectedFilters: string[] = [];
+        filters: object[] = [];
 
         @Watch("selectedFilters")
         fireFilteringProducts(filterArr: string[]) {
             const filterObj = filterArr.reduce<{[key: string]: string[]}>((acc, nextValue) => {
-                const [filter="", option]: string[] = nextValue.split(".");
+                const [filter = "", option]: string[] = nextValue.split(".");
                 acc[filter] = [...(acc[filter] ? acc[filter] : []), option];
                 return acc;
             }, {});
@@ -52,9 +56,6 @@
         resetFilter() {
             this.selectedFilters = [];
         }
-
-
-
     }
 </script>
 

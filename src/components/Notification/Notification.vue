@@ -7,12 +7,11 @@
 
 <script lang="ts">
     import {Component, Vue, Watch} from "vue-property-decorator";
-    import {createNamespacedHelpers, mapMutations} from "vuex";
+    import {createNamespacedHelpers} from "vuex";
     import VButton from "@/components/VButton/VButton.vue";
     import {MODAL_TYPE} from "@/store/enums";
-    import {Notification} from "@/interfaces";
-    import {Notification} from "../../interfaces";
-    import INotification = Notification.INotification;
+    import {Notification as NotificationService} from "@/interfaces";
+    import {openModal} from "@/views/RouteService";
 
     const { mapMutations: mapCartMutations } = createNamespacedHelpers("cartModule/");
 
@@ -22,10 +21,10 @@
         },
         methods: {
             ...mapCartMutations(["deleteFirstNotification"]),
-            ...mapMutations(["openModal"])
+            openModal: openModal
         },
     })
-    export default class Notification extends Vue implements INotification {
+    export default class Notification extends Vue implements NotificationService.INotification {
         message: string = "";
         timer: number = 0;
         deleteFirstNotification!: () => void;
@@ -62,7 +61,9 @@
     border 1px solid pink
     background-color white
     position absolute
-    bottom 50%
+    bottom 10%
+    border-radius 10px
+    padding 15px
     transform translateY(-50%)
     right 0
     z-index 999

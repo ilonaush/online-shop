@@ -6,12 +6,18 @@ export interface IStore {
 }
 
 export interface IFiltersModuleState {
-    filters: object[];
+    filters: IFilter[];
     selectedFilters: Record<FilterType, string[]>;
+}
+export interface IFilter {
+    id: number;
+    name: string;
+    title: string;
+    options: string[];
 }
 
 export interface IFilterModuleMutations {
-    setFilters: object[];
+    setFilters: IFilter[];
     setSelectedFilters: Record<FilterType, string[]>;
 }
 
@@ -20,13 +26,17 @@ export interface IFilterModuleActions {
     getFilters: {};
 }
 
+export interface IFilterModuleGetters {
+    availableFilters: any;
+}
+
 export interface IProductsModuleState {
     products: Product.IProduct[];
     activeCategory: string;
 }
 
 export interface IProductsModuleMutations {
-    setProducts:  Product.IProduct[];
+    setProducts: Product.IProduct[];
     setActiveCategory: string;
 }
 
@@ -63,15 +73,5 @@ export interface ICartModuleMutations {
 
 export interface ICartModuleGetters {
     generalPrice: number;
-}
-
-export interface IModalModuleState {
-    showModal: boolean;
-    activeModal: MODAL_TYPE | null;
-}
-
-export interface IModalModuleMutations {
-    openModal: MODAL_TYPE;
-    closeModal: void;
-
+    generalQuantity: number;
 }

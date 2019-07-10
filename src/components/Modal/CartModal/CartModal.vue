@@ -4,7 +4,7 @@
             <template v-slot:header>Cart</template>
             <template v-slot:body>
                 <div v-if="items.length > 0">
-                    <product-cart-item  v-for="cartItem in items" :cartItem="cartItem"/>
+                    <product-cart-item  :key="cartItem.id" v-for="cartItem in items" :cartItem="cartItem"/>
                 </div>
                 <div v-else>Cart is empty</div>
             </template>
@@ -26,11 +26,11 @@
 <script lang="ts">
     import { Component, Vue } from "vue-property-decorator";
     import {createNamespacedHelpers, mapMutations} from "vuex";
-    import ProductCartItem from "@/components/Cart/ProductCartItem/ProductCartItem.vue";
+    import ProductCartItem from "@/components/ProductCartItem/ProductCartItem.vue";
     import Modal from "../Modal.vue";
     import VButton from "@/components/VButton/VButton.vue";
     import {ICartModuleState} from "@/store/interfaces";
-    import {modalMixin} from "../../../mixins/ModalMixin";
+    import {closeModal} from "@/views/RouteService";
 
     const { mapState: mapCartState, mapGetters} = createNamespacedHelpers("cartModule/");
 
@@ -40,7 +40,6 @@
             Modal,
             VButton
         },
-        mixins: [modalMixin],
         computed: {
             ...mapCartState<ICartModuleState>({
                 items: state => state.items,
@@ -48,7 +47,7 @@
             ...mapGetters(['generalPrice'])
         },
         methods: {
-            ...mapMutations(["closeModal"])
+            closeModal: closeModal
         }
     })
     export default class Cart extends Vue {

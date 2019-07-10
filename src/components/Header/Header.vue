@@ -14,10 +14,10 @@
         </v-button>
         <div class="cart-icon">
             <font-awesome-icon :icon="['fas', 'shopping-cart']" size="2x"/>
-            <span class="cart-quantity">{{quantity}}</span>
+            <span class="cart-quantity">{{generalQuantity}}</span>
             <div class="cart-info">
-                <span v-if="quantity > 0">
-                    There is {{quantity}} {{ 'item' | pluralize(quantity) }}  for {{generalPrice}} $
+                <span v-if="generalQuantity > 0">
+                    There is {{generalQuantity}} {{ 'item' | pluralize(generalQuantity) }}  for {{generalPrice}} $
                     <router-link :to="{name: 'checkout'}">Check out</router-link>
                      <span class="line"></span>
                     <v-button color="primary" v-on:click="openModal(modalType.cart)">Go to cart</v-button>
@@ -35,21 +35,18 @@
     import {createNamespacedHelpers, mapMutations} from "vuex";
     import Notification from "@/components/Notification/Notification.vue";
     import VButton from "@/components/VButton/VButton";
-    import {ICartModule} from "@/store/interfaces";
     import {MODAL_TYPE} from "@/store/enums";
+    import {openModal} from "@/views/RouteService";
 
     const { mapState, mapGetters } = createNamespacedHelpers("cartModule/");
 
     @Component({
         components: {Notification, VButton},
         computed: {
-            ...mapState<ICartModule>({
-                quantity: state => state.quantity,
-            }),
-            ...mapGetters(["generalPrice"]),
+            ...mapGetters(["generalPrice", "generalQuantity"]),
         },
         methods: {
-            ...mapMutations(['openModal'])
+           openModal
         }
     })
     export default class Header extends Vue {

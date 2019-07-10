@@ -9,7 +9,7 @@
 
 <script lang="ts">
     import {Component, Vue} from "vue-property-decorator";
-    import ProductCard from "../Product/ProductCard.vue";
+    import ProductCard from "../ProductCard/ProductCard.vue";
 
     @Component({
         components: {ProductCard},

@@ -15,11 +15,11 @@
                     {{cartItem.price}} $
                 </div>
                 <div class="cart-item_controls">
-                    <button @click="decrementQuantity">-</button>
-                    <input type="text"
+                    <button @click="itemQuantity--">-</button>
+                    <input type="number"
                            v-model.number="itemQuantity"
                            v-on:change="setQuantity">
-                    <button @click="incrementQuantity">+</button>
+                    <button @click="itemQuantity++">+</button>
                 </div>
             </div>
         </div>
@@ -30,35 +30,28 @@
 </template>
 
 <script lang="ts">
-    import { Component, Vue, Prop } from "vue-property-decorator";
-    import {IProduct} from "@/components/Product/interfaces";
+    import {Component, Vue, Prop, Watch} from "vue-property-decorator";
+    import {IProduct} from "@/components/ProductCard/interfaces";
     import {ICartItem} from "@/store/interfaces";
 
-    @Component({
-
-    })
+    @Component({})
     export default class ProductCartItem extends Vue {
-       @Prop({type: Object as () => ICartItem}) cartItem!: ICartItem;
+        @Prop({type: Object as () => ICartItem}) cartItem!: ICartItem;
 
-       itemQuantity: number = this.cartItem.quantity || 0;
+        itemQuantity: number = this.cartItem.quantity || 0;
 
-       incrementQuantity() {
-           this.itemQuantity++;
-           this.$store.commit("cartModule/setCartItemQty", {id: this.cartItem.id, quantity:+1});
-       }
+        @Watch("itemQuantity")
+        setQuantity() {
+            if (this.itemQuantity > 0) {
+                this.$store.commit("cartModule/setCartItemQty", {id: this.cartItem.id, quantity: this.itemQuantity});
+            } else {
+                this.removeCartItem();
+            }
+        }
 
-       setQuantity() {
-           this.$store.commit("cartModule/setCartItemQty", {id: this.cartItem.id, quantity: this.itemQuantity, replace: true})
-       }
-
-       decrementQuantity() {
-           this.itemQuantity--;
-           this.$store.commit("cartModule/setCartItemQty", {id: this.cartItem.id, quantity: -1});
-       }
-
-       removeCartItem() {
-           this.$store.commit("cartModule/deleteItemFromCart", this.cartItem.id);
-       }
+        removeCartItem() {
+            this.$store.commit("cartModule/deleteItemFromCart", this.cartItem.id);
+        }
     }
 </script>
 
@@ -68,32 +61,56 @@
         border-color gray
         position relative
         padding 5px
+
     .cart-item_remove
         position absolute
         left 0
         top 0
+
     .cart-item_img
         width 150px
+
         img
             max-width 100%
+
     .cart-item_info
         padding 0 5px
         width 400px
+
     .cart-item_details
         display flex
         margin-top 5px
+
     .cart-item_price
         margin-right 5px
+
     .cart-item_controls
         button
             width 20px
             text-align center
             padding 1px 0
+
         input
             width 35px
             text-align center
+            border-radius: 3px;
+            flex: 1 0;
+            vertical-align: top;
+            // Firefox-specific hack
+            -moz-appearance: textfield;
+
+            &::-webkit-inner-spin-button
+            &::-webkit-outer-spin-button
+                -webkit-appearance: none;
+                margin: 0;
+
+            &:focus
+                outline: 0;
+                box-shadow: 0 0 0 0.2rem $link-color;
+
     .cart-item_title
         max-width 250px
+
     .cart-item-total_sum
         margin-left auto
         text-align right

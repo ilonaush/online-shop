@@ -10,7 +10,7 @@
 <script lang="ts">
     import {Component, Vue} from "vue-property-decorator";
     import {createNamespacedHelpers} from "vuex";
-    import CustomInput from "@/components/CustomInput/CustomInput";
+    import CustomInput from "@/components/CustomInput/CustomInput.vue";
     import VButton from "@/components/VButton/VButton.vue";
     const { mapState, mapGetters } = createNamespacedHelpers("cartModule/");
 

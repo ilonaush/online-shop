@@ -17,6 +17,7 @@ export namespace Product {
         shipping: DELIVERY_TERMS;
         mainImage: string;
         healthFeature: string[];
+        filters: number[];
     }
 
      export interface IReview {

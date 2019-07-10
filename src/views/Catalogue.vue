@@ -1,6 +1,6 @@
 <template>
     <div class="catalogue-page">
-        <filter-navigation :shouldResetFilter="shouldResetFilter" :filters="filters"/>
+        <filter-navigation :shouldResetFilter="shouldResetFilter"/>
         <product-list :products="filteredProducts"/>
     </div>
 </template>
@@ -31,9 +31,6 @@
             FilterNavigation,
         },
         computed: {
-            ...filterState<IFiltersModuleState>({
-                filters: (state) => state.filters,
-            }),
             ...productState<IProductsModuleState>({
                 products: (state) => state.products,
             }),

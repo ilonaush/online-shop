@@ -7,7 +7,7 @@
                 <button
                         type="button"
                         class="btn-close"
-                        @click="close"
+                        @click="closeModal"
                 >
                     x
                 </button>
@@ -27,10 +27,12 @@
 <script lang="ts">
     import Vue from "vue";
     import {Component} from "vue-property-decorator";
-    import {modalMixin} from "../../mixins/ModalMixin";
+    import {closeModal} from "@/views/RouteService";
 
     @Component({
-        mixins: [modalMixin]
+        methods: {
+            closeModal: closeModal
+        }
     })
     export default  class Modal extends  Vue {
     }
@@ -47,6 +49,7 @@
         display: flex
         justify-content: center
         align-items: center
+        z-index 999
 
     .modal
         background: #FFFFFF
@@ -54,6 +57,7 @@
         overflow-x: auto
         display: flex
         flex-direction: column
+        padding 20px
 
 
     .modal-header
@@ -76,6 +80,8 @@
     .modal-body
         position: relative
         padding: 15px
+        max-height 200px
+        overflow-y auto
 
     .btn-close
         border: none

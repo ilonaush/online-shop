@@ -1,5 +1,5 @@
 <template functional>
-    <button v-on:click="listeners.click || null" v-on:submit="listeners.submit || null" :class="['btn', props.color]">
+    <button v-on:click="listeners.click" :class="['btn', props.color]">
         <slot></slot>
     </button>
 </template>

@@ -1,16 +1,19 @@
 {
   "filters": [
     {
+      "id": 1,
       "name": "animalType",
       "title": "Animal Type",
       "options": ["Cat", "Dog"]
     },
     {
+      "id": 2,
       "name": "healthFeature",
       "title": "Health",
       "options": ["Weight Management", "Grain Free", "Digestive Care", "Skin & Coat Care"]
     },
     {
+      "id": 3,
       "name": "brand",
       "title": "Brand",
       "options": ["Cesar", "Grain Free", "Digestive Care", "Skin & Coat Care"]

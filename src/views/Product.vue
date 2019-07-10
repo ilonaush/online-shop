@@ -20,7 +20,8 @@
                             {{product.oldPrice}} $
                             </span>
                         </div>
-                        <v-button color="primary">Add to cart</v-button>
+                        <v-button v-if="!isInCart" color="primary" v-on:click="handleAddToCartClick">Add to cart</v-button>
+                        <div v-else>added</div>
                     </div>
                 </div>
             </tab>
@@ -70,7 +71,14 @@
             ...mapCartMutations(["addItemToCart"])
         }
     })
-    export default class Product extends Vue {
+    export default class ProductPage extends Vue {
+        addItemToCart!: (item: {id: number, name: string, price: number, mainImage: string}) => void;
+
+        get isInCart() {
+            return !!this.$store.state["cartModule"].items.find((product : IProduct) => {
+                return product.id === +this.$route.params["product"]
+            })
+        }
         get product(): IProduct {
             return this.$store.state["productsModule"].products.find((product : IProduct) => {
                 return product.id === +this.$route.params["product"]
@@ -90,6 +98,15 @@
                     value: this.product.category
                 },
             ]
+        }
+
+        handleAddToCartClick() {
+            this.addItemToCart({
+                id: this.product.id,
+                name: this.product.name,
+                price: this.product.price,
+                mainImage: this.product.mainImage
+            });
         }
 
 
