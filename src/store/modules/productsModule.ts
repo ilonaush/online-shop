@@ -18,15 +18,20 @@ const getters: DefineGetters<IProductsModuleGetters, IProductsModuleState> = {
         const selectedFilters = rootState.filterModule.selectedFilters;
         if (Object.keys(selectedFilters).length) {
             return getters[state.activeCategory as CategoryType].filter((product: IProduct) => {
+                let shouldBeIncluded = [];
                 for (const filter in selectedFilters) {
+                    console.log(filter, selectedFilters);
+                    debugger;
                     if (!product.hasOwnProperty(filter) && selectedFilters.hasOwnProperty(filter)) {
-                        return false;
+                        shouldBeIncluded.push(false);
                     } else {
-                        return selectedFilters[filter].every((x: FilterType) => {
+                        const someFiltersSelected =  selectedFilters[filter].some((x: FilterType) => {
                             return product[filter as FilterType].includes(x);
                         });
+                        shouldBeIncluded.push(someFiltersSelected);
                     }
                 }
+                return shouldBeIncluded.every((iterationResult) => !!iterationResult);
 
             });
         } else {

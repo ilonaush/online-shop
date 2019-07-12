@@ -9,12 +9,12 @@
                 <div>{{filter.title}}</div>
                 <div>
                     <div v-for="filterOption in filter.options">
-                        <input type="checkbox" :value="`${filter.name}.${filterOption}`" v-model="selectedFilters">
-                        <label>{{filterOption}}</label>
+                        <input type="checkbox" :disabled="filterOption.availableItems === 0" :value="`${filter.name}.${filterOption.value}`" v-model="selectedFilters">
+                        <label :class="{disabledOption: filterOption.availableItems === 0 }">{{filterOption.value}}</label>
+                        <span v-if="!filterOption.isInFilter && filterOption.availableItems !== 0">
+                            <span v-if="filterOption.filterTypeSelected">+</span>{{filterOption.availableItems}}
+                        </span>
                     </div>
-                </div>
-                <div class="availableItems">
-                    {{filter.availableItems}}
                 </div>
         </li>
     </ul>
@@ -71,4 +71,7 @@
         .v-list__tile
             flex-direction column
             height auto
+
+    .disabledOption
+        color grey
 </style>

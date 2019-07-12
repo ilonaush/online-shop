@@ -4,6 +4,7 @@
              :key="product.id">
             <product-card :product="product"></product-card>
         </div>
+        <div v-if="!products.length">По заданным параметрам не найдена ни одна модель</div>
     </div>
 </template>
 

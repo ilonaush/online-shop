@@ -7,7 +7,7 @@ export interface IStore {
 
 export interface IFiltersModuleState {
     filters: IFilter[];
-    selectedFilters: Record<FilterType, string[]>;
+    selectedFilters: Record<string, string[]>;
 }
 export interface IFilter {
     id: number;

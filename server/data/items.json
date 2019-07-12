@@ -23,6 +23,7 @@
       "availableCount": [1, 2, 6, 24],
       "shipping": "2-day delivery",
       "mainImage": "https://s7d2.scene7.com/is/image/PetSmart/5110141?$sclp-prd-main_large$",
+      "healthFeature": ["Weight Management","Digestive Care"],
       "filters": [1, 2, 3, 4, 5, 6]
     },{
       "id": 7,
@@ -136,6 +137,7 @@
       "oldPrice": 50,
       "name": "Wild",
       "rating": 5,
+
       "reviews": [
         {
           "id": 1,
