@@ -1,6 +1,6 @@
 <template>
-    <div class="product-list">
-        <div class="product-card-holder" v-for="product in products"
+    <div :class="['product-list', className]">
+        <div :class="['product-card-holder', className]" v-for="product in products"
              :key="product.id">
             <product-card :product="product"></product-card>
         </div>
@@ -12,12 +12,13 @@
     import {Component, Vue} from "vue-property-decorator";
     import ProductCard from "../ProductCard/ProductCard.vue";
 
-    @Component({
-        components: {ProductCard},
-    })
     export default  Vue.extend({
         props: {
-            products: Array
+            products: Array,
+            className: {
+                type: String,
+                default: "grid"
+            }
         },
         components: {
             ProductCard
@@ -41,9 +42,23 @@
         display flex
         width  100%
         flex-wrap wrap
+
+        &.grid
+            display flex
+            width  100%
+            flex-wrap wrap
+            margin-left: -20px
+
+            .product-card-holder
+                width calc(100% / 3)
+        &.list
+            .product-card-holder
+                width 100%
+                height 340px
+
+
     .product-card-holder
-        margin 5px
-        height 430px
-        width 30%
+        height 490px
+        box-sizing border-box
 </style>
 

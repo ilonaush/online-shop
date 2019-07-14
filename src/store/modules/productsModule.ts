@@ -6,27 +6,33 @@ import {
     IProductsModuleMutations,
     IProductsModuleState, IStore,
 } from "@/store/interfaces";
-import {CategoryType, FilterType} from "@/store/types";
+import {CategoryType} from "@/store/types";
 import RequestService from "@/services/RequestService";
-import {ActionContext, DefineActions, DefineGetters, DefineMutations} from "vuex-type-helper";
+import {ActionContext, DefineGetters, DefineMutations} from "vuex-type-helper";
 import {Product} from "@/interfaces";
 import IProduct = Product.IProduct;
 import {ActionTree, Module} from "vuex";
+import CATEGORY = Product.CATEGORY;
 
 const getters: DefineGetters<IProductsModuleGetters, IProductsModuleState> = {
     filteredProducts: (state, getters, rootState) => {
         const selectedFilters = rootState.filterModule.selectedFilters;
+        console.log(selectedFilters.length, "selected filters");
         if (Object.keys(selectedFilters).length) {
-            return getters[state.activeCategory as CategoryType].filter((product: IProduct) => {
-                let shouldBeIncluded = [];
+            return getters[state.activeCategory as  CategoryType].filter((product: IProduct) => {
+                const shouldBeIncluded = [];
                 for (const filter in selectedFilters) {
-                    console.log(filter, selectedFilters);
-                    debugger;
                     if (!product.hasOwnProperty(filter) && selectedFilters.hasOwnProperty(filter)) {
                         shouldBeIncluded.push(false);
                     } else {
-                        const someFiltersSelected =  selectedFilters[filter].some((x: FilterType) => {
-                            return product[filter as FilterType].includes(x);
+                        const someFiltersSelected =  selectedFilters[filter].every((x: any) => {
+                            if (product[filter as keyof IProduct]) {
+                                const productFilter = product[filter as keyof IProduct] || [];
+                                console.log(productFilter);
+                                if (typeof productFilter !== "number") {
+                                    return productFilter.includes(x);
+                                }
+                            }
                         });
                         shouldBeIncluded.push(someFiltersSelected);
                     }
@@ -41,14 +47,11 @@ const getters: DefineGetters<IProductsModuleGetters, IProductsModuleState> = {
     promotionProducts: (state) => {
         return state.products.filter((product: IProduct) => product.oldPrice);
     },
-    food: (state) => {
-        return state.products.filter((product) => product.category === "food");
+    indoor: (state) => {
+        return state.products.filter((product) => product.category === CATEGORY.indoor);
     },
-    toys: (state) => {
-        return state.products.filter((product) => product.category === "toys");
-    },
-    bath: (state) => {
-        return state.products.filter((product) => product.category === "bath");
+    outdoor: (state) => {
+        return state.products.filter((product) => product.category === CATEGORY.outdoor);
     },
 };
 

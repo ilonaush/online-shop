@@ -1,5 +1,5 @@
-export type FilterType = "brand" | "healthFeature" | "animalType";
+import {Product} from "@/interfaces";
 
-export type CategoryType = "toys" | "bath" | "food";
+export type CategoryType = "indoor";
 
 export type ModuleType = "filterModule" | "productsModule"  | "cartModule";

@@ -1,5 +1,5 @@
 <template functional>
-    <button v-on:click="listeners.click" :class="['btn', props.color]">
+    <button v-on:click="listeners.click" :class="['btn', props.color, props.btnStyle, props.class]">
         <slot></slot>
     </button>
 </template>
@@ -30,4 +30,7 @@
         &.primary
             background-color $lighten-4
             border none
+        &.outline
+            background-color white
+            border 2px solid  $lighten-4
 </style>

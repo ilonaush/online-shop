@@ -48,10 +48,12 @@
 
 <style lang="stylus">
     .tabs-menu
-        margin 0
-        padding 0
+        margin 10px 0
+        padding 10px
+        background-color whitesmoke
         li
             display inline
             padding-right 10px
+
 </style>
 

@@ -1,7 +1,10 @@
 <template>
     <div class="catalogue-page">
-        <filter-navigation :shouldResetFilter="shouldResetFilter"/>
-        <product-list :products="filteredProducts"/>
+        <filter-navigation :shouldResetFilter="shouldResetFilter" :filters="filters"/>
+        <div class="product-list_holder">
+            <sorting v-on:viewChange="setView"></sorting>
+            <product-list :className="view" :products="filteredProducts"/>
+        </div>
     </div>
 </template>
 
@@ -10,9 +13,9 @@
     import {createNamespacedHelpers} from "vuex";
     import { Component, Vue } from "vue-property-decorator";
     import ProductList from "@/components/ProductList/ProductList.vue";
-    import {IStore} from "@/store/interfaces";
+    import Sorting from "@/components/Sorting/Sorting.vue";
     import {Route, RawLocation} from "vue-router";
-    import {IFiltersModuleState, IProductsModuleState} from "../store/interfaces";
+    import {IFiltersModuleState, IProductsModuleState} from "@/store/interfaces";
 
     const { mapState: filterState } = createNamespacedHelpers("filterModule/");
     const { mapState: productState, mapGetters, mapMutations } = createNamespacedHelpers("productsModule/");
@@ -29,8 +32,12 @@
         components: {
             ProductList,
             FilterNavigation,
+            Sorting
         },
         computed: {
+            ...filterState<IFiltersModuleState>({
+                filters: (state) => state.filters,
+            }),
             ...productState<IProductsModuleState>({
                 products: (state) => state.products,
             }),
@@ -43,6 +50,8 @@
     export default class Catalogue extends Vue implements ICatalogue{
         setActiveCategory!: (category: string)=> void;
         shouldResetFilter = false;
+        view: string = "grid";
+
         created() {
             this.setActiveCategory(this.$route.params.category);
         }
@@ -51,6 +60,10 @@
             this.setActiveCategory(to.params.category);
             this.shouldResetFilter = true;
             next();
+        }
+
+        setView(view: string) {
+            this.view = view;
         }
 
     }
@@ -63,8 +76,7 @@
         display flex
         height 100%
         padding $page-padding
-        .v-expansion-panel
-            width 30%
-        .v-tabs
-            flex-grow 1
+
+    .product-list_holder
+        width 100%
 </style>

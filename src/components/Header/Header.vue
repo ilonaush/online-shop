@@ -1,13 +1,13 @@
 <template>
     <div class="header">
         <router-link class="logo-icon" to="/">
-            <font-awesome-icon :icon="['fas', 'paw']" size="2x"/>
+            <img src="../../assets/images/flora-flower.svg" alt="">
         </router-link>
-        <h4>Online Pet Shop</h4>
+        <h4>Flora</h4>
         <v-button color="primary" class="catalogue-btn" v-on:click="isCatalogueListShown = !isCatalogueListShown">
             Catalogue
             <div v-if="isCatalogueListShown" class="catalogue-list">
-                <router-link v-for="item in menuItems" :to="{ name: 'catalogue', params: { category: item.toLowerCase() }}">
+                <router-link v-for="item in menuItems" :to="{ name: 'catalogue', params: { category: item.split(' ')[0].toLowerCase() }}">
                     {{item}}
                 </router-link>
             </div>
@@ -51,7 +51,7 @@
     })
     export default class Header extends Vue {
         isCatalogueListShown: boolean = false;
-        menuItems: string[] = ["Food", "Toys", "Bath"];
+        menuItems: string[] = ["Indoor plants", "Outdoor plants"];
         modalType = MODAL_TYPE;
     }
 </script>
@@ -71,8 +71,9 @@
     .logo-icon
         display flex
         align-items center
-        color black
         padding 0 10px
+        width 50px
+        color white
 
 
     .catalogue-list

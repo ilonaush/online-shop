@@ -4,19 +4,17 @@ import {AxiosInstance} from "axios";
 export namespace Product {
      export interface IProduct {
         id: number;
-        animalType: ANIMAL_TYPE;
-        category: string;
-        brand: string;
+        availableFlowerType: string[];
+        category: CATEGORY;
+        remnants: number;
+        colors: string[];
+        sizes: string[];
         name: string;
         rating: number;
         reviews: IReview[];
         price: number;
         oldPrice?: number;
-        quantity: number;
-        availableCount: number[];
-        shipping: DELIVERY_TERMS;
-        mainImage: string;
-        healthFeature: string[];
+        images: string [];
         filters: number[];
     }
 
@@ -29,13 +27,9 @@ export namespace Product {
         disadvantages: string;
     }
 
-    enum DELIVERY_TERMS {
-        "2-day" = "2-day delivery"
-    }
-
-     enum ANIMAL_TYPE {
-        dog = "DOG",
-        cat= "CAT"
+    export enum CATEGORY {
+        indoor = 1,
+        outdoor
     }
 }
 

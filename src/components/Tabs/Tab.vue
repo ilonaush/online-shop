@@ -1,5 +1,5 @@
 <template>
-    <div v-show="isActive">
+    <div :class="className" v-show="isActive">
         <slot></slot>
     </div>
 </template>
@@ -13,6 +13,7 @@
     export default class Tab extends Vue {
         @Prop(String) name!: string;
         @Prop(Boolean) defaultSelected!: boolean;
+        @Prop(String) className!: string;
         isActive: boolean = false;
 
         get href() {

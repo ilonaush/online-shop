@@ -1,16 +1,20 @@
 
-$font_path = "~@/assets/";
+$font_path = "~@/assets/fonts";
 
 @font-face
-  font-family RobotoRegular
-  src url($font_path + "/Roboto-Regular.ttf")
+  font-family Ubuntu
+  src url($font_path + "/Ubuntu-Regular.ttf")
 
 
-$font = RobotoRegular;
+$font = Ubuntu;
 
 $lighten-4 = #F8BBD0;
 $lighten-3 = #F48FB1;
 $lighten-2 = #F06292;
+$milk = #f7f7f7;
+$primary =#444;
+$link-color = $lighten-2;
+$red-color = #E84C3D;
 
 $page-padding = 10px 30px;
 
@@ -18,4 +22,5 @@ $page-padding = 10px 30px;
   font-family $font
 body
   margin 0
+  color $primary
   padding 0

@@ -2,12 +2,15 @@
   "items": [
     {
       "id": 1,
-      "category": "food",
-      "animalType": "Cat",
-      "brand": "Cesar",
-      "name": "Taste of the Wild High Prairie Canine Recipe with Roasted Bison and Roasted Venison Grain-Free Dry Dog Food, 28 Lb,",
+      "category": 1,
+      "availableFlowerType": ["roses", "daisies", "lilies"],
+      "name": "Autumn basket",
+      "remnants": 100,
       "rating": 4,
-      "oldPrice": 50,
+      "oldPrice": 24.00,
+      "sizes": ["standard", "premium", "deluxe"],
+      "colors": ["#E84C3D", "#FCCACD"],
+      "description": "What do we do when we want to show our thankfulness? We send a card, a gift or something like that. But the most traditional thing that we do is to present flowers. They are a universal gift and believe us - even if you are not a fan, it doesn’t matter because it is very pleasant to receive flowers.",
       "reviews": [
         {
           "id": 1,
@@ -18,21 +21,24 @@
           "mark": 1
         }
       ],
-      "price": 9.48,
-      "quantity": "12",
-      "availableCount": [1, 2, 6, 24],
-      "shipping": "2-day delivery",
-      "mainImage": "https://s7d2.scene7.com/is/image/PetSmart/5110141?$sclp-prd-main_large$",
-      "healthFeature": ["Weight Management","Digestive Care"],
-      "filters": [1, 2, 3, 4, 5, 6]
+      "price": 19.20,
+      "images": ["https://ld-prestashop.template-help.com/prestashop_60010/img/p/2/4/24-tm_large_default.jpg",
+        "https://ld-prestashop.template-help.com/prestashop_60010/img/p/2/5/25-tm_large_default.jpg",
+        "https://ld-prestashop.template-help.com/prestashop_60010/img/p/2/6/26-tm_large_default.jpg",
+        "https://ld-prestashop.template-help.com/prestashop_60010/img/p/2/7/27-tm_large_default.jpg",
+        "https://ld-prestashop.template-help.com/prestashop_60010/img/p/2/8/28-tm_large_default.jpg"]
     },{
-      "id": 7,
-      "category": "food",
-      "animalType": "Dog",
-      "brand": "Cesar",
-      "name": "Taste of the Wild High Prairie Canine Recipe with Roasted Bison and Roasted Venison Grain-Free Dry Dog Food, 28 Lb,",
+      "id": 2,
+      "category": 1,
+      "availableFlowerType": ["roses", "daisies", "lilies"],
+      "name": "AUTUMN SHADES PERFECT GIFT",
+      "remnants": 100,
       "rating": 4,
-      "oldPrice": 50,
+      "oldPrice": 40.00,
+      "description": "What do we do when we want to show our thankfulness? We send a card, a gift or something like that. But the most traditional thing that we do is to present flowers. They are a universal gift and believe us - even if you are not a fan, it doesn’t matter because it is very pleasant to receive flowers.",
+
+      "sizes": ["standard", "premium", "deluxe"],
+      "colors": ["#E84C3D", "#FCCACD"],
       "reviews": [
         {
           "id": 1,
@@ -43,22 +49,23 @@
           "mark": 1
         }
       ],
-      "price": 9.48,
-      "quantity": "12",
-      "availableCount": [1, 2, 6, 24],
-      "shipping": "2-day delivery",
-      "mainImage": "https://s7d2.scene7.com/is/image/PetSmart/5110141?$sclp-prd-main_large$",
-      "healthFeature": ["Weight Management","Digestive Care", "Skin & Coat Care"],
-      "filters": [1, 2, 3, 4, 5, 6]
-
+      "price": 32.20,
+      "images": ["https://ld-prestashop.template-help.com/prestashop_60010/img/p/3/1/31-tm_large_default.jpg",
+        "https://ld-prestashop.template-help.com/prestashop_60010/img/p/3/0/30-tm_large_default.jpg",
+        "https://ld-prestashop.template-help.com/prestashop_60010/img/p/2/9/29-tm_large_default.jpg",
+        "https://ld-prestashop.template-help.com/prestashop_60010/img/p/3/2/32-tm_large_default.jpg",
+        "https://ld-prestashop.template-help.com/prestashop_60010/img/p/3/3/33-tm_large_default.jpg"]
     },{
-      "id": 6,
-      "category": "food",
-      "animalType": "Dog",
-      "brand": "Cesar",
-      "name": "Taste of the Wild High Prairie Canine Recipe with Roasted Bison and Roasted Venison Grain-Free Dry Dog Food, 28 Lb,",
+      "id": 3,
+      "category": 1,
+      "availableFlowerType": ["Roses", "Daisies", "Tulips"],
+      "name": "BABY-BOY PERFECT GIFT",
+      "remnants": 100,
       "rating": 4,
-      "oldPrice": 50,
+      "oldPrice": 35.00,
+      "sizes": ["standard", "premium", "deluxe"],
+      "colors": ["#ffffff", "#5D9CEC"],
+      "description": "What do we do when we want to show our thankfulness? We send a card, a gift or something like that. But the most traditional thing that we do is to present flowers. They are a universal gift and believe us - even if you are not a fan, it doesn’t matter because it is very pleasant to receive flowers.",
       "reviews": [
         {
           "id": 1,
@@ -69,22 +76,52 @@
           "mark": 1
         }
       ],
-      "price": 9.48,
-      "quantity": "12",
-      "availableCount": [1, 2, 6, 24],
-      "shipping": "2-day delivery",
-      "mainImage": "https://s7d2.scene7.com/is/image/PetSmart/5110141?$sclp-prd-main_large$",
-      "healthFeature": ["Weight Management","Digestive Care", "Skin & Coat Care"],
-      "filters": [1, 2, 3, 4, 5, 6]
-
+      "price": 28.20,
+      "images": ["https://ld-prestashop.template-help.com/prestashop_60010/img/p/3/4/34-tm_large_default.jpg",
+        "https://ld-prestashop.template-help.com/prestashop_60010/img/p/3/5/35-tm_large_default.jpg",
+        "https://ld-prestashop.template-help.com/prestashop_60010/img/p/3/6/36-tm_large_default.jpg",
+        "https://ld-prestashop.template-help.com/prestashop_60010/img/p/3/7/37-tm_large_default.jpg",
+        "https://ld-prestashop.template-help.com/prestashop_60010/img/p/3/8/38-tm_large_default.jpg",
+        "https://ld-prestashop.template-help.com/prestashop_60010/img/p/3/9/39-tm_large_default.jpg"
+      ]
+    },{
+      "id": 4,
+      "category": 1,
+      "availableFlowerType": ["Roses", "Daisies", "Lilies"],
+      "name": "FAIRTRADE GOLDEN AUTUMN HAND TIED",
+      "remnants": 100,
+      "description": "What do we do when we want to show our thankfulness? We send a card, a gift or something like that. But the most traditional thing that we do is to present flowers. They are a universal gift and believe us - even if you are not a fan, it doesn’t matter because it is very pleasant to receive flowers.",
+      "rating": 4,
+      "oldPrice": 20.00,
+      "sizes": ["standard", "premium", "deluxe"],
+      "colors": ["#E84C3D", "#f1c40f"],
+      "reviews": [
+        {
+          "id": 1,
+          "reviewerName": "Anna",
+          "reviewText": "Meow",
+          "advantages": "Meow",
+          "disadvantages": "Meow",
+          "mark": 1
+        }
+      ],
+      "price": 16.00,
+      "images": ["https://ld-prestashop.template-help.com/prestashop_60010/img/p/4/0/40-tm_large_default.jpg",
+        "https://ld-prestashop.template-help.com/prestashop_60010/img/p/4/1/41-tm_large_default.jpg",
+        "https://ld-prestashop.template-help.com/prestashop_60010/img/p/4/2/42-tm_large_default.jpg",
+        "https://ld-prestashop.template-help.com/prestashop_60010/img/p/4/3/43-tm_large_default.jpg",
+        "https://ld-prestashop.template-help.com/prestashop_60010/img/p/4/4/44-tm_large_default.jpg"
+      ]
     },{
       "id": 5,
-      "category": "food",
-      "animalType": "Dog",
-      "brand": "Cesar",
-      "name": "Taste of the Wild High Prairie Canine Recipe with Roasted Bison and Roasted Venison Grain-Free Dry Dog Food, 28 Lb,",
+      "category": 1,
+      "availableFlowerType": ["Roses", "Daisies", "Lilies"],
+      "name": "HAPPY BIRTHDAY AUTUMN BRIGHTS GLOBE",
+      "remnants": 100,
       "rating": 4,
-      "oldPrice": 50,
+      "description": "What do we do when we want to show our thankfulness? We send a card, a gift or something like that. But the most traditional thing that we do is to present flowers. They are a universal gift and believe us - even if you are not a fan, it doesn’t matter because it is very pleasant to receive flowers.",
+      "sizes": ["standard", "premium", "deluxe"],
+      "colors": ["#E84C3D", "#f1c40f"],
       "reviews": [
         {
           "id": 1,
@@ -95,21 +132,24 @@
           "mark": 1
         }
       ],
-      "price": 9.48,
-      "quantity": "12",
-      "availableCount": [1, 2, 6, 24],
-      "shipping": "2-day delivery",
-      "mainImage": "https://s7d2.scene7.com/is/image/PetSmart/5110141?$sclp-prd-main_large$",
-      "healthFeature": ["Weight Management","Digestive Care", "Skin & Coat Care"],
-      "filters": [1, 2, 3, 4, 5, 6]
+      "price": 27.00,
+      "images": ["https://ld-prestashop.template-help.com/prestashop_60010/img/p/4/5/45-tm_large_default.jpg",
+        "https://ld-prestashop.template-help.com/prestashop_60010/img/p/4/6/46-tm_large_default.jpg",
+        "https://ld-prestashop.template-help.com/prestashop_60010/img/p/4/7/47-tm_large_default.jpg",
+        "https://ld-prestashop.template-help.com/prestashop_60010/img/p/4/8/48-tm_large_default.jpg",
+        "https://ld-prestashop.template-help.com/prestashop_60010/img/p/4/9/49-tm_large_default.jpg"
+      ]
+    },{
+      "id": 6,
+      "category": 1,
+      "availableFlowerType": ["Roses", "Daisies", "Lilies", "Tulips"],
+      "name": "HAPPY BIRTHDAY KALANCHOE BASKET",
+      "remnants": 100,
+      "rating": 4,
+      "sizes": ["standard", "premium", "deluxe"],
+      "description": "What do we do when we want to show our thankfulness? We send a card, a gift or something like that. But the most traditional thing that we do is to present flowers. They are a universal gift and believe us - even if you are not a fan, it doesn’t matter because it is very pleasant to receive flowers.",
 
-    }, {
-      "id": 2,
-      "animalType": "Dog",
-      "category": "food",
-      "brand": "Cesar",
-      "name": "Taste",
-      "rating": 5,
+      "colors": ["#ffffff", "#FCCACD"],
       "reviews": [
         {
           "id": 1,
@@ -120,23 +160,23 @@
           "mark": 1
         }
       ],
-      "price": 9.48,
-      "quantity": "12",
-      "availableCount": [1, 2, 6, 24],
-      "shipping": "2-day delivery",
-      "mainImage": "https://s7d2.scene7.com/is/image/PetSmart/5110141?$sclp-prd-main_large$",
-
-      "healthFeature": ["Weight Management", "Grain Free", "Digestive Care"],
-      "filters": [1, 2, 3, 4, 5, 6]
-
-    }, {
-      "id": 3,
-      "category": "toys",
-      "animalType": "Cat",
-      "brand": "Cesar",
-      "oldPrice": 50,
-      "name": "Wild",
-      "rating": 5,
+      "price": 40.00,
+      "images": ["https://ld-prestashop.template-help.com/prestashop_60010/img/p/5/0/50-tm_large_default.jpg",
+        "https://ld-prestashop.template-help.com/prestashop_60010/img/p/5/1/51-tm_large_default.jpg",
+        "https://ld-prestashop.template-help.com/prestashop_60010/img/p/5/2/52-tm_large_default.jpg",
+        "https://ld-prestashop.template-help.com/prestashop_60010/img/p/5/3/53-tm_large_default.jpg",
+        "https://ld-prestashop.template-help.com/prestashop_60010/img/p/5/4/54-tm_large_default.jpg"
+      ]
+    },{
+      "id": 7,
+      "category": 2,
+      "availableFlowerType": ["Daisies", "Lilies"],
+      "name": "HAPPY BIRTHDAY VIBRANT EXQUISITE ARRANGEMENT",
+      "remnants": 100,
+      "rating": 4,
+      "sizes": ["standard", "premium", "deluxe"],
+      "colors": ["#ffffff", "#FCCACD"],
+      "description": "What do we do when we want to show our thankfulness? We send a card, a gift or something like that. But the most traditional thing that we do is to present flowers. They are a universal gift and believe us - even if you are not a fan, it doesn’t matter because it is very pleasant to receive flowers.",
 
       "reviews": [
         {
@@ -148,42 +188,14 @@
           "mark": 1
         }
       ],
-      "price": 9.48,
-      "quantity": "12",
-      "availableCount": [1, 2, 6, 24],
-      "shipping": "2-day delivery",
-      "mainImage": "https://s7d2.scene7.com/is/image/PetSmart/5110141?$sclp-prd-main_large$",
-
-      "healthFeature": ["Weight Management", "Grain Free", "Digestive Care", "Skin & Coat Care"],
-      "filters": [1, 2, 3, 4, 5, 6]
-
-    }, {
-      "id": 4,
-      "category": "bath",
-      "animalType": "Dog",
-      "brand": "Cesar",
-      "oldPrice": 50,
-      "name": "Canine",
-      "rating": 5,
-      "reviews": [
-        {
-          "id": 1,
-          "reviewerName": "Anna",
-          "reviewText": "Meow",
-          "advantages": "Meow",
-          "disadvantages": "Meow",
-          "mark": 1
-        }
-      ],
-      "price": 9.48,
-      "quantity": "12",
-      "availableCount": [1, 2, 6, 24],
-      "shipping": "2-day delivery",
-      "mainImage": "https://s7d2.scene7.com/is/image/PetSmart/5110141?$sclp-prd-main_large$",
-
-      "healthFeature": ["Weight Management", "Grain Free", "Digestive Care", "Skin & Coat Care"],
-      "filters": [1, 2, 3, 4, 5, 6]
-
+      "price": 34.00,
+      "images": ["https://ld-prestashop.template-help.com/prestashop_60010/img/p/5/5/55-tm_large_default.jpg",
+        "https://ld-prestashop.template-help.com/prestashop_60010/img/p/5/6/56-tm_large_default.jpg",
+        "https://ld-prestashop.template-help.com/prestashop_60010/img/p/5/7/57-tm_large_default.jpg",
+        "https://ld-prestashop.template-help.com/prestashop_60010/img/p/5/8/58-tm_large_default.jpg",
+        "https://ld-prestashop.template-help.com/prestashop_60010/img/p/5/9/59-tm_large_default.jpg",
+        "https://ld-prestashop.template-help.com/prestashop_60010/img/p/6/0/60-tm_large_default.jpg"
+      ]
     }
   ]
 }

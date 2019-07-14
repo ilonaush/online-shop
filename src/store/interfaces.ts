@@ -1,5 +1,3 @@
-import {FilterType} from "@/store/types";
-import {MODAL_TYPE} from "@/store/enums";
 import {Cart, Product} from "@/interfaces";
 
 export interface IStore {
@@ -18,16 +16,12 @@ export interface IFilter {
 
 export interface IFilterModuleMutations {
     setFilters: IFilter[];
-    setSelectedFilters: Record<FilterType, string[]>;
+    setSelectedFilters: Record<string, string[]>;
 }
 
 export interface IFilterModuleActions {
     init: {};
     getFilters: {};
-}
-
-export interface IFilterModuleGetters {
-    availableFilters: any;
 }
 
 export interface IProductsModuleState {
@@ -41,11 +35,10 @@ export interface IProductsModuleMutations {
 }
 
 export interface IProductsModuleGetters {
-    filteredProducts:  Product.IProduct[];
-    promotionProducts:  Product.IProduct[];
-    bath:  Product.IProduct[];
-    food:  Product.IProduct[];
-    toys:  Product.IProduct[];
+    indoor: Product.IProduct[];
+    outdoor: Product.IProduct[];
+    promotionProducts: Product.IProduct[];
+    filteredProducts: Product.IProduct[];
 }
 
 export interface IProductModuleActions {

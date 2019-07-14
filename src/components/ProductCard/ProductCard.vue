@@ -2,24 +2,32 @@
     <div class="product-card">
             <div class="product-card_image-holder">
                 <router-link :to="{name: 'product', params: {product: product.id}}">
-                    <img  class="product-card-image" :src="product.mainImage"/>
+                    <img class="product-card-image" :src="product.images[0]"/>
                 </router-link>
+            </div>
+        <div class="product-card_info">
+            <div class="product-card_name">{{ product.name.toUpperCase() }}</div>
+            <div class="product-card_price-section">
+                <span :class="{'product-card_price': true, sale: product.oldPrice}">
+                    {{product.price.toFixed(2)}} $
+                </span>
+                <span  v-if="product.oldPrice" class="product-card_oldPrice">
+                    {{product.oldPrice.toFixed(2)}} $
+                </span>
             </div>
             <div class="stars">
                 <stars-rating :starQuantity="product.rating"/>
-            ({{product.reviews.length}} reviews)
             </div>
-            <div>{{ product.name }}</div>
-            <div>
-                <span :class="{'product-card_price': true, sale: product.oldPrice}">
-                    {{product.price}} $
-                </span>
-                <span  v-if="product.oldPrice" class="product-card_oldPrice">
-                    {{product.oldPrice}} $
-                </span>
-            </div>
-            <v-button v-if="!isInCart" color="primary" v-on:click="handleAddToCartClick" class="add-cart-btn">Add to cart</v-button>
+            <v-button
+                    v-if="!isInCart"
+                    color="primary"
+                    v-on:click="handleAddToCartClick"
+                    class="add-cart-btn"
+                    btnStyle="outline">
+                <font-awesome-icon :icon="['fas', 'shopping-cart']"/>
+            </v-button>
             <div v-else>added</div>
+        </div>
     </div>
 </template>
 
@@ -56,7 +64,7 @@
                 id: this.product.id,
                 name: this.product.name,
                 price: this.product.price,
-                mainImage: this.product.mainImage
+                mainImage: this.product.images[0]
             });
         }
     }
@@ -64,10 +72,18 @@
 
 <style lang="stylus" scoped>
 
-    img
-        max-width 100%
+    @import "../../vars.styl"
+
+    .product-card-holder
+        &.list
+            height 340px
+            .product-card
+                display flex
+                padding 20px 0 0 0
+
     .product-card_image-holder
-        height 45%
+        height 340px
+        background-color $milk
         .product-card-image
             display block
             margin 0 auto
@@ -75,24 +91,17 @@
     .product-card
         height 100%
         padding 15px
-        .v-card__text
-            padding 0
+        text-align center
+
+        .product-card_name
+            margin 10px 0
+            font-weight bold
+        .product-card_price-section
+            margin 10px 0
 
     .add-cart-btn
         margin 0 auto
         display block
+        color $primary
 
-    .product-card_price
-        &.sale
-            color red
-
-    .product-card_oldPrice
-        position relative
-        &:before
-            content ''
-            border-bottom 1px solid black
-            width 100%
-            position absolute
-            right 0
-            top 50%
 </style>

@@ -1,5 +1,5 @@
 <template>
-    <label for="" class="custom-input_label">
+    <label class="custom-input_label">
         {{label}}
         <input v-bind:value="value"
                v-on:input="$emit('input', $event.target.value)"

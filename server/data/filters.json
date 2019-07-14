@@ -2,21 +2,61 @@
   "filters": [
     {
       "id": 1,
-      "name": "animalType",
-      "title": "Animal Type",
-      "options": ["Cat", "Dog"]
-    },
-    {
+      "name": "availableFlowerType",
+      "title": "Flower by Type",
+      "options": [
+        {
+          "value": "Daisies",
+          "id": 1
+        }, {
+          "value": "Roses",
+          "id": 2
+        }, {
+          "value": "Lilies",
+          "id": 3
+        }, {
+          "value": "Tulips",
+          "id": 4
+        }
+      ]
+    }, {
       "id": 2,
-      "name": "healthFeature",
-      "title": "Health",
-      "options": ["Weight Management", "Grain Free", "Digestive Care", "Skin & Coat Care"]
-    },
-    {
+      "name": "sizes",
+      "title": "Size",
+      "options": [
+        {
+          "value": "Standard",
+          "id": 1
+        }, {
+          "value": "Deluxe",
+          "id": 2
+        }, {
+          "value": "Premium",
+          "id": 3
+        }
+      ]
+    }, {
       "id": 3,
-      "name": "brand",
-      "title": "Brand",
-      "options": ["Cesar", "Grain Free", "Digestive Care", "Skin & Coat Care"]
+      "name": "colors",
+      "title": "Color",
+      "options": [
+        {
+          "value": "#FCCACD",
+          "id": 1
+        }, {
+          "value": "#E84C3D",
+          "id": 2
+        }, {
+          "value": "#f1c40f",
+          "id": 3
+        }, {
+          "value": "#ffffff",
+          "id": 4
+        }, {
+          "value": "#5D9CEC",
+          "id": 5
+        }
+      ]
     }
   ]
 }

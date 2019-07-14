@@ -1,6 +1,6 @@
 <template>
   <div class="home-page">
-    <h4>Promotion</h4>
+
     <product-list :products="promotionProducts"/>
   </div>
 </template>
@@ -28,4 +28,9 @@
 
   .home-page
     padding $page-padding
+    .product-list
+      max-width 1100px
+      margin 0 auto
+      .product-card-holder
+        width 24%
 </style>
