@@ -36,7 +36,10 @@ const mutations: DefineMutations<ICartModuleMutations, ICartModuleState> = {
             quantity: 1,
             price: item.price,
             name: item.name,
-            img: item.mainImage
+            img: item.img,
+            color: item.color,
+            flower: item.flower,
+            size: item.size
 
         };
         state.items = [...state.items, cartItem ];

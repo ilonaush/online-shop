@@ -11,7 +11,7 @@
                         </div>
                     </div>
                     <div class="selected-image">
-                        <img :src="product.images[selectedImageIndex]" alt="">
+                        <img :src="selectedImage" alt="">
                     </div>
                 </div>
                 <div class="product-info-holder">
@@ -40,7 +40,7 @@
                         <div class="product_size-section">
                             Size
                             <div class="sizes-holder">
-                                <custom-select className="sizes" :options="product.sizes" v-on:click="setSelectedSize"/>>
+                                <custom-select className="sizes" :options="availableSizes" v-on:change="setSelectedSize"/>
                             </div>
                         </div>
 
@@ -48,6 +48,7 @@
                             Flower
                             <div class="flower-holder">
                                 <custom-radiobutton
+                                        v-model="selectedFlower"
                                         v-for="flower in product.availableFlowerType"
                                         name="flower"
                                         :label="flower"
@@ -93,7 +94,6 @@
 
     import IProduct = Product.IProduct;
 
-    console.log(CustomSelect);
     const { mapMutations: mapCartMutations } = createNamespacedHelpers("cartModule/");
 
     @Component({
@@ -112,11 +112,12 @@
         }
     })
     export default class ProductPage extends Vue {
-        selectedImageIndex: number = 0;
+        selectedImage: string = "";
         selectedColor: string = '';
         selectedSize: string = '';
         selectedFlower: string = '';
-        addItemToCart!: (item: {id: number, name: string, price: number, mainImage: string, color: string, size: string}) => void;
+        addItemToCart!: (item: {id: number, name: string, price: number, img: string, color: string, size: string, flower: string}) => void;
+        availableSizes: any[] = [];
 
 
         get isInCart() {
@@ -128,11 +129,13 @@
         get product(): IProduct {
             return this.$store.state["productsModule"].products.find((product : IProduct) => {
                 return product.id === +this.$route.params["product"]
-            }) || {}
+            })
         }
 
         @Watch('product')
         setInitialProductValues () {
+            this.availableSizes = this.product.sizes.map((size) => ({title: size, value: size}))
+            this.selectedImage = this.product.images[0];
             this.selectedColor = this.product.colors[0];
             this.selectedSize = this.product.sizes[0];
             this.selectedFlower = this.product.availableFlowerType[0];
@@ -143,18 +146,21 @@
                 id: this.product.id,
                 name: this.product.name,
                 price: this.product.price,
-                mainImage: this.product.images[0],
+                img: this.product.images[0],
                 color: this.selectedColor,
-                size: this.selectedSize
+                size: this.selectedSize,
+                flower: this.selectedFlower
             });
         }
 
         setSelectedImage(index: number) {
-            this.selectedImageIndex = index;
+            this.selectedImage = this.product.images[index];
         }
+
         setSelectedColor(color: string) {
             this.selectedColor = color;
         }
+
         setSelectedSize(size: string) {
             this.selectedSize = size;
         }

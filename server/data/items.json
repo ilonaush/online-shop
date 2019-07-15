@@ -118,9 +118,9 @@
       "availableFlowerType": ["Roses", "Daisies", "Lilies"],
       "name": "HAPPY BIRTHDAY AUTUMN BRIGHTS GLOBE",
       "remnants": 100,
-      "rating": 4,
+      "rating": 2,
       "description": "What do we do when we want to show our thankfulness? We send a card, a gift or something like that. But the most traditional thing that we do is to present flowers. They are a universal gift and believe us - even if you are not a fan, it doesn’t matter because it is very pleasant to receive flowers.",
-      "sizes": ["standard", "premium", "deluxe"],
+      "sizes": ["standard", "premium"],
       "colors": ["#E84C3D", "#f1c40f"],
       "reviews": [
         {
@@ -145,7 +145,7 @@
       "availableFlowerType": ["Roses", "Daisies", "Lilies", "Tulips"],
       "name": "HAPPY BIRTHDAY KALANCHOE BASKET",
       "remnants": 100,
-      "rating": 4,
+      "rating": 5,
       "sizes": ["standard", "premium", "deluxe"],
       "description": "What do we do when we want to show our thankfulness? We send a card, a gift or something like that. But the most traditional thing that we do is to present flowers. They are a universal gift and believe us - even if you are not a fan, it doesn’t matter because it is very pleasant to receive flowers.",
 

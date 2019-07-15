@@ -51,7 +51,7 @@
     })
     export default class ProductCard extends Vue {
         @Prop({type: Object as () => Product.IProduct}) product!: Product.IProduct;
-        addItemToCart!: (item: {id: number, name: string, price: number, mainImage: string}) => void;
+        addItemToCart!: (item: {id: number, name: string, price: number, img: string, color: string, size: string, flower: string}) => void;
 
         get isInCart() {
             return !!this.$store.state["cartModule"].items.find((product : Product.IProduct) => {
@@ -64,7 +64,10 @@
                 id: this.product.id,
                 name: this.product.name,
                 price: this.product.price,
-                mainImage: this.product.images[0]
+                img: this.product.images[0],
+                size: this.product.sizes[0],
+                color: this.product.colors[0],
+                flower: this.product.availableFlowerType[0],
             });
         }
     }
@@ -80,6 +83,8 @@
             .product-card
                 display flex
                 padding 20px 0 0 0
+                .product-card_info
+                    margin-left 20px
 
     .product-card_image-holder
         height 340px

@@ -12,14 +12,14 @@
 
         <div class="sorting">
             Sort by
-            <custom-select className="sorting-select" :options="options"></custom-select>
+            <custom-select className="sorting-select" v-on:change="handleSortTypeChange" :options="options"></custom-select>
         </div>
     </div>
 </template>
 
 <script lang="ts">
     import  Vue  from "vue";
-    import {Component} from "vue-property-decorator"
+    import {Component, Prop} from "vue-property-decorator"
     import CustomSelect from "@/components/CustomSelect/CustomSelect.vue";
 
     @Component({
@@ -34,7 +34,17 @@
         },{
             value: "rating.highest",
             title: "Rating: highest first"
-        }]
+        },{
+            value: "price.highest",
+            title: "Price: highest first"
+        },{
+            value: "price.lowest",
+            title: "Price: lowest first"
+        }];
+
+        handleSortTypeChange(sortType: string) {
+            this.$emit('sortTypeChange', sortType)
+        }
     }
 </script>
 

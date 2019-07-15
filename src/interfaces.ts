@@ -41,6 +41,9 @@ export namespace  Cart {
         price: number;
         name: string;
         img: string;
+        size: string;
+        color: string;
+        flower: string;
     }
 }
 
@@ -56,12 +59,14 @@ export namespace  Tabs {
 
 export namespace Notification {
 
+    import ICartItem = Cart.ICartItem;
+
     export interface INotification {
         deleteFirstNotification: () => void;
     }
 
     export interface INotificationConfig {
-        item?: Product.IProduct;
+        item?: ICartItem;
         message?: string;
     }
 }

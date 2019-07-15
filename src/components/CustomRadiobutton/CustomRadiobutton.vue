@@ -1,7 +1,7 @@
 <template>
     <label class="radiobutton-holder">
         <div class="input-holder">
-            <input class="input-holder" :name="name" type="radio" :value="value" :checked="checked">
+            <input class="input-holder" :name="name" type="radio" :value="value" v-on:change="$emit('change', $event.target.value)" :checked="isChecked">
             <span class="checked"></span>
         </div>
         {{label}}
@@ -12,14 +12,21 @@
     import  Vue  from "vue";
 
     export default Vue.extend({
-        functional: true,
+        model: {
+            prop: "checked",
+            event: "change"
+        },
         props: {
             label: String || Number,
             value: String,
             name: String,
-            checked: Boolean
+            checked: String
         },
-
+        computed: {
+            isChecked() {
+                return this.checked.includes(this.value);
+            }
+        }
     })
 </script>
 

@@ -10,6 +10,9 @@
             <div class="cart-item_title">
                 {{cartItem.name}}
             </div>
+            <div class="description">
+                {{cartItem.size}}, {{cartItem.color}}, {{cartItem.flower}}
+            </div>
             <div class="cart-item_details">
                 <div class="cart-item_price">
                     {{cartItem.price}} $

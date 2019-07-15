@@ -50,6 +50,7 @@
 
         @Watch("selectedFilters")
         fireFilteringProducts(filterArr: string[]) {
+            debugger;
             const filterObj = filterArr.reduce<{[key: string]: string[]}>((acc, nextValue) => {
                 const [filter = "", option]: string[] = nextValue.split(".");
                 acc[filter] = [...(acc[filter] ? acc[filter] : []), option];

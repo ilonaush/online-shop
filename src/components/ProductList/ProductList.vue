@@ -22,6 +22,9 @@
         },
         components: {
             ProductCard
+        },
+        updated(): void {
+            console.log("updated");
         }
     })
 </script>
@@ -54,6 +57,7 @@
         &.list
             .product-card-holder
                 width 100%
+                margin-bottom 10px
                 height 340px
 
 

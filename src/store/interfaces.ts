@@ -59,7 +59,7 @@ export interface ICartModuleMutations {
         quantity: number;
         replace: boolean;
     };
-    addItemToCart: Product.IProduct;
+    addItemToCart: Cart.ICartItem;
     deleteItemFromCart: number;
     deleteFirstNotification: undefined;
 }

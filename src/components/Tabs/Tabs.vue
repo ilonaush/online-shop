@@ -14,20 +14,14 @@
 </template>
 
 <script lang="ts">
-    import {Component, Vue} from "vue-property-decorator";
-    import {Tabs} from "@/interfaces";
-    import {Tabs} from "../../interfaces";
-    import ITabsMenuItem = Tabs.ITabsMenuItem;
-
-    Component.registerHooks([
-        "beforeRouteUpdate"
-    ]);
+    import {Component, Vue, Watch} from "vue-property-decorator";
+    import {Tabs as TabsService} from "@/interfaces";
+    import ITabsMenuItem = TabsService.ITabsMenuItem;
 
     @Component({
     })
     export default class Tabs extends Vue {
         tabs: any[] = [];
-
         mounted() {
             this.selectTab(window.location.hash);
         }
@@ -36,12 +30,19 @@
             this.tabs = this.$children;
         }
 
+        @Watch('$route')
+        updateTabs() {
+            this.selectTab(window.location.hash);
+        }
+
         selectTab(selectedHref: string) {
-            if (selectedHref) {
-                this.tabs.forEach((tab : ITabsMenuItem) => {
-                    tab.isActive = (tab.href === selectedHref);
-                });
+            if (!selectedHref) {
+                selectedHref = '#'
             }
+            this.tabs.forEach((tab : ITabsMenuItem) => {
+                tab.isActive = (tab.href === selectedHref);
+            });
+
         }
     }
 </script>

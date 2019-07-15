@@ -25,13 +25,13 @@
       "title": "Size",
       "options": [
         {
-          "value": "Standard",
+          "value": "standard",
           "id": 1
         }, {
-          "value": "Deluxe",
+          "value": "deluxe",
           "id": 2
         }, {
-          "value": "Premium",
+          "value": "premium",
           "id": 3
         }
       ]
