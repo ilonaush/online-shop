@@ -5,6 +5,7 @@ import {productsModule} from "@/store/modules/productsModule";
 import {filterModule} from "@/store/modules/filterModule";
 import LocalStorageVuexPlugin from "@/plugins/LocalStorageVuexPlugin";
 import {ModuleType} from "@/store/types";
+import LoggerPlugin from "../plugins/LoggerPlugin";
 
 Vue.use(Vuex);
 
@@ -16,7 +17,7 @@ const modules = {
 
 const store = new Vuex.Store({
     modules,
-    plugins: [LocalStorageVuexPlugin.setLocalStorageState()]
+    plugins: [LocalStorageVuexPlugin.setLocalStorageState(), LoggerPlugin.setLogger()]
 });
 
 

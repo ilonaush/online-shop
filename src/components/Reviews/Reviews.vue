@@ -20,14 +20,13 @@
 </template>
 
 <script lang="ts">
-    import  Vue from "vue";
+    import  Vue, {PropType} from "vue";
     import StarRating from "@/components/StarRating/StarRating.vue";
     import {Product} from "../../interfaces";
 
-    //functional component
     export default Vue.extend({
         props: {
-            reviews: Array as () => Product.IReview[]
+            reviews: Array as PropType<Product.IReview[]>
         },
         components: {
             StarRating
@@ -37,7 +36,7 @@
 
 <style lang="stylus">
 
-    @import "../../vars.styl"
+    @import "~@/vars.styl"
 
     .reviews_title
         text-transform uppercase

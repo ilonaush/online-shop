@@ -76,3 +76,10 @@ export namespace  RequestService {
         service: AxiosInstance;
     }
 }
+
+export namespace Catalogue {
+    export interface ISorting {
+        title: string,
+        value: string
+    }
+}

@@ -6,7 +6,9 @@
         <div class="cart-item_img">
             <img :src="cartItem.img" alt="">
         </div>
+
         <div class="cart-item_info">
+
             <div class="cart-item_title">
                 {{cartItem.name}}
             </div>
@@ -18,14 +20,15 @@
                     {{cartItem.price}} $
                 </div>
                 <div class="cart-item_controls">
-                    <button @click="itemQuantity--">-</button>
+                    <button v-on:click="itemQuantity--">-</button>
                     <input type="number"
                            v-model.number="itemQuantity"
                            v-on:change="setQuantity">
-                    <button @click="itemQuantity++">+</button>
+                    <button v-on:click="itemQuantity++">+</button>
                 </div>
             </div>
         </div>
+
         <div class="cart-item-total_sum">
             {{(cartItem.quantity * cartItem.price).toFixed(2)}} $
         </div>
@@ -37,7 +40,7 @@
     import {IProduct} from "@/components/ProductCard/interfaces";
     import {ICartItem} from "@/store/interfaces";
 
-    @Component({})
+    @Component
     export default class ProductCartItem extends Vue {
         @Prop({type: Object as () => ICartItem}) cartItem!: ICartItem;
 

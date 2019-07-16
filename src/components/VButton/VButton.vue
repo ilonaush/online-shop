@@ -6,7 +6,7 @@
 
 <style lang="stylus">
 
-    @import "../../vars.styl";
+    @import "~@/vars.styl";
 
     .btn
         align-items center

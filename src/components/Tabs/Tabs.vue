@@ -18,10 +18,10 @@
     import {Tabs as TabsService} from "@/interfaces";
     import ITabsMenuItem = TabsService.ITabsMenuItem;
 
-    @Component({
-    })
+    @Component
     export default class Tabs extends Vue {
         tabs: any[] = [];
+
         mounted() {
             this.selectTab(window.location.hash);
         }

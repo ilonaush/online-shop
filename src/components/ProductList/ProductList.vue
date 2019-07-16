@@ -9,12 +9,13 @@
 </template>
 
 <script lang="ts">
-    import {Component, Vue} from "vue-property-decorator";
+    import {PropType, Vue} from "vue-property-decorator";
     import ProductCard from "../ProductCard/ProductCard.vue";
+    import {Product} from "../../interfaces";
 
-    export default  Vue.extend({
+    export default Vue.extend({
         props: {
-            products: Array,
+            products: Array as PropType<Product.IProduct[]>,
             className: {
                 type: String,
                 default: "grid"
@@ -23,9 +24,6 @@
         components: {
             ProductCard
         },
-        updated(): void {
-            console.log("updated");
-        }
     })
 </script>
 

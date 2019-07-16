@@ -6,7 +6,8 @@
             class="filter-section"
             >
                 <div>{{filter.title}}</div>
-                <div v-if="filter.name === 'colors'" class="colors">
+                <div class="colors"
+                     v-if="filter.name === 'colors'" >
                     <div :class="['color', ...(selectedFilters.includes(`colors.${filterOption.value}`) ? ['selected-color'] : [''])]"
                          v-for="filterOption in filter.options"
                          :style="{backgroundColor: filterOption.value}"
@@ -27,12 +28,12 @@
 </template>
 
 <script lang="ts">
-    import {createNamespacedHelpers} from "vuex";
     import Vue from "vue";
+    import {createNamespacedHelpers} from "vuex";
     import {Prop, Component, Watch} from "vue-property-decorator";
     import CustomCheckbox from "@/components/CustomCheckbox/CustomCheckbox.vue";
 
-    const { mapMutations, mapGetters} = createNamespacedHelpers("filterModule/");
+    const { mapMutations} = createNamespacedHelpers("filterModule/");
 
     @Component({
         components: {
@@ -45,12 +46,11 @@
     export default class FilterNavigation extends Vue {
         @Prop(Array) filters!: object[];
         @Prop(Boolean) shouldResetFilter!: boolean;
-        setSelectedFilters!: (filterArr: object) => void;
+        setSelectedFilters!: (filterArr: {[key: string]: string[]}) => void;
         selectedFilters: string[] = [];
 
         @Watch("selectedFilters")
         fireFilteringProducts(filterArr: string[]) {
-            debugger;
             const filterObj = filterArr.reduce<{[key: string]: string[]}>((acc, nextValue) => {
                 const [filter = "", option]: string[] = nextValue.split(".");
                 acc[filter] = [...(acc[filter] ? acc[filter] : []), option];
@@ -65,7 +65,6 @@
         }
 
         setSelectedColor(color: string) {
-            debugger;
             if (!this.selectedFilters.includes(`colors.${color}`)) {
                 this.selectedFilters.push(`colors.${color}`)
             } else {
@@ -76,7 +75,7 @@
 </script>
 
 <style lang="stylus">
-    @import "../../vars.styl"
+    @import "~@/vars.styl"
 
     .filter-list
         background-color white
@@ -85,12 +84,8 @@
         width 250px
         color black
 
-
     .filter-section
         padding 15px
-        .v-list__tile
-            flex-direction column
-            height auto
 
     .disabledOption
         color grey

@@ -1,8 +1,8 @@
-<template>
+<template functional>
     <label class="custom-input_label">
         {{label}}
         <input v-bind:value="value"
-               v-on:input="$emit('input', $event.target.value)"
+               v-on:input="listeners.input($event.target.value)"
         >
     </label>
 
@@ -17,7 +17,6 @@
             label: String,
             value: String
         },
-
     })
 </script>
 

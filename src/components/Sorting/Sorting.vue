@@ -19,8 +19,10 @@
 
 <script lang="ts">
     import  Vue  from "vue";
-    import {Component, Prop} from "vue-property-decorator"
+    import {Component} from "vue-property-decorator"
     import CustomSelect from "@/components/CustomSelect/CustomSelect.vue";
+    import {Catalogue} from "../../interfaces";
+    import ISorting = Catalogue.ISorting;
 
     @Component({
         components: {
@@ -28,16 +30,19 @@
         }
     })
     export default class Sorting extends Vue {
-        options: any[] = [{
+        options: ISorting[] = [{
             value: "rating.lowest",
             title: "Rating: lowers first"
-        },{
+        },
+        {
             value: "rating.highest",
             title: "Rating: highest first"
-        },{
+        },
+        {
             value: "price.highest",
             title: "Price: highest first"
-        },{
+        },
+        {
             value: "price.lowest",
             title: "Price: lowest first"
         }];

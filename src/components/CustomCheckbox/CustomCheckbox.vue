@@ -46,7 +46,7 @@
 
 <style lang="stylus">
 
-    @import "../../vars.styl"
+    @import "~@/vars.styl"
 
     .checkbox-holder
         display flex

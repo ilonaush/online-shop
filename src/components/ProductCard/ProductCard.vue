@@ -2,11 +2,16 @@
     <div class="product-card">
             <div class="product-card_image-holder">
                 <router-link :to="{name: 'product', params: {product: product.id}}">
-                    <img class="product-card-image" :src="product.images[0]"/>
+                    <img
+                        class="product-card-image"
+                        :src="product.images[0]"
+                    />
                 </router-link>
             </div>
         <div class="product-card_info">
+
             <div class="product-card_name">{{ product.name.toUpperCase() }}</div>
+
             <div class="product-card_price-section">
                 <span :class="{'product-card_price': true, sale: product.oldPrice}">
                     {{product.price.toFixed(2)}} $
@@ -15,9 +20,11 @@
                     {{product.oldPrice.toFixed(2)}} $
                 </span>
             </div>
+
             <div class="stars">
                 <stars-rating :starQuantity="product.rating"/>
             </div>
+
             <v-button
                     v-if="!isInCart"
                     color="primary"
@@ -27,6 +34,7 @@
                 <font-awesome-icon :icon="['fas', 'shopping-cart']"/>
             </v-button>
             <div v-else>added</div>
+
         </div>
     </div>
 </template>
@@ -75,7 +83,7 @@
 
 <style lang="stylus" scoped>
 
-    @import "../../vars.styl"
+    @import "~@/vars.styl"
 
     .product-card-holder
         &.list

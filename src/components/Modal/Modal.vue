@@ -26,16 +26,14 @@
 
 <script lang="ts">
     import Vue from "vue";
-    import {Component} from "vue-property-decorator";
     import {closeModal} from "@/views/RouteService";
 
-    @Component({
+    export default Vue.extend({
         methods: {
             closeModal: closeModal
         }
     })
-    export default  class Modal extends  Vue {
-    }
+
 </script>
 
 <style lang="stylus">

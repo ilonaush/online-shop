@@ -1,24 +1,28 @@
 <template>
-    <select v-on:change="$emit('change', $event.target.value)" :class="className">
-        <option v-for="option in options":value="option.value">{{option.title}}</option>
+    <select :class="className"
+            v-on:change="$emit('change', $event.target.value)">
+        <option
+            v-for="option in options"
+            :value="option.value">
+            {{option.title}}
+        </option>
     </select>
 </template>
 
 <script lang="ts">
-    import  Vue  from "vue";
-    import {Component, Prop} from "vue-property-decorator";
+    import  Vue, {PropType}  from "vue";
 
     export default Vue.extend({
         props: {
             className: String,
-            options: Array,
-        },
+            options: Array as PropType<{title: string, value: string}>,
+        }
     })
 </script>
 
 <style lang="stylus">
 
-    @import "../../vars.styl"
+    @import "~@/vars.styl"
 
     select
         padding 10px 5px

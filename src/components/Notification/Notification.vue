@@ -24,7 +24,7 @@
             openModal: openModal
         },
     })
-    export default class Notification extends Vue implements NotificationService.INotification {
+    export default class Notification extends Vue {
         message: string = "";
         timer: number = 0;
         deleteFirstNotification!: () => void;
