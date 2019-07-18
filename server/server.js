@@ -50,16 +50,54 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 var _this = this;
 exports.__esModule = true;
+//
 var express_1 = __importDefault(require("express"));
 var bodyParser = require("body-parser");
 var fs = require("fs");
 var path = require("path");
 var server = express_1["default"]();
 var util = require("util");
+var sqlite3 = require("sqlite3").verbose();
+var products = require("./data/items.json");
 var readFile = util.promisify(fs.readFile);
 var writeFile = util.promisify(fs.writeFile);
 var delay = function (time) { return new Promise(function (res) { return setTimeout(res, time); }); };
 server.use(bodyParser.json());
+var db;
+function createDb() {
+    db = new sqlite3.Database("./server/db/products.db", createTable);
+}
+function createTable() {
+    db.run("CREATE TABLE IF NOT EXISTS products (id INT, name TEXT, category INT)", insertRows);
+}
+function insertRows() {
+    var stmt = db.prepare("INSERT INTO 'products' (id, name, category) VALUES(?,?,?)");
+    for (var i = 0; i < products.items.length; i++) {
+        var product = products.items[i];
+        console.log(product);
+        stmt.run(product.id, product.name, product.category);
+    }
+    stmt.finalize(readAllRows);
+}
+function readAllRows() {
+    console.log("readAllRows lorem");
+    console.log(db);
+    db.all("SELECT * FROM 'products'", function (err, rows) {
+        console.log(rows);
+        rows.forEach(function (row) {
+            console.log(row);
+        });
+        closeDb();
+    });
+}
+function closeDb() {
+    console.log("closeDb");
+    db.close();
+}
+function runChainExample() {
+    createDb();
+}
+runChainExample();
 /**
  * handler for cross origin requesting
  * @param req request
