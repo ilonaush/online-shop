@@ -1,8 +1,5 @@
 import {Cart, Product} from "@/interfaces";
 
-export interface IStore {
-}
-
 export interface IFiltersModuleState {
     filters: IFilter[];
     selectedFilters: Record<string, string[]>;
@@ -42,8 +39,8 @@ export interface IProductsModuleGetters {
 }
 
 export interface IProductModuleActions {
-    init: {},
-    getProducts: {}
+    init: {};
+    getProducts: {};
 }
 
 export interface ICartModuleState {
@@ -68,3 +65,5 @@ export interface ICartModuleGetters {
     generalPrice: number;
     generalQuantity: number;
 }
+
+

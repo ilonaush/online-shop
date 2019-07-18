@@ -32,9 +32,9 @@
 
 <script lang="ts">
     import {Component, Vue} from "vue-property-decorator";
-    import {createNamespacedHelpers, mapMutations} from "vuex";
-    import CheckoutForm from "@/components/CheckoutForm/CheckoutForm.vue";
-    import VButton from "@/components/VButton/VButton.vue";
+    import {createNamespacedHelpers} from "vuex";
+    import CheckoutForm from "@/components/checkout-form/checkout-form.vue";
+    import VButton from "@/components/v-button/v-button.vue";
     import {MODAL_TYPE} from "../store/enums";
     import {openModal} from "@/views/RouteService";
 
@@ -43,11 +43,11 @@
     @Component({
         components: {CheckoutForm, VButton},
         computed: {
-            ...mapState(['items']),
-            ...mapGetters(['generalPrice'])
+            ...mapState(["items"]),
+            ...mapGetters(["generalPrice"])
         },
         methods: {
-            openModal: openModal
+            openModal
         }
     })
     export default class Checkout extends Vue {

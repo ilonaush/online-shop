@@ -8,11 +8,11 @@
 </template>
 
 <script>
-import Header from "./components/Header/Header";
-import Notification from "./components/Notification/Notification";
+import Header from "./components/header/header";
+import Notification from "./components/notification/notification";
 import {createNamespacedHelpers} from "vuex";
-import CartModal from "./components/Modal/CartModal/CartModal";
-import ShopModals from "./components/HashModal/HashModal";
+import CartModal from "./components/Modal/cart-modal/cart-modal";
+import ShopModals from "./components/hash-modal/hash-modal";
 
 export default {
   name: "App",
@@ -22,7 +22,7 @@ export default {
     "header-navigation": Header,
     "notification": Notification,
   },
-}
+};
 </script>
 <style lang="stylus">
   .application--wrap

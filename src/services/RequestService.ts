@@ -20,7 +20,7 @@ export class RequestService implements Request.IRequestService {
     return this._instance;
   }
 
-  handleSuccess(response: AxiosResponse) {
+  handleSuccess = (response: AxiosResponse) => {
     return response;
   }
 
@@ -39,7 +39,7 @@ export class RequestService implements Request.IRequestService {
       }
     }
     return Promise.reject(error);
-  };
+  }
 
   redirectTo = (document: Document, path: string) => {
     document.location.pathname = path;
@@ -48,24 +48,6 @@ export class RequestService implements Request.IRequestService {
   get(path: string, params = "") {
     return this.service.get(path, {
       params,
-    });
-  }
-
-  patch(path: string, payload: object) {
-    return this.service.request({
-      method: "patch",
-      url: path,
-      responseType: "json",
-      data: payload,
-    });
-  }
-
-  post(path: string, payload: object) {
-    return this.service.request({
-      method: "post",
-      url: path,
-      responseType: "json",
-      data: payload,
     });
   }
 }

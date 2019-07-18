@@ -1,16 +1,64 @@
-
+//
 import express, {Request, Response, NextFunction} from "express";
 const bodyParser = require("body-parser");
 const fs = require("fs");
 const path = require("path");
 const server = express();
 const util = require("util");
+const sqlite3 = require("sqlite3").verbose();
+const products = require("./data/items.json");
 
 const readFile = util.promisify(fs.readFile);
 const writeFile = util.promisify(fs.writeFile);
 const delay = (time: number) => new Promise((res) => setTimeout(res, time));
 
 server.use(bodyParser.json());
+
+let db;
+
+function createDb() {
+    db = new sqlite3.Database("./server/db/products.db", createTable);
+}
+
+function createTable() {
+    db.run("CREATE TABLE IF NOT EXISTS products (id INT, name TEXT, category INT)", insertRows);
+}
+
+
+function insertRows() {
+    const stmt = db.prepare("INSERT INTO 'products' (id, name, category) VALUES(?,?,?)");
+    for (let i = 0; i < products.items.length; i++) {
+        const product = products.items[i];
+        console.log(product);
+        stmt.run(product.id, product.name, product.category);
+    }
+    stmt.finalize(readAllRows);
+}
+
+function readAllRows() {
+    console.log("readAllRows lorem");
+    console.log(db);
+    db.all("SELECT * FROM 'products'", function(err, rows) {
+        console.log(rows);
+        rows.forEach(function (row) {
+            console.log(row);
+        });
+        closeDb();
+    });
+}
+
+function closeDb() {
+    console.log("closeDb");
+    db.close();
+}
+
+function runChainExample() {
+    createDb();
+
+}
+
+runChainExample();
+
 
 /**
  * handler for cross origin requesting

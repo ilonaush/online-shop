@@ -2,7 +2,7 @@ import {Vue} from "vue/types/vue";
 import {AxiosInstance} from "axios";
 
 export namespace Product {
-     export interface IProduct {
+    export interface IProduct {
         id: number;
         availableFlowerType: string[];
         category: CATEGORY;
@@ -18,7 +18,7 @@ export namespace Product {
         filters: number[];
     }
 
-     export interface IReview {
+    export interface IReview {
         id: number;
         reviewerName: string;
         reviewText: string;
@@ -33,9 +33,9 @@ export namespace Product {
     }
 }
 
-export namespace  Cart {
+export namespace Cart {
 
-    export interface  ICartItem {
+    export interface ICartItem {
         id: number;
         quantity: number;
         price: number;
@@ -47,7 +47,7 @@ export namespace  Cart {
     }
 }
 
-export namespace  Tabs {
+export namespace Tabs {
 
     export interface ITabsMenuItem extends Vue {
         name: string;
@@ -71,15 +71,16 @@ export namespace Notification {
     }
 }
 
-export namespace  RequestService {
+export namespace RequestService {
     export interface IRequestService {
         service: AxiosInstance;
     }
 }
 
-export namespace Catalogue {
-    export interface ISorting {
-        title: string,
-        value: string
+export namespace App {
+
+    export interface ISelect {
+        value: string;
+        title: string;
     }
 }

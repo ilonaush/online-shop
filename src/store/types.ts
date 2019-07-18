@@ -1,5 +1,4 @@
-import {Product} from "@/interfaces";
 
-export type CategoryType = "indoor";
+export type CategoryType = "indoor" | "outdoor";
 
 export type ModuleType = "filterModule" | "productsModule"  | "cartModule";

@@ -1,10 +1,9 @@
-import {Module} from "vuex";
 import {
     ICartModuleGetters,
     ICartModuleMutations,
     ICartModuleState,
 } from "@/store/interfaces";
-import { DefineGetters, DefineMutations } from 'vuex-type-helper';
+import { DefineGetters, DefineMutations } from "vuex-type-helper";
 import {getNotificationMessage} from "@/services/NotificationService";
 import {NOTIFICATION_TYPES} from "@/services/enums";
 import LocalStorageVuexPlugin from "@/plugins/LocalStorageVuexPlugin";
@@ -13,10 +12,10 @@ import ICartItem = Cart.ICartItem;
 
 const getters: DefineGetters<ICartModuleGetters, ICartModuleState> = {
     generalPrice: (state) => {
-        return state.items.reduce((sumAcc, currentItem) => sumAcc + (currentItem.price * currentItem.quantity), 0)
+        return state.items.reduce((sumAcc, currentItem) => sumAcc + (currentItem.price * currentItem.quantity), 0);
     },
     generalQuantity: (state) => {
-        return state.items.reduce((sumAcc, currentItem) => sumAcc + currentItem.quantity, 0)
+        return state.items.reduce((sumAcc, currentItem) => sumAcc + currentItem.quantity, 0);
     }
 };
 

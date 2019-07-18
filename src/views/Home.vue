@@ -7,7 +7,7 @@
 
 <script lang="ts">
   import { Component, Vue } from "vue-property-decorator";
-  import ProductList from "@/components/ProductList/ProductList.vue";
+  import ProductList from "@/components/product-list/product-list.vue";
   import {createNamespacedHelpers} from "vuex";
 
   const { mapGetters } = createNamespacedHelpers("productsModule/");
@@ -17,7 +17,7 @@
       ProductList
     },
     computed: {
-      ...mapGetters(['promotionProducts'])
+      ...mapGetters(["promotionProducts"])
     }
   })
   export default class Home extends Vue {}

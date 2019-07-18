@@ -2,13 +2,12 @@ import {
     IFilter,
     IFilterModuleMutations,
     IFiltersModuleState,
-    IStore,
     IFilterModuleActions
 } from "@/store/interfaces";
 import RequestService from "@/services/RequestService";
 import {REQUEST_NAME} from "@/services/enums";
-import {ActionTree, Module} from "vuex";
-import {ActionContext, DefineMutations} from "vuex-type-helper";
+import {Module} from "vuex";
+import {ActionContext, DefineMutations, DefineActions} from "vuex-type-helper";
 
 const mutations: DefineMutations<IFilterModuleMutations, IFiltersModuleState> = {
     setFilters: (state: IFiltersModuleState, filters: IFilter[]) => {
@@ -19,7 +18,7 @@ const mutations: DefineMutations<IFilterModuleMutations, IFiltersModuleState> = 
     },
 };
 
-const actions: ActionTree<IFiltersModuleState, IStore>  = {
+const actions: DefineActions<IFilterModuleActions, IFiltersModuleState, IFilterModuleMutations>  = {
     async init(context: ActionContext<IFiltersModuleState, {}, IFilterModuleActions, IFilterModuleMutations>) {
         context.dispatch({type: "getFilters"});
     },
@@ -30,7 +29,7 @@ const actions: ActionTree<IFiltersModuleState, IStore>  = {
 };
 
 
-export const filterModule: Module<IFiltersModuleState, IStore> = {
+export const filterModule: Module<IFiltersModuleState, {}> = {
     namespaced: true,
     state: {
         filters: [],

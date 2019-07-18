@@ -82,15 +82,15 @@
 <script lang="ts">
     import {createNamespacedHelpers} from "vuex";
     import { Component, Vue, Watch } from "vue-property-decorator";
-    import VButton from "@/components/VButton/VButton.vue";
-    import Tabs from "@/components/Tabs/Tabs.vue";
-    import Tab from "@/components/Tabs/Tab.vue";
-    import StarRating from "@/components/StarRating/StarRating.vue";
-    import Reviews from "@/components/Reviews/Reviews.vue";
-    import ProductList from "@/components/ProductList/ProductList.vue";
-    import CustomSelect from "@/components/CustomSelect/CustomSelect.vue";
-    import CustomRadiobutton from "@/components/CustomRadiobutton/CustomRadiobutton.vue";
-    import {Product} from "@/interfaces";
+    import VButton from "@/components/v-button/v-button.vue";
+    import Tabs from "@/components/tabs/tabs.vue";
+    import Tab from "@/components/tabs/tab.vue";
+    import StarRating from "@/components/star-rating/star-rating.vue";
+    import Reviews from "@/components/reviews/reviews.vue";
+    import ProductList from "@/components/product-list/product-list.vue";
+    import CustomSelect from "@/components/custom-select/custom-select.vue";
+    import CustomRadiobutton from "@/components/custom-radiobutton/custom-radiobutton.vue";
+    import {Product, App, Cart} from "@/interfaces";
 
     import IProduct = Product.IProduct;
 
@@ -113,28 +113,28 @@
     })
     export default class ProductPage extends Vue {
         selectedImage: string = "";
-        selectedColor: string = '';
-        selectedSize: string = '';
-        selectedFlower: string = '';
-        addItemToCart!: (item: {id: number, name: string, price: number, img: string, color: string, size: string, flower: string}) => void;
-        availableSizes: any[] = [];
+        selectedColor: string = "";
+        selectedSize: string = "";
+        selectedFlower: string = "";
+        addItemToCart!: (item: Omit<Cart.ICartItem, "quantity">) => void;
+        availableSizes: App.ISelect[] = [];
 
 
         get isInCart() {
-            return !!this.$store.state["cartModule"].items.find((product : IProduct) => {
-                return product.id === +this.$route.params["product"]
-            })
+            return !!this.$store.state["cartModule"].items.find((product: IProduct) => {
+                return product.id === +this.$route.params["product"];
+            });
         }
 
         get product(): IProduct {
-            return this.$store.state["productsModule"].products.find((product : IProduct) => {
-                return product.id === +this.$route.params["product"]
-            })
+            return this.$store.state["productsModule"].products.find((product: IProduct) => {
+                return product.id === +this.$route.params["product"];
+            });
         }
 
-        @Watch('product')
-        setInitialProductValues () {
-            this.availableSizes = this.product.sizes.map((size) => ({title: size, value: size}))
+        @Watch("product")
+        setInitialProductValues() {
+            this.availableSizes = this.product.sizes.map((size) => ({title: size, value: size}));
             this.selectedImage = this.product.images[0];
             this.selectedColor = this.product.colors[0];
             this.selectedSize = this.product.sizes[0];
