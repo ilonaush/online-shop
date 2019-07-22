@@ -11,14 +11,13 @@ export namespace Product {
         sizes: string[];
         name: string;
         rating: number;
-        reviews: IReview[];
         price: number;
         oldPrice?: number;
         images: string [];
-        filters: number[];
     }
 
     export interface IReview {
+        productId: number;
         id: number;
         reviewerName: string;
         reviewText: string;

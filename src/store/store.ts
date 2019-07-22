@@ -1,22 +1,22 @@
 import Vue from "vue";
 import Vuex from "vuex";
-import {cartModule} from "@/store/modules/cartModule";
-import {productsModule} from "@/store/modules/productsModule";
-import {filterModule} from "@/store/modules/filterModule";
 import LocalStorageVuexPlugin from "@/plugins/LocalStorageVuexPlugin";
 import {ModuleType} from "@/store/types";
+import {default as productsModule} from "@/store/modules/productsModule";
+import {default as filterModule} from "@/store/modules/filterModule";
+import {default as cartModule} from "@/store/modules/cartModule";
 
 Vue.use(Vuex);
 
 const modules = {
     filterModule,
-    productsModule,
     cartModule,
+    productsModule,
 };
 
 const store = new Vuex.Store({
     modules,
-    // plugins: [LocalStorageVuexPlugin.setLocalStorageState()]
+    plugins: [LocalStorageVuexPlugin.setLocalStorageState()]
 });
 
 

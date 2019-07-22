@@ -22,7 +22,7 @@ export class RequestService implements Request.IRequestService {
 
   handleSuccess = (response: AxiosResponse) => {
     return response;
-  }
+  };
 
   handleError = (error: AxiosError) => {
     if (error && error.response && error.response.status && document) {
@@ -45,7 +45,8 @@ export class RequestService implements Request.IRequestService {
     document.location.pathname = path;
   }
 
-  get(path: string, params = "") {
+  get(path: string, params = {}) {
+    console.log(params);
     return this.service.get(path, {
       params,
     });

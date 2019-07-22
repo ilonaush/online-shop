@@ -5,7 +5,7 @@
                 <div class="images-holder">
                     <div class="images-thumbnails">
                         <div class="image-thumbnail"
-                             v-for="(image, index) in product.images"
+                             v-for="(image, index) in product.images || []"
                              @click="setSelectedImage(index)">
                             <img :src="image" alt="">
                         </div>
@@ -19,10 +19,10 @@
                         <div class="product_name"> {{product.name}}</div>
                         <div class="product_price-section">
                             <span :class="{'product_price': true, sale: product.oldPrice}">
-                            {{product.price.toFixed(2)}} $
+                            {{((product.price) || 0).toFixed(2)}} $
                             </span>
                             <span  v-if="product.oldPrice" class="product_oldPrice">
-                            {{product.oldPrice.toFixed(2)}} $
+                            {{((product.oldPrice) || 0).toFixed(2)}} $
                             </span>
                         </div>
 
@@ -61,14 +61,14 @@
                         <div v-else>added</div>
                         <div class="stars">
                             <star-rating :starQuantity="product.rating"/>
-                            (<router-link to="#reviews">{{(product.reviews || []).length}} reviews</router-link>)
+                            (<router-link to="#reviews">{{reviews.length}} reviews</router-link>)
                         </div>
                     </div>
                 </div>
             </tab>
             <tab name="Reviews">
                 <div class="product-info">
-                  <reviews :reviews="product.reviews"/>
+                  <reviews :reviews="reviews"/>
                 </div>
             </tab>
         </tabs>
@@ -81,7 +81,7 @@
 
 <script lang="ts">
     import {createNamespacedHelpers} from "vuex";
-    import { Component, Vue, Watch } from "vue-property-decorator";
+    import {Component, Vue, Watch} from "vue-property-decorator";
     import VButton from "@/components/v-button/v-button.vue";
     import Tabs from "@/components/tabs/tabs.vue";
     import Tab from "@/components/tabs/tab.vue";
@@ -90,9 +90,11 @@
     import ProductList from "@/components/product-list/product-list.vue";
     import CustomSelect from "@/components/custom-select/custom-select.vue";
     import CustomRadiobutton from "@/components/custom-radiobutton/custom-radiobutton.vue";
-    import {Product, App, Cart} from "@/interfaces";
-
+    import {App, Cart, Product} from "@/interfaces";
+    import RequestService from "../services/RequestService";
+    import {Product} from "../interfaces";
     import IProduct = Product.IProduct;
+    import IReview = Product.IReview;
 
     const { mapMutations: mapCartMutations } = createNamespacedHelpers("cartModule/");
 
@@ -118,18 +120,19 @@
         selectedFlower: string = "";
         addItemToCart!: (item: Omit<Cart.ICartItem, "quantity">) => void;
         availableSizes: App.ISelect[] = [];
+        reviews: IReview[] = [];
 
 
         get isInCart() {
             return !!this.$store.state["cartModule"].items.find((product: IProduct) => {
                 return product.id === +this.$route.params["product"];
-            });
+            })
         }
 
         get product(): IProduct {
             return this.$store.state["productsModule"].products.find((product: IProduct) => {
                 return product.id === +this.$route.params["product"];
-            });
+            })  || {};
         }
 
         @Watch("product")
@@ -139,6 +142,13 @@
             this.selectedColor = this.product.colors[0];
             this.selectedSize = this.product.sizes[0];
             this.selectedFlower = this.product.availableFlowerType[0];
+            this.getReviews();
+
+        }
+
+        async getReviews() {
+            const {data} = await RequestService.instance.get("/reviews", {productId: this.product.id});
+            this.reviews = data;
         }
 
         handleAddToCartClick() {

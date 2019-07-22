@@ -11,16 +11,6 @@
       "sizes": ["standard", "premium", "deluxe"],
       "colors": ["#E84C3D", "#FCCACD"],
       "description": "What do we do when we want to show our thankfulness? We send a card, a gift or something like that. But the most traditional thing that we do is to present flowers. They are a universal gift and believe us - even if you are not a fan, it doesn’t matter because it is very pleasant to receive flowers.",
-      "reviews": [
-        {
-          "id": 1,
-          "reviewerName": "Anna",
-          "reviewText": "Meow",
-          "advantages": "Meow",
-          "disadvantages": "Meow",
-          "mark": 1
-        }
-      ],
       "price": 19.20,
       "images": ["https://ld-prestashop.template-help.com/prestashop_60010/img/p/2/4/24-tm_large_default.jpg",
         "https://ld-prestashop.template-help.com/prestashop_60010/img/p/2/5/25-tm_large_default.jpg",
@@ -39,16 +29,6 @@
 
       "sizes": ["standard", "premium", "deluxe"],
       "colors": ["#E84C3D", "#FCCACD"],
-      "reviews": [
-        {
-          "id": 1,
-          "reviewerName": "Anna",
-          "reviewText": "Meow",
-          "advantages": "Meow",
-          "disadvantages": "Meow",
-          "mark": 1
-        }
-      ],
       "price": 32.20,
       "images": ["https://ld-prestashop.template-help.com/prestashop_60010/img/p/3/1/31-tm_large_default.jpg",
         "https://ld-prestashop.template-help.com/prestashop_60010/img/p/3/0/30-tm_large_default.jpg",
@@ -66,16 +46,6 @@
       "sizes": ["standard", "premium", "deluxe"],
       "colors": ["#ffffff", "#5D9CEC"],
       "description": "What do we do when we want to show our thankfulness? We send a card, a gift or something like that. But the most traditional thing that we do is to present flowers. They are a universal gift and believe us - even if you are not a fan, it doesn’t matter because it is very pleasant to receive flowers.",
-      "reviews": [
-        {
-          "id": 1,
-          "reviewerName": "Anna",
-          "reviewText": "Meow",
-          "advantages": "Meow",
-          "disadvantages": "Meow",
-          "mark": 1
-        }
-      ],
       "price": 28.20,
       "images": ["https://ld-prestashop.template-help.com/prestashop_60010/img/p/3/4/34-tm_large_default.jpg",
         "https://ld-prestashop.template-help.com/prestashop_60010/img/p/3/5/35-tm_large_default.jpg",
@@ -95,16 +65,6 @@
       "oldPrice": 20.00,
       "sizes": ["standard", "premium", "deluxe"],
       "colors": ["#E84C3D", "#f1c40f"],
-      "reviews": [
-        {
-          "id": 1,
-          "reviewerName": "Anna",
-          "reviewText": "Meow",
-          "advantages": "Meow",
-          "disadvantages": "Meow",
-          "mark": 1
-        }
-      ],
       "price": 16.00,
       "images": ["https://ld-prestashop.template-help.com/prestashop_60010/img/p/4/0/40-tm_large_default.jpg",
         "https://ld-prestashop.template-help.com/prestashop_60010/img/p/4/1/41-tm_large_default.jpg",
@@ -119,19 +79,10 @@
       "name": "HAPPY BIRTHDAY AUTUMN BRIGHTS GLOBE",
       "remnants": 100,
       "rating": 2,
+      "oldPrice": null,
       "description": "What do we do when we want to show our thankfulness? We send a card, a gift or something like that. But the most traditional thing that we do is to present flowers. They are a universal gift and believe us - even if you are not a fan, it doesn’t matter because it is very pleasant to receive flowers.",
       "sizes": ["standard", "premium"],
       "colors": ["#E84C3D", "#f1c40f"],
-      "reviews": [
-        {
-          "id": 1,
-          "reviewerName": "Anna",
-          "reviewText": "Meow",
-          "advantages": "Meow",
-          "disadvantages": "Meow",
-          "mark": 1
-        }
-      ],
       "price": 27.00,
       "images": ["https://ld-prestashop.template-help.com/prestashop_60010/img/p/4/5/45-tm_large_default.jpg",
         "https://ld-prestashop.template-help.com/prestashop_60010/img/p/4/6/46-tm_large_default.jpg",
@@ -148,18 +99,9 @@
       "rating": 5,
       "sizes": ["standard", "premium", "deluxe"],
       "description": "What do we do when we want to show our thankfulness? We send a card, a gift or something like that. But the most traditional thing that we do is to present flowers. They are a universal gift and believe us - even if you are not a fan, it doesn’t matter because it is very pleasant to receive flowers.",
+      "oldPrice": null,
 
       "colors": ["#ffffff", "#FCCACD"],
-      "reviews": [
-        {
-          "id": 1,
-          "reviewerName": "Anna",
-          "reviewText": "Meow",
-          "advantages": "Meow",
-          "disadvantages": "Meow",
-          "mark": 1
-        }
-      ],
       "price": 40.00,
       "images": ["https://ld-prestashop.template-help.com/prestashop_60010/img/p/5/0/50-tm_large_default.jpg",
         "https://ld-prestashop.template-help.com/prestashop_60010/img/p/5/1/51-tm_large_default.jpg",
@@ -174,20 +116,10 @@
       "name": "HAPPY BIRTHDAY VIBRANT EXQUISITE ARRANGEMENT",
       "remnants": 100,
       "rating": 4,
+      "oldPrice": null,
       "sizes": ["standard", "premium", "deluxe"],
       "colors": ["#ffffff", "#FCCACD"],
       "description": "What do we do when we want to show our thankfulness? We send a card, a gift or something like that. But the most traditional thing that we do is to present flowers. They are a universal gift and believe us - even if you are not a fan, it doesn’t matter because it is very pleasant to receive flowers.",
-
-      "reviews": [
-        {
-          "id": 1,
-          "reviewerName": "Anna",
-          "reviewText": "Meow",
-          "advantages": "Meow",
-          "disadvantages": "Meow",
-          "mark": 1
-        }
-      ],
       "price": 34.00,
       "images": ["https://ld-prestashop.template-help.com/prestashop_60010/img/p/5/5/55-tm_large_default.jpg",
         "https://ld-prestashop.template-help.com/prestashop_60010/img/p/5/6/56-tm_large_default.jpg",

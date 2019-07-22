@@ -111,11 +111,37 @@ server.get("/filters", function (req, res) { return __awaiter(_this, void 0, voi
         }
     });
 }); });
+server.get("/reviews", function (req, res) { return __awaiter(_this, void 0, void 0, function () {
+    var productId, data, reviews, e_3;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                productId = req.query.productId;
+                _a.label = 1;
+            case 1:
+                _a.trys.push([1, 3, , 4]);
+                return [4 /*yield*/, readDataFromJson("reviews")];
+            case 2:
+                data = _a.sent();
+                console.log(data.reviews);
+                reviews = data.reviews.filter(function (review) { return review.productId === +productId; });
+                console.log(reviews);
+                res.send(reviews);
+                return [3 /*break*/, 4];
+            case 3:
+                e_3 = _a.sent();
+                console.log(e_3);
+                res.status(500).send({ success: false });
+                return [3 /*break*/, 4];
+            case 4: return [2 /*return*/];
+        }
+    });
+}); });
 /**
  * handler for post request for adding new worker
  */
 server.post("/add-review", function (req, res) { return __awaiter(_this, void 0, void 0, function () {
-    var cat, cats, response, e_3;
+    var cat, cats, response, e_4;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
@@ -135,7 +161,7 @@ server.post("/add-review", function (req, res) { return __awaiter(_this, void 0,
                 }
                 return [3 /*break*/, 5];
             case 4:
-                e_3 = _a.sent();
+                e_4 = _a.sent();
                 res.status(500).send({ status: false });
                 return [3 /*break*/, 5];
             case 5: return [2 /*return*/];

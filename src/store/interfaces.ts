@@ -1,5 +1,9 @@
 import {Cart, Product} from "@/interfaces";
 
+export interface IStore extends IProductsModuleState, IFiltersModuleState, ICartModuleState {
+
+}
+
 export interface IFiltersModuleState {
     filters: IFilter[];
     selectedFilters: Record<string, string[]>;

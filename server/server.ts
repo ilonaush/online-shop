@@ -56,6 +56,20 @@ server.get("/filters", async (req, res) => {
     }
 });
 
+server.get("/reviews", async (req, res) => {
+    const productId = req.query.productId;
+    try {
+        let data = await readDataFromJson("reviews");
+        console.log(data.reviews);
+        const reviews = data.reviews.filter((review) => review.productId === +productId);
+        console.log(reviews);
+        res.send(reviews);
+    } catch (e) {
+        console.log(e);
+        res.status(500).send({success: false});
+    }
+});
+
 /**
  * handler for post request for adding new worker
  */

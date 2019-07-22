@@ -1,35 +1,36 @@
 import {
     ICartModuleGetters,
     ICartModuleMutations,
-    ICartModuleState,
+    ICartModuleState, IFilter,
 } from "@/store/interfaces";
-import { DefineGetters, DefineMutations } from "vuex-type-helper";
 import {getNotificationMessage} from "@/services/NotificationService";
-import {NOTIFICATION_TYPES} from "@/services/enums";
+import {NOTIFICATION_TYPES, REQUEST_NAME} from "@/services/enums";
 import LocalStorageVuexPlugin from "@/plugins/LocalStorageVuexPlugin";
 import {Cart} from "@/interfaces";
 import ICartItem = Cart.ICartItem;
+import store from "@/store/store";
+import RequestService from "@/services/RequestService";
+import { Module, VuexModule, Mutation, Action } from "vuex-module-decorators";
 
-const getters: DefineGetters<ICartModuleGetters, ICartModuleState> = {
-    generalPrice: (state) => {
-        return state.items.reduce((sumAcc, currentItem) => sumAcc + (currentItem.price * currentItem.quantity), 0);
-    },
-    generalQuantity: (state) => {
-        return state.items.reduce((sumAcc, currentItem) => sumAcc + currentItem.quantity, 0);
+const initialCartState = LocalStorageVuexPlugin.getLocalStorageModuleState<ICartModuleState>("cartModule");
+
+
+@Module({namespaced: true, store: store})
+export default class CartModule extends VuexModule {
+    items =  initialCartState.items || [];
+    notifications =  initialCartState.notifications || [];
+    quantity: number = 0;
+
+    get generalPrice() {
+        return this.items.reduce((sumAcc, currentItem) => sumAcc + (currentItem.price * currentItem.quantity), 0);
     }
-};
+    get generalQuantity() {
+        return this.items.reduce((sumAcc, currentItem) => sumAcc + currentItem.quantity, 0);
 
-const mutations: DefineMutations<ICartModuleMutations, ICartModuleState> = {
-    setCartItemQty(state: ICartModuleState, {id, quantity}) {
-        state.items = state.items.map((item: ICartItem) => {
-            if (id === item.id) {
-                item.quantity = quantity;
-            }
-            return item;
-        });
+    }
 
-    },
-    addItemToCart(state: ICartModuleState, item) {
+    @Mutation
+    addItemToCart(item: Cart.ICartItem) {
         const cartItem = {
             id: item.id,
             quantity: 1,
@@ -41,29 +42,32 @@ const mutations: DefineMutations<ICartModuleMutations, ICartModuleState> = {
             size: item.size
 
         };
-        state.items = [...state.items, cartItem ];
-        state.notifications.push(getNotificationMessage(NOTIFICATION_TYPES.addToCart, {item}));
-    },
-    deleteItemFromCart(state: ICartModuleState, itemId) {
-        const deletingItem = state.items.find((cartItem: ICartItem) => cartItem.id === itemId);
-        state.items = state.items.filter((cartItem: ICartItem) => cartItem.id !== itemId);
+        this.items = [...this.items, cartItem ];
+        this.notifications.push(getNotificationMessage(NOTIFICATION_TYPES.addToCart, {item}));
+    }
+
+    @Mutation
+    setCartItemQty(cartItem: Pick<Cart.ICartItem, "id" | "quantity">) {
+        this.items = this.items.map((item: ICartItem) => {
+            if (cartItem.id === item.id) {
+                item.quantity = cartItem.quantity;
+            }
+            return item;
+        });
+    }
+
+    @Mutation
+    deleteItemFromCart(itemId: number) {
+        const deletingItem = this.items.find((cartItem: ICartItem) => cartItem.id === itemId);
+        this.items = this.items.filter((cartItem: ICartItem) => cartItem.id !== itemId);
         if (deletingItem) {
-            state.quantity = state.quantity  - deletingItem.quantity;
+            this.quantity = this.quantity  - deletingItem.quantity;
         }
-    },
-    deleteFirstNotification(state: ICartModuleState) {
-        state.notifications.shift();
-    },
-};
+    }
 
-const initialCartState = LocalStorageVuexPlugin.getLocalStorageModuleState<ICartModuleState>("cartModule");
+    @Mutation
+    deleteFirstNotification() {
+        this.notifications.shift();
+    }
 
-export const cartModule = {
-    namespaced: true,
-    getters,
-    state: {
-        items: initialCartState.items || [],
-        notifications: initialCartState.notifications || [],
-    },
-    mutations
-};
+}
