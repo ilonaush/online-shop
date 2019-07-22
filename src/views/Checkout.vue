@@ -26,7 +26,7 @@
                 <v-button color="primary" @click="openModal(modalType.cart)">Edit order</v-button>
             </div>
         </div>
-        <v-button color="primary">Place the order</v-button>
+        <v-button v-on:click="placeOrder" color="primary">Place the order</v-button>
     </div>
 </template>
 
@@ -52,6 +52,10 @@
     })
     export default class Checkout extends Vue {
         modalType = MODAL_TYPE;
+
+        placeOrder() {
+            console.log("meow");
+        }
     }
 </script>
 

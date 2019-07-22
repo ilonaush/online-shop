@@ -1,9 +1,9 @@
 <template>
-    <form action="">
+    <form>
         <custom-input label="Name" v-model="name"></custom-input>
         <custom-input label="Surname" v-model="surname"></custom-input>
         <custom-input label="City" v-model="city"></custom-input>
-        <v-button type="submit" v-on:submit="handleCheckoutFormSubmit"></v-button>
+        <v-button v-on:click="handleCheckoutFormSubmit">Submit</v-button>
     </form>
 </template>
 
@@ -12,7 +12,6 @@
     import {createNamespacedHelpers} from "vuex";
     import CustomInput from "@/components/custom-input/custom-input.vue";
     import VButton from "@/components/v-button/v-button.vue";
-    const { mapState, mapGetters } = createNamespacedHelpers("cartModule/");
 
     interface ICheckoutFromValues {
         name: string;
@@ -22,10 +21,6 @@
 
     @Component({
         components: {CustomInput, VButton},
-        computed: {
-            ...mapState(["items"]),
-            ...mapGetters(["generalPrice"])
-        }
     })
     export default class CheckoutForm extends Vue {
         name: string = "";

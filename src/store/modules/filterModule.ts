@@ -29,7 +29,7 @@ const actions: DefineActions<IFilterModuleActions, IFiltersModuleState, IFilterM
 };
 
 
-export const filterModule: Module<IFiltersModuleState, {}> = {
+export const filterModule = {
     namespaced: true,
     state: {
         filters: [],

@@ -1,15 +1,4 @@
 "use strict";
-var __assign = (this && this.__assign) || function () {
-    __assign = Object.assign || function(t) {
-        for (var s, i = 1, n = arguments.length; i < n; i++) {
-            s = arguments[i];
-            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-                t[p] = s[p];
-        }
-        return t;
-    };
-    return __assign.apply(this, arguments);
-};
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     return new (P || (P = Promise))(function (resolve, reject) {
         function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
@@ -50,54 +39,17 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 var _this = this;
 exports.__esModule = true;
-//
 var express_1 = __importDefault(require("express"));
 var bodyParser = require("body-parser");
 var fs = require("fs");
 var path = require("path");
 var server = express_1["default"]();
 var util = require("util");
-var sqlite3 = require("sqlite3").verbose();
-var products = require("./data/items.json");
+// const sqlite3 = require("sqlite3").verbose();
 var readFile = util.promisify(fs.readFile);
 var writeFile = util.promisify(fs.writeFile);
 var delay = function (time) { return new Promise(function (res) { return setTimeout(res, time); }); };
 server.use(bodyParser.json());
-var db;
-function createDb() {
-    db = new sqlite3.Database("./server/db/products.db", createTable);
-}
-function createTable() {
-    db.run("CREATE TABLE IF NOT EXISTS products (id INT, name TEXT, category INT)", insertRows);
-}
-function insertRows() {
-    var stmt = db.prepare("INSERT INTO 'products' (id, name, category) VALUES(?,?,?)");
-    for (var i = 0; i < products.items.length; i++) {
-        var product = products.items[i];
-        console.log(product);
-        stmt.run(product.id, product.name, product.category);
-    }
-    stmt.finalize(readAllRows);
-}
-function readAllRows() {
-    console.log("readAllRows lorem");
-    console.log(db);
-    db.all("SELECT * FROM 'products'", function (err, rows) {
-        console.log(rows);
-        rows.forEach(function (row) {
-            console.log(row);
-        });
-        closeDb();
-    });
-}
-function closeDb() {
-    console.log("closeDb");
-    db.close();
-}
-function runChainExample() {
-    createDb();
-}
-runChainExample();
 /**
  * handler for cross origin requesting
  * @param req request
@@ -162,7 +114,7 @@ server.get("/filters", function (req, res) { return __awaiter(_this, void 0, voi
 /**
  * handler for post request for adding new worker
  */
-server.post("/add-cat", function (req, res) { return __awaiter(_this, void 0, void 0, function () {
+server.post("/add-review", function (req, res) { return __awaiter(_this, void 0, void 0, function () {
     var cat, cats, response, e_3;
     return __generator(this, function (_a) {
         switch (_a.label) {
@@ -190,159 +142,6 @@ server.post("/add-cat", function (req, res) { return __awaiter(_this, void 0, vo
         }
     });
 }); });
-/**
- * handler for patch request for firing a worker
- */
-server.patch("/issue-cat", function (req, res) { return __awaiter(_this, void 0, void 0, function () {
-    var _a, id, address, family, date, issuedCat, cats, history_1, e_4;
-    return __generator(this, function (_b) {
-        switch (_b.label) {
-            case 0:
-                _a = req.body, id = _a.id, address = _a.address, family = _a.family, date = _a.date;
-                _b.label = 1;
-            case 1:
-                _b.trys.push([1, 6, , 7]);
-                return [4 /*yield*/, readDataFromJson("currentCats")];
-            case 2:
-                cats = _b.sent();
-                cats = cats.filter(function (cat) {
-                    if (cat.id === parseInt(id)) {
-                        issuedCat = __assign({}, cat, { address: address, family: family, date: date });
-                    }
-                    return cat.id !== parseInt(id);
-                });
-                return [4 /*yield*/, saveDataToJson(cats, "currentCats")];
-            case 3:
-                _b.sent();
-                return [4 /*yield*/, readDataFromJson("history")];
-            case 4:
-                history_1 = _b.sent();
-                if (issuedCat) {
-                    history_1.push(issuedCat);
-                }
-                return [4 /*yield*/, saveDataToJson(history_1, "history")];
-            case 5:
-                _b.sent();
-                res.send({ status: true, cats: cats });
-                return [3 /*break*/, 7];
-            case 6:
-                e_4 = _b.sent();
-                res.status(500).send({ status: false });
-                return [3 /*break*/, 7];
-            case 7: return [2 /*return*/];
-        }
-    });
-}); });
-/**
- * handler for patch request for changing time of either arriving or leaving of a worker
- */
-server.patch("/feed-cat", function (req, res) { return __awaiter(_this, void 0, void 0, function () {
-    var cat, cats, e_5;
-    return __generator(this, function (_a) {
-        switch (_a.label) {
-            case 0:
-                cat = req.body;
-                _a.label = 1;
-            case 1:
-                _a.trys.push([1, 4, , 5]);
-                return [4 /*yield*/, readDataFromJson("currentCats")];
-            case 2:
-                cats = _a.sent();
-                cats = cats.map(function (item) {
-                    if (item.id === cat.id) {
-                        return cat;
-                    }
-                    else {
-                        return item;
-                    }
-                });
-                return [4 /*yield*/, saveDataToJson(cats, "currentCats")];
-            case 3:
-                _a.sent();
-                res.send({ status: true, cats: cats });
-                return [3 /*break*/, 5];
-            case 4:
-                e_5 = _a.sent();
-                res.status(500).send({ status: false });
-                return [3 /*break*/, 5];
-            case 5: return [2 /*return*/];
-        }
-    });
-}); });
-/**
- * handler for patch request for changing time of either arriving or leaving of a worker
- */
-server.patch("/hug-cat", function (req, res) { return __awaiter(_this, void 0, void 0, function () {
-    var cat, cats, e_6;
-    return __generator(this, function (_a) {
-        switch (_a.label) {
-            case 0:
-                cat = req.body;
-                _a.label = 1;
-            case 1:
-                _a.trys.push([1, 4, , 5]);
-                return [4 /*yield*/, readDataFromJson("currentCats")];
-            case 2:
-                cats = _a.sent();
-                cats = cats.map(function (item) {
-                    if (item.id === cat.id) {
-                        return cat;
-                    }
-                    else {
-                        return item;
-                    }
-                });
-                return [4 /*yield*/, saveDataToJson(cats, "currentCats")];
-            case 3:
-                _a.sent();
-                res.send({ status: true, cats: cats });
-                return [3 /*break*/, 5];
-            case 4:
-                e_6 = _a.sent();
-                res.status(500).send({ status: false });
-                return [3 /*break*/, 5];
-            case 5: return [2 /*return*/];
-        }
-    });
-}); });
-/**
- * handler for patch request for changing time of either arriving or leaving of a worker
- */
-server.patch("/wash-cat", function (req, res) {
-    return __awaiter(this, void 0, void 0, function () {
-        var cat, cats, e_7;
-        return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0:
-                    cat = req.body;
-                    _a.label = 1;
-                case 1:
-                    _a.trys.push([1, 4, , 5]);
-                    return [4 /*yield*/, readDataFromJson("currentCats")];
-                case 2:
-                    cats = _a.sent();
-                    cats = cats.map(function (item) {
-                        if (item.id === cat.id) {
-                            return cat;
-                        }
-                        else {
-                            return item;
-                        }
-                    });
-                    return [4 /*yield*/, saveDataToJson(cats, "currentCats")];
-                case 3:
-                    _a.sent();
-                    res.send({ status: true, cats: cats });
-                    return [3 /*break*/, 5];
-                case 4:
-                    e_7 = _a.sent();
-                    res.status(500).send({ status: false });
-                    return [3 /*break*/, 5];
-                case 5: return [2 /*return*/];
-            }
-        });
-    });
-});
 server.listen(port, function () {
     console.log("listening on port " + port + "!");
 });

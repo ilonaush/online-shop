@@ -1,63 +1,16 @@
-//
 import express, {Request, Response, NextFunction} from "express";
 const bodyParser = require("body-parser");
 const fs = require("fs");
 const path = require("path");
 const server = express();
 const util = require("util");
-const sqlite3 = require("sqlite3").verbose();
-const products = require("./data/items.json");
+// const sqlite3 = require("sqlite3").verbose();
 
 const readFile = util.promisify(fs.readFile);
 const writeFile = util.promisify(fs.writeFile);
 const delay = (time: number) => new Promise((res) => setTimeout(res, time));
 
 server.use(bodyParser.json());
-
-let db;
-
-function createDb() {
-    db = new sqlite3.Database("./server/db/products.db", createTable);
-}
-
-function createTable() {
-    db.run("CREATE TABLE IF NOT EXISTS products (id INT, name TEXT, category INT)", insertRows);
-}
-
-
-function insertRows() {
-    const stmt = db.prepare("INSERT INTO 'products' (id, name, category) VALUES(?,?,?)");
-    for (let i = 0; i < products.items.length; i++) {
-        const product = products.items[i];
-        console.log(product);
-        stmt.run(product.id, product.name, product.category);
-    }
-    stmt.finalize(readAllRows);
-}
-
-function readAllRows() {
-    console.log("readAllRows lorem");
-    console.log(db);
-    db.all("SELECT * FROM 'products'", function(err, rows) {
-        console.log(rows);
-        rows.forEach(function (row) {
-            console.log(row);
-        });
-        closeDb();
-    });
-}
-
-function closeDb() {
-    console.log("closeDb");
-    db.close();
-}
-
-function runChainExample() {
-    createDb();
-
-}
-
-runChainExample();
 
 
 /**
@@ -106,7 +59,7 @@ server.get("/filters", async (req, res) => {
 /**
  * handler for post request for adding new worker
  */
-server.post("/add-cat", async (req, res) => {
+server.post("/add-review", async (req, res) => {
     const cat = req.body;
     try {
         const cats = await readDataFromJson("currentCats");
@@ -120,99 +73,6 @@ server.post("/add-cat", async (req, res) => {
     }
 });
 
-/**
- * handler for patch request for firing a worker
- */
-server.patch("/issue-cat", async (req, res) => {
-    const {id, address, family, date} = req.body;
-    let issuedCat;
-    try {
-        let cats  = await readDataFromJson("currentCats");
-
-        cats = cats.filter((cat: {id: number}) => {
-            if (cat.id === parseInt(id)) {
-                issuedCat = {...cat, address, family, date};
-            }
-            return cat.id !== parseInt(id);
-        });
-
-        await saveDataToJson(cats, "currentCats");
-
-        const history = await readDataFromJson("history");
-        if (issuedCat) {
-            history.push(issuedCat);
-        }
-        await saveDataToJson(history, "history");
-        res.send({status: true, cats});
-
-    } catch(e) {
-        res.status(500).send({status: false});
-    }
-});
-
-
-/**
- * handler for patch request for changing time of either arriving or leaving of a worker
- */
-server.patch("/feed-cat", async  (req, res) => {
-    const cat = req.body;
-    try {
-        let cats = await readDataFromJson("currentCats");
-        cats = cats.map((item: {id: number}) => {
-            if (item.id === cat.id) {
-                return cat;
-            } else {
-                return item;
-            }
-        });
-        await saveDataToJson(cats, "currentCats");
-        res.send({status: true, cats});
-    } catch (e) {
-        res.status(500).send({status: false});
-    }
-});
-
-/**
- * handler for patch request for changing time of either arriving or leaving of a worker
- */
-server.patch("/hug-cat", async (req, res) => {
-    const cat = req.body;
-    try {
-        let cats = await readDataFromJson("currentCats");
-        cats = cats.map((item: {id: number}) => {
-            if (item.id === cat.id) {
-                return cat;
-            } else {
-                return item;
-            }
-        });
-        await saveDataToJson(cats, "currentCats");
-        res.send({status: true, cats});
-    } catch (e) {
-        res.status(500).send({status: false});
-    }
-});
-
-/**
- * handler for patch request for changing time of either arriving or leaving of a worker
- */
-server.patch("/wash-cat", async function (req, res) {
-    const cat = req.body;
-    try {
-        let cats = await readDataFromJson("currentCats");
-        cats = cats.map((item: {id: number}) => {
-            if (item.id === cat.id) {
-                return cat;
-            } else {
-                return item;
-            }
-        });
-        await saveDataToJson(cats, "currentCats");
-        res.send({status: true, cats});
-    } catch (e) {
-        res.status(500).send({status: false});
-    }
-});
 
 server.listen(port,  () => {
     console.log(`listening on port ${port}!`);

@@ -16,7 +16,7 @@ const modules = {
 
 const store = new Vuex.Store({
     modules,
-    plugins: [LocalStorageVuexPlugin.setLocalStorageState()]
+    // plugins: [LocalStorageVuexPlugin.setLocalStorageState()]
 });
 
 

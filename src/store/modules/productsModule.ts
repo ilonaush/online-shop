@@ -1,4 +1,3 @@
-
 import {
     IFiltersModuleState,
     IProductModuleActions,
@@ -10,9 +9,51 @@ import {CategoryType} from "@/store/types";
 import RequestService from "@/services/RequestService";
 import {ActionContext, DefineGetters, DefineMutations, DefineActions} from "vuex-type-helper";
 import {Product} from "@/interfaces";
+import { Module, VuexModule, Mutation, Action } from "vuex-module-decorators";
 import IProduct = Product.IProduct;
 import CATEGORY = Product.CATEGORY;
 import {filterProducts} from "@/services/ProductService";
+import store from "@/store/store";
+
+// @Module({namespaced: true, store: store})
+// export default class ProductsModule extends VuexModule {
+//     products: IProduct[] = [];
+//     activeCategory: string = "";
+//
+//     get filteredProducts() {
+//         return [];
+//         const selectedFilters = this.context.rootState.filterModule.selectedFilters;
+//         if (Object.keys(selectedFilters).length) {
+//             return this.context.getters[this.context.state.activeCategory as CategoryType].filter(filterProducts(selectedFilters));
+//         } else {
+//             return this.context.getters[this.context.state.activeCategory as CategoryType];
+//         }
+//     }
+//
+//     @Mutation
+//     setProducts(products: IProduct[]) {
+//         this.products = products;
+//     }
+//
+//     @Mutation
+//     setActiveCategory(activeCategory: string) {
+//         this.activeCategory = activeCategory;
+//     }
+//
+//     // action 'incr' commits mutation 'increment' when done with return value as payload
+//     @Action({ commit: 'increment' })
+//     init() {
+//         this.context.dispatch({type: "getProducts"});
+//
+//     }
+//     // action 'decr' commits mutation 'decrement' when done with return value as payload
+//     @Action({ commit: 'setProducts' })
+//     async getProducts() {
+//         console.log(this.context);
+//         const {data: {items}} = await RequestService.instance.get("/");
+//         return items;
+//     }
+// }
 
 const getters: DefineGetters<IProductsModuleGetters, IProductsModuleState> = {
     filteredProducts: (state, getters, rootState) => {
