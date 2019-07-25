@@ -33,8 +33,7 @@
                     btnStyle="outline">
                 <font-awesome-icon :icon="['fas', 'shopping-cart']"/>
             </v-button>
-            <div v-else>added</div>
-
+            <div v-else class="added-product">added</div>
         </div>
     </div>
 </template>
@@ -68,6 +67,7 @@
         }
 
         handleAddToCartClick() {
+            debugger;
             this.addItemToCart({
                 id: this.product.id,
                 name: this.product.name,
@@ -93,6 +93,7 @@
                 padding 20px 0 0 0
                 .product-card_info
                     margin-left 20px
+                    width 300px
 
     .product-card_image-holder
         height 340px
@@ -101,6 +102,12 @@
             display block
             margin 0 auto
 
+    .product-card_info
+        height 115px
+        display flex
+        align-items center
+        flex-direction column
+        justify-content space-between
     .product-card
         height 100%
         padding 15px
@@ -117,4 +124,10 @@
         display block
         color $primary
 
+    .added-product
+        background-color white
+        border 2px solid  $lighten-4
+        width 90px
+        padding 6px 0
+        margin 6px auto
 </style>

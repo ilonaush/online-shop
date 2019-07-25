@@ -1,4 +1,3 @@
-
 import {CategoryType} from "@/store/types";
 import RequestService from "@/services/RequestService";
 import {Product} from "@/interfaces";
@@ -15,10 +14,14 @@ export default class ProductsModule extends VuexModule {
 
     get filteredProducts() {
         const selectedFilters = this.context.rootState.filterModule.selectedFilters;
-        if (Object.keys(selectedFilters).length) {
-            return this.context.getters[this.activeCategory as CategoryType].filter(filterProducts(selectedFilters));
+        if (this.activeCategory) {
+            if (Object.keys(selectedFilters).length) {
+                return this[this.activeCategory as CategoryType].filter(filterProducts(selectedFilters));
+            } else {
+                return this[this.activeCategory as CategoryType];
+            }
         } else {
-            return this.context.getters[this.activeCategory as CategoryType];
+            return this.products;
         }
     }
 
@@ -45,7 +48,6 @@ export default class ProductsModule extends VuexModule {
     @Action
     init() {
         this.context.dispatch({type: "getProducts"});
-
     }
     // action 'decr' commits mutation 'decrement' when done with return value as payload
     @Action({ commit: 'setProducts' })

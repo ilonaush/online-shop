@@ -9,7 +9,6 @@ import LocalStorageVuexPlugin from "@/plugins/LocalStorageVuexPlugin";
 import {Cart} from "@/interfaces";
 import ICartItem = Cart.ICartItem;
 import store from "@/store/store";
-import RequestService from "@/services/RequestService";
 import { Module, VuexModule, Mutation, Action } from "vuex-module-decorators";
 
 const initialCartState = LocalStorageVuexPlugin.getLocalStorageModuleState<ICartModuleState>("cartModule");
@@ -25,12 +24,13 @@ export default class CartModule extends VuexModule {
         return this.items.reduce((sumAcc, currentItem) => sumAcc + (currentItem.price * currentItem.quantity), 0);
     }
     get generalQuantity() {
-        return this.items.reduce((sumAcc, currentItem) => sumAcc + currentItem.quantity, 0);
+        return this.items.reduce((sumAcc, currentItem) => sumAcc+=1, 0);
 
     }
 
     @Mutation
     addItemToCart(item: Cart.ICartItem) {
+        debugger;
         const cartItem = {
             id: item.id,
             quantity: 1,
@@ -68,6 +68,14 @@ export default class CartModule extends VuexModule {
     @Mutation
     deleteFirstNotification() {
         this.notifications.shift();
+    }
+
+    @Mutation
+    resetCart() {
+        this.items = [];
+        this.quantity = 0;
+        this.notifications = [];
+        localStorage.removeItem("store");
     }
 
 }

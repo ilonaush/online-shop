@@ -1,12 +1,12 @@
 <template functional>
-    <button v-on:click="listeners.click" :class="['btn', props.color, props.btnStyle, props.class]">
+    <button :disabled="props.disabled" v-on:click="listeners.click ? listeners.click : null" :class="['btn', props.color, props.btnStyle, props.class, props.block && 'block']">
         <slot></slot>
     </button>
 </template>
 
 <style lang="stylus">
 
-    @import "~@/vars.styl";
+    @import "~@/vars";
 
     .btn
         align-items center
@@ -33,4 +33,6 @@
         &.outline
             background-color white
             border 2px solid  $lighten-4
+        &.block
+            display block
 </style>

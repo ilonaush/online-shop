@@ -22,8 +22,8 @@
                         </div>
                     </div>
                 </div>
-                Total: {{generalPrice}} $
-                <v-button color="primary" @click="openModal(modalType.cart)">Edit order</v-button>
+                Total: {{generalPrice.toFixed(2)}} $
+                <v-button block color="primary" @click="openModal(modalType.cart)">Edit order</v-button>
             </div>
         </div>
         <v-button v-on:click="placeOrder" color="primary">Place the order</v-button>
@@ -36,7 +36,7 @@
     import CheckoutForm from "@/components/checkout-form/checkout-form.vue";
     import VButton from "@/components/v-button/v-button.vue";
     import {MODAL_TYPE} from "../store/enums";
-    import {openModal} from "@/views/RouteService";
+    import {openModal} from "@/services/RouteService";
 
     const { mapState, mapGetters } = createNamespacedHelpers("cartModule/");
 
@@ -60,16 +60,20 @@
 </script>
 
 <style lang="stylus">
-    @import "../vars.styl";
+    @import "~@/vars";
 
     .checkout-page
         padding $page-padding
     .checkout-page_content
         display flex
         justify-content space-between
+        max-width 700px
+        border 2px solid $lighten-4
+        padding 15px
 
     .checkout-items
-        border 1px solid aquamarine
+        border 2px solid $lighten-2
+        padding 15px
 
     .checkout-item
         display flex

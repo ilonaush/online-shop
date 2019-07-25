@@ -2,11 +2,11 @@
     <div class="list-controls">
         <div class="view">
             View
-            <span class="list-view" v-on:click="$emit("viewChange", "list")">
-                <font-awesome-icon :icon="["fas", "list"]"></font-awesome-icon>
+            <span class="list-view" v-on:click="$emit('viewChange', 'list')">
+                <font-awesome-icon :icon="['fas', 'list']"></font-awesome-icon>
             </span>
-            <span class="grid-view" v-on:click="$emit("viewChange", "grid")">
-                <font-awesome-icon :icon="["fas", "th"]"></font-awesome-icon>
+            <span class="grid-view" v-on:click="$emit('viewChange', 'grid')">
+                <font-awesome-icon :icon="['fas', 'th']"></font-awesome-icon>
             </span>
         </div>
 

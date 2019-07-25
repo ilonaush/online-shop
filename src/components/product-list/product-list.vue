@@ -61,7 +61,7 @@
 
 
     .product-card-holder
-        height 490px
+        height 510px
         box-sizing border-box
 </style>
 

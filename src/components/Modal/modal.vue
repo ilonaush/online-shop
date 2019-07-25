@@ -26,7 +26,7 @@
 
 <script lang="ts">
     import Vue from "vue";
-    import {closeModal} from "@/views/RouteService";
+    import {closeModal} from "@/services/RouteService";
 
     export default Vue.extend({
         methods: {
@@ -56,6 +56,7 @@
         display: flex
         flex-direction: column
         padding 20px
+        min-width 700px
 
 
     .modal-header

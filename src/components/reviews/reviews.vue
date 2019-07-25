@@ -1,26 +1,31 @@
 <template>
-    <div class="reviews">
-        <div class="reviews_title">
-            REVIEWS
-        </div>
-        <div class="review" :key="review.id" v-for="review in reviews">
-            <div class="review-author-section">
-                <div class="review-author">
-                    {{review.reviewerName}}
+    <div>
+        <div class="reviews">
+            <div class="reviews_title">
+                REVIEWS
+            </div>
+            <div class="review" :key="review.id" v-for="review in reviews">
+                <div class="review-author-section">
+                    <div class="review-author">
+                        {{review.reviewerName}}
+                    </div>
+                    <div>
+                        <star-rating :starQuantity="review.mark"></star-rating>
+                    </div>
                 </div>
-                <div>
-                    <star-rating :starQuantity="review.mark"></star-rating>
+                <div class="review-text">
+                    {{review.reviewText}}
                 </div>
             </div>
-            <div class="review-text">
-                {{review.reviewText}}
-            </div>
         </div>
+        <add-review-form/>
     </div>
 </template>
 
 <script lang="ts">
     import Vue, {PropType} from "vue";
+    import AddReviewForm from "@/components/add-review-form/add-review-form.vue";
+    import VButton from "@/components/v-button/v-button.vue";
     import StarRating from "@/components/star-rating/star-rating.vue";
     import {Product} from "@/interfaces";
 
@@ -29,7 +34,9 @@
             reviews: Array as PropType<Product.IReview[]>
         },
         components: {
-            StarRating
+            StarRating,
+            AddReviewForm,
+            VButton
         }
     });
 </script>

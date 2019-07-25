@@ -5,7 +5,7 @@
             :key="filter.name"
             class="filter-section"
             >
-                <div>{{filter.title}}</div>
+                <div class="filter_title">{{filter.title}}</div>
                 <div class="colors"
                      v-if="filter.name === 'colors'" >
                     <div :class="['color', ...(selectedFilters.includes(`colors.${filterOption.value}`) ? ['selected-color'] : [''])]"
@@ -86,6 +86,9 @@
 
     .filter-section
         padding 15px
+
+        .filter_title
+            margin-bottom 5px
 
     .disabledOption
         color grey

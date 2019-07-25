@@ -92,7 +92,6 @@
     import CustomRadiobutton from "@/components/custom-radiobutton/custom-radiobutton.vue";
     import {App, Cart, Product} from "@/interfaces";
     import RequestService from "../services/RequestService";
-    import {Product} from "../interfaces";
     import IProduct = Product.IProduct;
     import IReview = Product.IReview;
 
@@ -135,8 +134,9 @@
             })  || {};
         }
 
-        @Watch("product")
+        @Watch("product", {immediate: true})
         setInitialProductValues() {
+            console.log("product");
             this.availableSizes = this.product.sizes.map((size) => ({title: size, value: size}));
             this.selectedImage = this.product.images[0];
             this.selectedColor = this.product.colors[0];

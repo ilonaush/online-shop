@@ -3,7 +3,9 @@
         <router-link class="logo-icon" to="/">
             <img src="@/assets/images/flora-flower.svg" alt="">
         </router-link>
+
         <h4>Flora</h4>
+
         <v-button
             color="primary"
             class="catalogue-btn"
@@ -14,11 +16,13 @@
                 class="catalogue-list">
                 <router-link
                     v-for="item in menuItems"
+                    class="catalogue-list_item"
                     :to="{ name: 'catalogue', params: { category: item.split(' ')[0].toLowerCase() }}">
                     {{item}}
                 </router-link>
             </div>
         </v-button>
+
         <div class="cart-icon">
             <font-awesome-icon :icon="['fas', 'shopping-cart']" size="2x"/>
 
@@ -26,9 +30,11 @@
 
             <div class="cart-info">
                 <span v-if="generalQuantity > 0">
-                    There is {{generalQuantity}} {{ 'item' | pluralize(generalQuantity) }}  for {{generalPrice}} $
-                    <router-link :to="{name: 'checkout'}">Check out</router-link>
-                     <span class="line"></span>
+                    There is {{generalQuantity}} {{ 'item' | pluralize(generalQuantity) }}  for {{generalPrice.toFixed(2)}} $
+                    <div>
+                        <router-link :to="{name: 'checkout'}">Check out</router-link>
+                    </div>
+                    <span class="line"></span>
                     <v-button
                     color="primary"
                     v-on:click="openModal(modalType.cart)">
@@ -50,7 +56,7 @@
     import Notification from "@/components/notification/notification.vue";
     import VButton from "@/components/v-button/v-button.vue";
     import {MODAL_TYPE} from "@/store/enums";
-    import {openModal} from "@/views/RouteService";
+    import {openModal} from "@/services/RouteService";
 
     const { mapGetters } = createNamespacedHelpers("cartModule/");
 
@@ -94,11 +100,14 @@
     .catalogue-list
         position absolute
         background-color white
-        top 200%
+        top 110%
         left 0
         min-width 300px
+        border 1px solid $lighten-4
+        padding 25px 0
         a
             display block
+            padding 5px 0
 
     .cart-icon
         position relative
@@ -108,6 +117,7 @@
         &:hover
          .cart-info
             display block
+
         .cart-quantity
             position absolute
             background-color aquamarine
@@ -127,6 +137,7 @@
             min-width 300px
             min-height 50px
             padding 10px
+            pointer-events none
             button
                 display block
                 margin 5px auto

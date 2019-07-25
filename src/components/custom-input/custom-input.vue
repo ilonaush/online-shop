@@ -1,9 +1,9 @@
 <template functional>
     <label class="custom-input_label">
-        {{props.label}}
+        {{props.error ? props.error : props.label}}
         <input
             v-bind:value="props.value"
-           v-on:input="listeners.input($event.target.value)"
+            v-on:input="listeners.input($event.target.value)"
         >
     </label>
 
@@ -14,4 +14,5 @@
         display block
         input
             display flex
+            border 1px solid mediumaquamarine
 </style>

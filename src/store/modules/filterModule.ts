@@ -11,12 +11,12 @@ export default class FilterModule extends VuexModule {
 
 
     @Mutation
-    setSelectedFilters(filters: IFilter[]) {
+    setFilters(filters: IFilter[]) {
         this.filters = filters;
     }
 
     @Mutation
-    setFilters(selectedFilters: Record<string, string[]>) {
+    setSelectedFilters(selectedFilters: Record<string, string[]>) {
         this.selectedFilters = selectedFilters;
     }
 

@@ -11,7 +11,7 @@
     import VButton from "@/components/v-button/v-button.vue";
     import {MODAL_TYPE} from "@/store/enums";
     import {Notification as NotificationService} from "@/interfaces";
-    import {openModal} from "@/views/RouteService";
+    import {openModal} from "@/services/RouteService";
 
     const { mapMutations: mapCartMutations } = createNamespacedHelpers("cartModule/");
 

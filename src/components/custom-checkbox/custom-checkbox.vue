@@ -57,6 +57,7 @@
             width 20px
             height 20px
             margin 0
+            margin-right 5px
             border 1px solid $lighten-2
             border-radius 5px
             cursor pointer
