@@ -60,7 +60,7 @@
                         <v-button v-if="!isInCart" color="primary" v-on:click="handleAddToCartClick">Add to cart</v-button>
                         <div v-else>added</div>
                         <div class="stars">
-                            <star-rating :starQuantity="product.rating"/>
+                            <star-rating :starQuantity="averageMark"/>
                             (<router-link to="#reviews">{{reviews.length}} reviews</router-link>)
                         </div>
                     </div>
@@ -68,7 +68,7 @@
             </tab>
             <tab name="Reviews">
                 <div class="product-info">
-                  <reviews :reviews="reviews"/>
+                  <reviews :reviews="reviews" :productId="product.id" v-on:reviewAdd="getReviews"/>
                 </div>
             </tab>
         </tabs>
@@ -120,6 +120,7 @@
         addItemToCart!: (item: Omit<Cart.ICartItem, "quantity">) => void;
         availableSizes: App.ISelect[] = [];
         reviews: IReview[] = [];
+        averageMark: number = 0;
 
 
         get isInCart() {
@@ -148,7 +149,8 @@
 
         async getReviews() {
             const {data} = await RequestService.instance.get("/reviews", {productId: this.product.id});
-            this.reviews = data;
+            this.reviews = data.reviews;
+            this.averageMark = data.averageMark;
         }
 
         handleAddToCartClick() {

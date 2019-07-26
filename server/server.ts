@@ -59,11 +59,12 @@ server.get("/filters", async (req, res) => {
 server.get("/reviews", async (req, res) => {
     const productId = req.query.productId;
     try {
-        let data = await readDataFromJson("reviews");
-        console.log(data.reviews);
-        const reviews = data.reviews.filter((review) => review.productId === +productId);
-        console.log(reviews);
-        res.send(reviews);
+        let reviews = await readDataFromJson("reviews");
+        reviews = reviews.filter((review) => review.productId === +productId);
+        const averageMark = (reviews.reduce((currentReview, nextReview) => {
+            return  (currentReview || {}).mark || 0 + nextReview.mark;
+        }, 0) / reviews.length).toFixed(0);
+        res.send({reviews, averageMark});
     } catch (e) {
         console.log(e);
         res.status(500).send({success: false});
@@ -74,19 +75,19 @@ server.get("/reviews", async (req, res) => {
  * handler for post request for adding new worker
  */
 server.post("/add-review", async (req, res) => {
-    const cat = req.body;
+    const review = req.body;
+    console.log(review);
     try {
-        const cats = await readDataFromJson("currentCats");
-        cats.push(cat);
-        const response = await saveDataToJson(cats, "currentCats");
+        const reviews = await readDataFromJson("reviews");
+        reviews.push(review);
+        const response = await saveDataToJson(reviews, "reviews");
         if (response) {
-            res.send({status: true, cats});
+            res.send({status: true, reviews});
         }
     } catch (e) {
         res.status(500).send({status: false});
     }
 });
-
 
 server.listen(port,  () => {
     console.log(`listening on port ${port}!`);

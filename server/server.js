@@ -112,7 +112,7 @@ server.get("/filters", function (req, res) { return __awaiter(_this, void 0, voi
     });
 }); });
 server.get("/reviews", function (req, res) { return __awaiter(_this, void 0, void 0, function () {
-    var productId, data, reviews, e_3;
+    var productId, reviews, averageMark, e_3;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
@@ -122,11 +122,15 @@ server.get("/reviews", function (req, res) { return __awaiter(_this, void 0, voi
                 _a.trys.push([1, 3, , 4]);
                 return [4 /*yield*/, readDataFromJson("reviews")];
             case 2:
-                data = _a.sent();
-                console.log(data.reviews);
-                reviews = data.reviews.filter(function (review) { return review.productId === +productId; });
-                console.log(reviews);
-                res.send(reviews);
+                reviews = _a.sent();
+                console.log(reviews.length);
+                reviews = reviews.filter(function (review) { return review.productId === +productId; });
+                averageMark = (reviews.reduce(function (currentReview, nextReview) {
+                    console.log(currentReview);
+                    return (currentReview || {}).mark || 0 + nextReview.mark;
+                }, 0) / reviews.length).toFixed(0);
+                console.log(averageMark);
+                res.send({ reviews: reviews, averageMark: averageMark });
                 return [3 /*break*/, 4];
             case 3:
                 e_3 = _a.sent();
@@ -141,23 +145,24 @@ server.get("/reviews", function (req, res) { return __awaiter(_this, void 0, voi
  * handler for post request for adding new worker
  */
 server.post("/add-review", function (req, res) { return __awaiter(_this, void 0, void 0, function () {
-    var cat, cats, response, e_4;
+    var review, reviews, response, e_4;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
-                cat = req.body;
+                review = req.body;
+                console.log(review);
                 _a.label = 1;
             case 1:
                 _a.trys.push([1, 4, , 5]);
-                return [4 /*yield*/, readDataFromJson("currentCats")];
+                return [4 /*yield*/, readDataFromJson("reviews")];
             case 2:
-                cats = _a.sent();
-                cats.push(cat);
-                return [4 /*yield*/, saveDataToJson(cats, "currentCats")];
+                reviews = _a.sent();
+                reviews.push(review);
+                return [4 /*yield*/, saveDataToJson(reviews, "reviews")];
             case 3:
                 response = _a.sent();
                 if (response) {
-                    res.send({ status: true, cats: cats });
+                    res.send({ status: true, reviews: reviews });
                 }
                 return [3 /*break*/, 5];
             case 4:

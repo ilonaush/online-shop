@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="reviews-section">
         <div class="reviews">
             <div class="reviews_title">
                 REVIEWS
@@ -7,18 +7,18 @@
             <div class="review" :key="review.id" v-for="review in reviews">
                 <div class="review-author-section">
                     <div class="review-author">
-                        {{review.reviewerName}}
+                        {{review.reviewer}}
                     </div>
                     <div>
                         <star-rating :starQuantity="review.mark"></star-rating>
                     </div>
                 </div>
                 <div class="review-text">
-                    {{review.reviewText}}
+                    {{review.review}}
                 </div>
             </div>
         </div>
-        <add-review-form/>
+        <add-review-form :productId="productId" v-on:reviewAdd="handleReviewAdding"/>
     </div>
 </template>
 
@@ -31,19 +31,31 @@
 
     export default Vue.extend({
         props: {
-            reviews: Array as PropType<Product.IReview[]>
+            reviews: Array as PropType<Product.IReview[]>,
+            productId: Number,
+            getReviews: Function
         },
         components: {
             StarRating,
             AddReviewForm,
             VButton
+        },
+        methods: {
+            handleReviewAdding() {
+                this.$emit("reviewAdd");
+            }
         }
     });
 </script>
 
 <style lang="stylus">
 
-    @import "~@/vars.styl"
+    @import "~@/vars"
+    .reviews-section
+        width 700px
+        display flex
+        .reviews
+            flex 1
 
     .reviews_title
         text-transform uppercase

@@ -39,17 +39,22 @@ export class RequestService implements Request.IRequestService {
       }
     }
     return Promise.reject(error);
-  }
+  };
 
   redirectTo = (document: Document, path: string) => {
     document.location.pathname = path;
-  }
+  };
 
   get(path: string, params = {}) {
     console.log(params);
     return this.service.get(path, {
       params,
     });
+  }
+
+  post(path: string, data = {}) {
+    console.log(data);
+    return this.service.post(path, data);
   }
 }
 
