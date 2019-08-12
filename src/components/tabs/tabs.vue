@@ -1,59 +1,59 @@
 <template>
-    <div class="tabs">
-        <div>
-            <ul class="tabs-menu">
-                <li v-for="tab in tabs" :class="{ 'is-active': tab.isActive }">
-                    <a :href="tab.href" @click="selectTab(tab.href)">{{ tab.name }}</a>
-                </li>
-            </ul>
-        </div>
-        <div class="tabs-details">
-            <slot></slot>
-        </div>
-    </div>
+	<div class="tabs">
+		<div>
+			<ul class="tabs-menu">
+				<li v-for="tab in tabs" :class="{ 'is-active': tab.isActive }">
+					<a :href="tab.href" @click="selectTab(tab.href)">{{ tab.name }}</a>
+				</li>
+			</ul>
+		</div>
+		<div class="tabs-details">
+			<slot></slot>
+		</div>
+	</div>
 </template>
 
 <script lang="ts">
-    import {Component, Vue, Watch} from "vue-property-decorator";
-    import {Tabs as TabsService} from "@/interfaces";
-    import ITabsMenuItem = TabsService.ITabsMenuItem;
+	import {Component, Vue, Watch} from "vue-property-decorator";
+	import {Tabs as TabsService} from "@/interfaces";
+	import ITabsMenuItem = TabsService.ITabsMenuItem;
 
-    @Component
-    export default class Tabs extends Vue {
-        tabs: Vue[] = [];
-        mounted() {
-            this.selectTab(window.location.hash);
-        }
+	@Component
+	export default class Tabs extends Vue {
+		tabs: Vue[] = [];
 
-        created() {
-            this.tabs = this.$children;
-        }
+		mounted() {
+			this.selectTab(window.location.hash);
+		}
 
-        @Watch("$route")
-        updateTabs() {
-            this.selectTab(window.location.hash);
-        }
+		created() {
+			this.tabs = this.$children;
+		}
 
-        selectTab(selectedHref: string) {
-            if (!selectedHref) {
-                selectedHref = "#";
-            }
-            this.tabs.forEach((tab: Vue) => {
-                tab["isActive"] = (tab.href === selectedHref);
-            });
+		@Watch("$route")
+		updateTabs() {
+			this.selectTab(window.location.hash);
+		}
 
-        }
-    }
+		selectTab(selectedHref: string) {
+			if (!selectedHref) {
+				selectedHref = "#";
+			}
+			this.tabs.forEach((tab: any) => {
+				tab["isActive"] = (tab.href === selectedHref);
+			});
+		}
+	}
 </script>
 
 <style lang="stylus">
-    .tabs-menu
-        margin 10px 0
-        padding 10px
-        background-color whitesmoke
-        li
-            display inline
-            padding-right 10px
+	.tabs-menu
+		margin 10px 0
+		padding 10px
+		background-color whitesmoke
+		li
+			display inline
+			padding-right 10px
 
 </style>
 

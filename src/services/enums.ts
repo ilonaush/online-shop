@@ -1,7 +1,8 @@
 export enum REQUEST_NAME {
-    getFilters = "/filters",
-    getProducts = "/",
+	getFilters = "/filters",
+	getProducts = "/",
 }
+
 export enum NOTIFICATION_TYPES {
-    addToCart = "/addToCart",
+	addToCart = "/addToCart",
 }

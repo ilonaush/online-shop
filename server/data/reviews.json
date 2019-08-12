@@ -12,5 +12,32 @@
         "review": "Вообще круто!!1",
         "reviewer": "Котик",
         "mark": 5
+    },
+    {
+        "id": 1565592675376,
+        "review": "cool",
+        "reviewer": "Ilona",
+        "mark": 4
+    },
+    {
+        "id": 1565595252308,
+        "productId": 4,
+        "review": "cool",
+        "reviewer": "Ilona",
+        "mark": 5
+    },
+    {
+        "id": 1565595267851,
+        "productId": 4,
+        "review": "bad",
+        "reviewer": "Meow",
+        "mark": 1
+    },
+    {
+        "id": 1565595369020,
+        "productId": 4,
+        "review": "not goof",
+        "reviewer": "Meow",
+        "mark": 2
     }
 ]

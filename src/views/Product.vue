@@ -1,243 +1,250 @@
 <template>
-    <div class="product-page">
-        <tabs>
-            <tab className="product-tab" name="Info" :defaultSelected="true">
-                <div class="images-holder">
-                    <div class="images-thumbnails">
-                        <div class="image-thumbnail"
-                             v-for="(image, index) in product.images || []"
-                             @click="setSelectedImage(index)">
-                            <img :src="image" alt="">
-                        </div>
-                    </div>
-                    <div class="selected-image">
-                        <img :src="selectedImage" alt="">
-                    </div>
-                </div>
-                <div class="product-info-holder">
-                    <div class="product-details">
-                        <div class="product_name"> {{product.name}}</div>
-                        <div class="product_price-section">
+	<div class="product-page">
+		<tabs>
+			<tab className="product-tab" name="Info" :defaultSelected="true">
+				<div class="images-holder">
+					<div class="images-thumbnails">
+						<div class="image-thumbnail"
+							 v-for="(image, index) in product.images || []"
+							 @click="setSelectedImage(index)">
+							<img :src="image" alt="">
+						</div>
+					</div>
+					<div class="selected-image">
+						<img :src="selectedImage" alt="">
+					</div>
+				</div>
+				<div class="product-info-holder">
+					<div class="product-details">
+						<div class="product_name"> {{product.name}}</div>
+						<div class="product_price-section">
                             <span :class="{'product_price': true, sale: product.oldPrice}">
                             {{((product.price) || 0).toFixed(2)}} $
                             </span>
-                            <span  v-if="product.oldPrice" class="product_oldPrice">
+							<span v-if="product.oldPrice" class="product_oldPrice">
                             {{((product.oldPrice) || 0).toFixed(2)}} $
                             </span>
-                        </div>
+						</div>
 
-                        <div class="product_color-section">
-                            <div class="title">Color</div>
-                            <div class="colors">
-                                <div :class="['color', ...(selectedColor === color ? ['selected-color'] : [''])]"
-                                     v-for="color in product.colors"
-                                     :style="{backgroundColor: color}"
-                                     v-on:click="setSelectedColor(color)">
-                                </div>
-                            </div>
-                        </div>
+						<div class="product_color-section">
+							<div class="title">Color</div>
+							<div class="colors">
+								<div :class="['color', ...(selectedColor === color ? ['selected-color'] : [''])]"
+										 v-for="color in product.colors"
+										 :style="{backgroundColor: color}"
+										 v-on:click="setSelectedColor(color)">
+								</div>
+							</div>
+						</div>
 
-                        <div class="product_size-section">
-                            Size
-                            <div class="sizes-holder">
-                                <custom-select className="sizes" :options="availableSizes" v-on:change="setSelectedSize"/>
-                            </div>
-                        </div>
+						<div class="product_size-section">
+							Size
+							<div class="sizes-holder">
+								<custom-select className="sizes" :options="availableSizes" v-on:change="setSelectedSize"/>
+							</div>
+						</div>
 
-                        <div class="product_flower-section">
-                            Flower
-                            <div class="flower-holder">
-                                <custom-radiobutton
-                                        v-model="selectedFlower"
-                                        v-for="flower in product.availableFlowerType"
-                                        name="flower"
-                                        :label="flower"
-                                        :value="flower"
-                                        :checked="flower === selectedFlower"
-                                />
-                            </div>
-                        </div>
-                        <v-button v-if="!isInCart" color="primary" v-on:click="handleAddToCartClick">Add to cart</v-button>
-                        <div v-else>added</div>
-                        <div class="stars">
-                            <star-rating :starQuantity="averageMark"/>
-                            (<router-link to="#reviews">{{reviews.length}} reviews</router-link>)
-                        </div>
-                    </div>
-                </div>
-            </tab>
-            <tab name="Reviews">
-                <div class="product-info">
-                  <reviews :reviews="reviews" :productId="product.id" v-on:reviewAdd="getReviews"/>
-                </div>
-            </tab>
-        </tabs>
-        <div class="other-products">
-            <h4>OTHER PRODUCTS IN THE SAME CATEGORY</h4>
-            <product-list :products="$store.state['productsModule'].products.filter(p => p.id !== product.id && p.category === product.category).slice(0, 4)"/>
-        </div>
-    </div>
+						<div class="product_flower-section">
+							Flower
+							<div class="flower-holder">
+								<custom-radiobutton
+									v-model="selectedFlower"
+									v-for="flower in product.availableFlowerType"
+									:key="flower"
+									name="flower"
+									:label="flower"
+									:value="flower"
+									:checked="flower === selectedFlower"
+								/>
+							</div>
+						</div>
+						<v-button v-if="!isInCart" color="primary" v-on:click="handleAddToCartClick">Add to cart</v-button>
+						<div v-else>added</div>
+						<div class="stars">
+							<star-rating :starQuantity="averageMark"/>
+							(
+							<router-link to="#reviews">{{reviews.length}} reviews</router-link>
+							)
+						</div>
+					</div>
+				</div>
+			</tab>
+			<tab name="Reviews">
+				<div class="product-info">
+					<reviews :reviews="reviews" :productId="product.id" v-on:reviewAdd="getReviews"/>
+				</div>
+			</tab>
+		</tabs>
+		<div class="other-products">
+			<h4>OTHER PRODUCTS IN THE SAME CATEGORY</h4>
+			<product-list
+				:products="$store.state['productsModule'].products.filter(p => p.id !== product.id && p.category === product.category).slice(0, 4)"/>
+		</div>
+	</div>
 </template>
 
 <script lang="ts">
-    import {createNamespacedHelpers} from "vuex";
-    import {Component, Vue, Watch} from "vue-property-decorator";
-    import VButton from "@/components/v-button/v-button.vue";
-    import Tabs from "@/components/tabs/tabs.vue";
-    import Tab from "@/components/tabs/tab.vue";
-    import StarRating from "@/components/star-rating/star-rating.vue";
-    import Reviews from "@/components/reviews/reviews.vue";
-    import ProductList from "@/components/product-list/product-list.vue";
-    import CustomSelect from "@/components/custom-select/custom-select.vue";
-    import CustomRadiobutton from "@/components/custom-radiobutton/custom-radiobutton.vue";
-    import {App, Cart, Product} from "@/interfaces";
-    import RequestService from "../services/RequestService";
-    import IProduct = Product.IProduct;
-    import IReview = Product.IReview;
+	import {createNamespacedHelpers} from "vuex";
+	import {Component, Vue, Watch} from "vue-property-decorator";
+	import VButton from "@/components/v-button/v-button.vue";
+	import Tabs from "@/components/tabs/tabs.vue";
+	import Tab from "@/components/tabs/tab.vue";
+	import StarRating from "@/components/star-rating/star-rating.vue";
+	import Reviews from "@/components/reviews/reviews.vue";
+	import ProductList from "@/components/product-list/product-list.vue";
+	import CustomSelect from "@/components/custom-select/custom-select.vue";
+	import CustomRadiobutton from "@/components/custom-radiobutton/custom-radiobutton.vue";
+	import {App, Cart, Product} from "@/interfaces";
+	import RequestService from "../services/RequestService";
+	import IProduct = Product.IProduct;
+	import IReview = Product.IReview;
 
-    const { mapMutations: mapCartMutations } = createNamespacedHelpers("cartModule/");
+	const {mapMutations: mapCartMutations} = createNamespacedHelpers("cartModule/");
 
-    @Component({
-        components: {
-            ProductList,
-            Reviews,
-            StarRating,
-            VButton,
-            Tabs,
-            Tab,
-            CustomRadiobutton,
-            CustomSelect
-        },
-        methods: {
-            ...mapCartMutations(["addItemToCart"])
-        }
-    })
-    export default class ProductPage extends Vue {
-        selectedImage: string = "";
-        selectedColor: string = "";
-        selectedSize: string = "";
-        selectedFlower: string = "";
-        addItemToCart!: (item: Omit<Cart.ICartItem, "quantity">) => void;
-        availableSizes: App.ISelect[] = [];
-        reviews: IReview[] = [];
-        averageMark: number = 0;
+	@Component({
+		components: {
+			ProductList,
+			Reviews,
+			StarRating,
+			VButton,
+			Tabs,
+			Tab,
+			CustomRadiobutton,
+			CustomSelect
+		},
+		methods: {
+			...mapCartMutations(["addItemToCart"])
+		}
+	})
+	export default class ProductPage extends Vue {
+		selectedImage: string = "";
+		selectedColor: string = "";
+		selectedSize: string = "";
+		selectedFlower: string = "";
+		addItemToCart!: (item: Omit<Cart.ICartItem, "quantity">) => void;
+		availableSizes: App.ISelect[] = [];
+		reviews: IReview[] = [];
+		averageMark: number = 0;
 
 
-        get isInCart() {
-            return !!this.$store.state["cartModule"].items.find((product: IProduct) => {
-                return product.id === +this.$route.params["product"];
-            })
-        }
+		get isInCart() {
+			return !!this.$store.state["cartModule"].items.find((product: IProduct) => {
+				return product.id === +this.$route.params["product"];
+			});
+		}
 
-        get product(): IProduct {
-            return this.$store.state["productsModule"].products.find((product: IProduct) => {
-                return product.id === +this.$route.params["product"];
-            })  || {};
-        }
+		get product(): IProduct {
+			return this.$store.state["productsModule"].products.find((product: IProduct) => {
+				return product.id === +this.$route.params["product"];
+			}) || {};
+		}
 
-        @Watch("product", {immediate: true})
-        setInitialProductValues() {
-            console.log("product");
-            this.availableSizes = this.product.sizes.map((size) => ({title: size, value: size}));
-            this.selectedImage = this.product.images[0];
-            this.selectedColor = this.product.colors[0];
-            this.selectedSize = this.product.sizes[0];
-            this.selectedFlower = this.product.availableFlowerType[0];
-            this.getReviews();
+		@Watch("product")
+		setInitialProductValues() {
+			console.log("product");
+			this.availableSizes = this.product.sizes.map((size) => ({title: size, value: size}));
+			this.selectedImage = this.product.images[0];
+			this.selectedColor = this.product.colors[0];
+			this.selectedSize = this.product.sizes[0];
+			this.selectedFlower = this.product.availableFlowerType[0];
+			this.getReviews();
 
-        }
+		}
 
-        async getReviews() {
-            const {data} = await RequestService.instance.get("/reviews", {productId: this.product.id});
-            this.reviews = data.reviews;
-            this.averageMark = data.averageMark;
-        }
+		async getReviews() {
+			const {data} = await RequestService.instance.get("/reviews", {productId: this.product.id});
+			this.reviews = data.reviews;
+			this.averageMark = data.averageMark;
+		}
 
-        handleAddToCartClick() {
-            this.addItemToCart({
-                id: this.product.id,
-                name: this.product.name,
-                price: this.product.price,
-                img: this.product.images[0],
-                color: this.selectedColor,
-                size: this.selectedSize,
-                flower: this.selectedFlower
-            });
-        }
+		handleAddToCartClick() {
+			this.addItemToCart({
+				id: this.product.id,
+				name: this.product.name,
+				price: this.product.price,
+				img: this.product.images[0],
+				color: this.selectedColor,
+				size: this.selectedSize,
+				flower: this.selectedFlower
+			});
+		}
 
-        setSelectedImage(index: number) {
-            this.selectedImage = this.product.images[index];
-        }
+		setSelectedImage(index: number) {
+			this.selectedImage = this.product.images[index];
+		}
 
-        setSelectedColor(color: string) {
-            this.selectedColor = color;
-        }
+		setSelectedColor(color: string) {
+			this.selectedColor = color;
+		}
 
-        setSelectedSize(size: string) {
-            this.selectedSize = size;
-        }
-
-    }
+		setSelectedSize(size: string) {
+			this.selectedSize = size;
+		}
+	}
 </script>
 
 <style lang="stylus">
-    @import "../vars.styl";
+	@import "../vars.styl";
 
-    .product-page
-        padding $page-padding
-        .product-list
-            max-width 1100px
-            margin 0 auto
-            .product-card-holder
-                width 24%
-    .product_name
-        margin-top 30px
-        font-weight 500
-        text-transform uppercase
-        font-size 26px
+	.product-page
+		padding $page-padding
+		.product-list
+			max-width 1100px
+			margin 0 auto
+			.product-card-holder
+				width 24%
 
-    .product-tab
-        display flex
-    .images-holder
-        display flex
-        height 700px
-        width 660px
-        .image-thumbnail
-            background-color $milk
-            width 80px
-            height 80px
-            text-align center
-            margin-bottom 10px
-            img
-                width 100%
-                object-fit cover
-        .selected-image
-            background-color $milk
-            margin-left 20px
-    .product-info-holder
-        padding 0 30px
+	.product_name
+		margin-top 30px
+		font-weight 500
+		text-transform uppercase
+		font-size 26px
 
-    .product_color-section
-        margin 20px 0
-        .colors
-            display flex
-            .color
-                width 30px
-                cursor pointer
-                height 30px
-                border-radius 50%
-                margin 5px 10px
-                margin-left 0
-                &.selected-color
-                    border 1px solid black
-    .product_flower-section
-        margin 20px 0
-        .flower-holder
-            display flex
-            .input-holder
-                margin 5px
-                &:first-child
-                    margin-left 0
+	.product-tab
+		display flex
+
+	.images-holder
+		display flex
+		height 700px
+		width 660px
+		.image-thumbnail
+			background-color $milk
+			width 80px
+			height 80px
+			text-align center
+			margin-bottom 10px
+			img
+				width 100%
+				object-fit cover
+		.selected-image
+			background-color $milk
+			margin-left 20px
+
+	.product-info-holder
+		padding 0 30px
+
+	.product_color-section
+		margin 20px 0
+		.colors
+			display flex
+			.color
+				width 30px
+				cursor pointer
+				height 30px
+				border-radius 50%
+				margin 5px 10px
+				margin-left 0
+				&.selected-color
+					border 1px solid black
+
+	.product_flower-section
+		margin 20px 0
+		.flower-holder
+			display flex
+			.input-holder
+				margin 5px
+				&:first-child
+					margin-left 0
 
 
 </style>

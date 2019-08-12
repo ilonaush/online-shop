@@ -123,13 +123,10 @@ server.get("/reviews", function (req, res) { return __awaiter(_this, void 0, voi
                 return [4 /*yield*/, readDataFromJson("reviews")];
             case 2:
                 reviews = _a.sent();
-                console.log(reviews.length);
                 reviews = reviews.filter(function (review) { return review.productId === +productId; });
                 averageMark = (reviews.reduce(function (currentReview, nextReview) {
-                    console.log(currentReview);
                     return (currentReview || {}).mark || 0 + nextReview.mark;
                 }, 0) / reviews.length).toFixed(0);
-                console.log(averageMark);
                 res.send({ reviews: reviews, averageMark: averageMark });
                 return [3 /*break*/, 4];
             case 3:

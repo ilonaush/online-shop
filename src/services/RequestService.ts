@@ -22,7 +22,7 @@ export class RequestService implements Request.IRequestService {
 
   handleSuccess = (response: AxiosResponse) => {
     return response;
-  };
+  }
 
   handleError = (error: AxiosError) => {
     if (error && error.response && error.response.status && document) {
@@ -39,7 +39,7 @@ export class RequestService implements Request.IRequestService {
       }
     }
     return Promise.reject(error);
-  };
+  }
 
   redirectTo = (document: Document, path: string) => {
     document.location.pathname = path;

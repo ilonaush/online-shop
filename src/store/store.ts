@@ -9,28 +9,28 @@ import {default as cartModule} from "@/store/modules/cartModule";
 Vue.use(Vuex);
 
 const modules = {
-    filterModule,
-    cartModule,
-    productsModule,
+	filterModule,
+	cartModule,
+	productsModule,
 };
 
 const store = new Vuex.Store({
-    modules,
-    plugins: [LocalStorageVuexPlugin.setLocalStorageState()]
+	modules,
+	plugins: [LocalStorageVuexPlugin.setLocalStorageState()]
 });
 
 
 for (const moduleName of Object.keys(modules)) {
-    if (modules[moduleName as ModuleType] && "actions" in modules[moduleName as ModuleType]) {
-        const module =  modules[moduleName as ModuleType];
-        if ("actions" in module) {
-            const actions = module.actions;
-            if ((actions || {}).init) {
-                store.dispatch(`${moduleName}/init`);
-            }
-        }
+	if (modules[moduleName as ModuleType] && "actions" in modules[moduleName as ModuleType]) {
+		const module = modules[moduleName as ModuleType];
+		if ("actions" in module) {
+			const actions = module.actions;
+			if ((actions || {}).init) {
+				store.dispatch(`${moduleName}/init`);
+			}
+		}
 
-    }
+	}
 }
 
 export default store;
