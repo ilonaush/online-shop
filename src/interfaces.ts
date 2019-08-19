@@ -35,7 +35,7 @@ export namespace Product {
 export namespace Cart {
 
 	export interface ICartItem {
-		id: number;
+		id: string;
 		quantity: number;
 		price: number;
 		name: string;

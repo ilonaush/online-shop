@@ -8,7 +8,7 @@ import {IFilter} from "@/store/interfaces";
  * @param selectedFilters array of selected filters
  */
 export function filterProducts(selectedFilters: Record<string, string[]>) {
-	return function (product: IProduct) {
+	return function(product: IProduct) {
 		const shouldBeIncluded = [];
 		for (const filter in selectedFilters) {
 			if (!product.hasOwnProperty(filter) && selectedFilters.hasOwnProperty(filter)) {
@@ -28,7 +28,7 @@ export function filterProducts(selectedFilters: Record<string, string[]>) {
  * @param product
  */
 function filterProductByFilterProperty(filter: string, product: IProduct) {
-	return function (filterProperty: string) {
+	return function(filterProperty: string) {
 		if (filter !== "reviews" && product[filter as keyof IProduct]) {
 			const productFilter = product[filter as keyof IProduct] || [];
 			if (Array.isArray(productFilter) && isStrings(productFilter)) {
@@ -61,7 +61,7 @@ export function sortProducts(products: IProduct[], sortType: string) {
  * @param property
  */
 export function sortByAscendingProperty<PropType extends keyof Product.IProduct>(property: PropType) {
-	return function (a: Product.IProduct, b: Product.IProduct) {
+	return function(a: Product.IProduct, b: Product.IProduct) {
 		return (a[property] > b[property]) ? 1 : -1;
 	};
 }
@@ -71,7 +71,7 @@ export function sortByAscendingProperty<PropType extends keyof Product.IProduct>
  * @param property
  */
 export function sortByDescendingProperty<PropType extends keyof Product.IProduct>(property: PropType) {
-	return function (a: Product.IProduct, b: Product.IProduct) {
+	return function(a: Product.IProduct, b: Product.IProduct) {
 		return a[property] < b[property] ? 1 : -1;
 	};
 }
@@ -82,4 +82,9 @@ export function sortByDescendingProperty<PropType extends keyof Product.IProduct
  */
 function isStrings(array: string[] | IReview[] | number[]): array is string[] {
 	return typeof array[0] === "string";
+}
+
+export function getEnumKeyByEnumValue(myEnum: any, enumValue: string) {
+	const keys = Object.keys(myEnum).filter((value) => myEnum[value] === enumValue);
+	return keys.length > 0 ? keys[0] : null;
 }

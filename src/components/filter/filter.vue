@@ -15,6 +15,7 @@
 					v-on:click="setSelectedColor(filterOption.value)">
 				</div>
 			</div>
+
 			<div v-else>
 				<custom-checkbox
 					v-for="filterOption in filter.options"
@@ -32,6 +33,7 @@
 	import Vue from "vue";
 	import {createNamespacedHelpers} from "vuex";
 	import {Prop, Component, Watch} from "vue-property-decorator";
+
 	import CustomCheckbox from "@/components/custom-checkbox/custom-checkbox.vue";
 
 	const {mapMutations} = createNamespacedHelpers("filterModule/");
@@ -50,7 +52,12 @@
 		setSelectedFilters!: (filterArr: { [key: string]: string[] }) => void;
 		selectedFilters: string[] = [];
 
+
 		@Watch("selectedFilters")
+		/**
+		 * toggles filters on clicking at one of the filters
+		 * @param filterArr
+		 */
 		fireFilteringProducts(filterArr: string[]) {
 			const filterObj = filterArr.reduce<{ [key: string]: string[] }>((acc, nextValue) => {
 				const [filter = "", option]: string[] = nextValue.split(".");
@@ -61,10 +68,17 @@
 		}
 
 		@Watch("shouldResetFilter")
+		/**
+		 * resets filter
+		 */
 		resetFilter() {
 			this.selectedFilters = [];
 		}
 
+		/**
+		 * sets selected color filter
+		 * @param color
+		 */
 		setSelectedColor(color: string) {
 			if (!this.selectedFilters.includes(`colors.${color}`)) {
 				this.selectedFilters.push(`colors.${color}`);
@@ -75,8 +89,8 @@
 	}
 </script>
 
-<style lang="stylus">
-	@import "~@/vars.styl"
+<style lang="stylus" scoped>
+	@import "~@/vars"
 
 	.filter-list
 		background-color white

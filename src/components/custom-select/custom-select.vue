@@ -1,6 +1,7 @@
 <template>
-	<select :class="className"
-					v-on:change="$emit('change', $event.target.value)">
+	<select
+			:class="className"
+			v-on:change="$emit('change', $event.target.value)">
 		<option
 			v-for="option in options"
 			:value="option.value">
@@ -22,7 +23,7 @@
 	});
 </script>
 
-<style lang="stylus">
+<style lang="stylus" scoped>
 
 	@import "~@/vars"
 

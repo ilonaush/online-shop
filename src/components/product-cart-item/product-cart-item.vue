@@ -13,7 +13,7 @@
 				{{cartItem.name}}
 			</div>
 			<div class="description">
-				{{cartItem.size}}, {{cartItem.color}}, {{cartItem.flower}}
+				{{cartItem.size}}, {{getEnumKeyByEnumValue(this.colors, this.cartItem.color )}}, {{cartItem.flower}}
 			</div>
 			<div class="cart-item_details">
 				<div class="cart-item_price">
@@ -36,16 +36,28 @@
 </template>
 
 <script lang="ts">
-	import {Component, Vue, Prop, Watch} from "vue-property-decorator";
-	import {Cart} from "@/interfaces";
+	import Vue from "vue";
+	import {Component, Prop, Watch} from "vue-property-decorator";
+	import {Cart} from "../../interfaces";
 
-	@Component
+	import ICartItem = Cart.ICartItem;
+	import {COLORS} from "../../services/enums";
+	import {getEnumKeyByEnumValue} from "../../services/ProductService";
+
+	@Component({
+		methods: {
+			getEnumKeyByEnumValue
+		}
+	})
 	export default class ProductCartItem extends Vue {
-		@Prop({type: Object as () => Cart.ICartItem}) cartItem!: Cart.ICartItem;
-
+		@Prop({type: Object as () => Cart.ICartItem}) cartItem!: ICartItem;
+		colors = COLORS;
 		itemQuantity: number = this.cartItem.quantity || 0;
 
 		@Watch("itemQuantity")
+		/**
+		 * sets the quantity of the item in the cart
+		 */
 		setQuantity() {
 			if (this.itemQuantity > 0) {
 				this.$store.commit("cartModule/setCartItemQty", {id: this.cartItem.id, quantity: this.itemQuantity});
@@ -54,6 +66,9 @@
 			}
 		}
 
+		/**
+		 * removes item from the cart
+		 */
 		removeCartItem() {
 			this.$store.commit("cartModule/deleteItemFromCart", this.cartItem.id);
 		}
@@ -71,6 +86,9 @@
 		position absolute
 		left 0
 		top 0
+		padding 3px 5px
+		border 2px solid mediumaquamarine
+		cursor pointer
 
 	.cart-item_img
 		width 150px

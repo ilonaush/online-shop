@@ -7,7 +7,7 @@ import LocalStorageVuexPlugin from "@/plugins/LocalStorageVuexPlugin";
 import {Cart} from "@/interfaces";
 import ICartItem = Cart.ICartItem;
 import store from "@/store/store";
-import {Module, VuexModule, Mutation} from "vuex-module-decorators";
+import {Module, VuexModule, Mutation, Action} from "vuex-module-decorators";
 
 const initialCartState = LocalStorageVuexPlugin.getLocalStorageModuleState<ICartModuleState>("cartModule");
 
@@ -27,10 +27,12 @@ export default class CartModule extends VuexModule {
 
 	}
 
+	/**
+	 * adds item to the cart and pushes notification about it to notification service
+	 * @param item
+	 */
 	@Mutation
 	addItemToCart(item: Cart.ICartItem) {
-		console.log(item);
-		debugger;
 		const cartItem = {
 			id: item.id,
 			quantity: 1,
@@ -43,9 +45,12 @@ export default class CartModule extends VuexModule {
 
 		};
 		this.items = [...this.items, cartItem];
-		this.notifications.push(getNotificationMessage(NOTIFICATION_TYPES.addToCart, {item}));
 	}
 
+	/**
+	 * sets cart item quantity
+	 * @param cartItem
+	 */
 	@Mutation
 	setCartItemQty(cartItem: Pick<Cart.ICartItem, "id" | "quantity">) {
 		this.items = this.items.map((item: ICartItem) => {
@@ -56,8 +61,12 @@ export default class CartModule extends VuexModule {
 		});
 	}
 
+	/**
+	 * deletes item from the cart
+	 * @param itemId
+	 */
 	@Mutation
-	deleteItemFromCart(itemId: number) {
+	deleteItemFromCart(itemId: string) {
 		const deletingItem = this.items.find((cartItem: ICartItem) => cartItem.id === itemId);
 		this.items = this.items.filter((cartItem: ICartItem) => cartItem.id !== itemId);
 		if (deletingItem) {
@@ -65,11 +74,17 @@ export default class CartModule extends VuexModule {
 		}
 	}
 
+	/**
+	 * delete first notification message after its outdating
+	 */
 	@Mutation
 	deleteFirstNotification() {
 		this.notifications.shift();
 	}
 
+	/**
+	 * resets cart
+	 */
 	@Mutation
 	resetCart() {
 		this.items = [];
@@ -78,4 +93,14 @@ export default class CartModule extends VuexModule {
 		localStorage.removeItem("store");
 	}
 
+	@Action
+	checkItemExistenceInCart(item: ICartItem) {
+		const cartItem = this.items.find((product: ICartItem) => product.id === item.id);
+		this.notifications.push(getNotificationMessage(NOTIFICATION_TYPES.addToCart, {item}));
+		if (cartItem) {
+			this.context.commit("setCartItemQty", {id: item.id, quantity: cartItem.quantity + 1});
+		} else {
+			this.context.commit("addItemToCart", item);
+		}
+	}
 }

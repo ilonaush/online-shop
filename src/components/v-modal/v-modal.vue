@@ -36,7 +36,7 @@
 
 </script>
 
-<style lang="stylus">
+<style lang="stylus" scoped>
 	.modal-backdrop
 		position: fixed
 		top: 0

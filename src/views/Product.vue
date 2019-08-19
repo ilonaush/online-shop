@@ -18,21 +18,22 @@
 					<div class="product-details">
 						<div class="product_name"> {{product.name}}</div>
 						<div class="product_price-section">
-                            <span :class="{'product_price': true, sale: product.oldPrice}">
-                            {{((product.price) || 0).toFixed(2)}} $
-                            </span>
+							<span :class="{'product_price': true, sale: product.oldPrice}">
+							{{((product.price) || 0).toFixed(2)}} $
+							</span>
 							<span v-if="product.oldPrice" class="product_oldPrice">
-                            {{((product.oldPrice) || 0).toFixed(2)}} $
-                            </span>
+								{{((product.oldPrice) || 0).toFixed(2)}} $
+							</span>
 						</div>
 
 						<div class="product_color-section">
 							<div class="title">Color</div>
 							<div class="colors">
-								<div :class="['color', ...(selectedColor === color ? ['selected-color'] : [''])]"
-										 v-for="color in product.colors"
-										 :style="{backgroundColor: color}"
-										 v-on:click="setSelectedColor(color)">
+								<div
+									:class="['color', ...(selectedColor === color ? ['selected-color'] : [''])]"
+									 v-for="color in product.colors"
+									 :style="{backgroundColor: color}"
+									 v-on:click="setSelectedColor(color)">
 								</div>
 							</div>
 						</div>
@@ -58,34 +59,41 @@
 								/>
 							</div>
 						</div>
-						<v-button v-if="!isInCart" color="primary" v-on:click="handleAddToCartClick">Add to cart</v-button>
-						<div v-else>added</div>
+						<v-button color="primary" v-on:click="handleAddToCart">Add to cart</v-button>
+
 						<div class="stars">
 							<star-rating :starQuantity="averageMark"/>
-							(
-							<router-link to="#reviews">{{reviews.length}} reviews</router-link>
-							)
+							(<router-link to="#reviews">{{reviews.length}} {{'review' | pluralize(reviews.length)}}</router-link>)
 						</div>
 					</div>
 				</div>
 			</tab>
+
 			<tab name="Reviews">
 				<div class="product-info">
 					<reviews :reviews="reviews" :productId="product.id" v-on:reviewAdd="getReviews"/>
 				</div>
 			</tab>
+
 		</tabs>
+
 		<div class="other-products">
 			<h4>OTHER PRODUCTS IN THE SAME CATEGORY</h4>
 			<product-list
 				:products="$store.state['productsModule'].products.filter(p => p.id !== product.id && p.category === product.category).slice(0, 4)"/>
 		</div>
+
 	</div>
 </template>
 
 <script lang="ts">
+	import Vue from "vue";
 	import {createNamespacedHelpers} from "vuex";
-	import {Component, Vue, Watch} from "vue-property-decorator";
+	import {Component, Watch} from "vue-property-decorator";
+
+	import {App, Cart, Product} from "@/interfaces";
+	import RequestService from "../services/RequestService";
+
 	import VButton from "@/components/v-button/v-button.vue";
 	import Tabs from "@/components/tabs/tabs.vue";
 	import Tab from "@/components/tabs/tab.vue";
@@ -94,12 +102,11 @@
 	import ProductList from "@/components/product-list/product-list.vue";
 	import CustomSelect from "@/components/custom-select/custom-select.vue";
 	import CustomRadiobutton from "@/components/custom-radiobutton/custom-radiobutton.vue";
-	import {App, Cart, Product} from "@/interfaces";
-	import RequestService from "../services/RequestService";
-	import IProduct = Product.IProduct;
-	import IReview = Product.IReview;
 
-	const {mapMutations: mapCartMutations} = createNamespacedHelpers("cartModule/");
+	import IReview = Product.IReview;
+	import IProduct = Product.IProduct;
+
+	const {mapActions: mapCartActions} = createNamespacedHelpers("cartModule/");
 
 	@Component({
 		components: {
@@ -113,7 +120,7 @@
 			CustomSelect
 		},
 		methods: {
-			...mapCartMutations(["addItemToCart"])
+			...mapCartActions(["checkItemExistenceInCart"])
 		}
 	})
 	export default class ProductPage extends Vue {
@@ -121,17 +128,10 @@
 		selectedColor: string = "";
 		selectedSize: string = "";
 		selectedFlower: string = "";
-		addItemToCart!: (item: Omit<Cart.ICartItem, "quantity">) => void;
+		checkItemExistenceInCart!: (item: Omit<Cart.ICartItem, "quantity">) => void;
 		availableSizes: App.ISelect[] = [];
 		reviews: IReview[] = [];
 		averageMark: number = 0;
-
-
-		get isInCart() {
-			return !!this.$store.state["cartModule"].items.find((product: IProduct) => {
-				return product.id === +this.$route.params["product"];
-			});
-		}
 
 		get product(): IProduct {
 			return this.$store.state["productsModule"].products.find((product: IProduct) => {
@@ -139,27 +139,36 @@
 			}) || {};
 		}
 
-		@Watch("product")
-		setInitialProductValues() {
-			console.log("product");
-			this.availableSizes = this.product.sizes.map((size) => ({title: size, value: size}));
-			this.selectedImage = this.product.images[0];
-			this.selectedColor = this.product.colors[0];
-			this.selectedSize = this.product.sizes[0];
-			this.selectedFlower = this.product.availableFlowerType[0];
-			this.getReviews();
-
+		@Watch("product", {immediate: true})
+		/**
+		 * sets initial product values
+		 */
+		setInitialProductValues(product: IProduct) {
+			if (Object.keys(product).length) {
+				this.availableSizes = product.sizes.map((size) => ({title: size, value: size}));
+				this.selectedImage = product.images[0];
+				this.selectedColor = product.colors[0];
+				this.selectedSize = product.sizes[0];
+				this.selectedFlower = product.availableFlowerType[0];
+				this.getReviews();
+			}
 		}
 
+		/**
+		 * get reviews for the product
+		 */
 		async getReviews() {
 			const {data} = await RequestService.instance.get("/reviews", {productId: this.product.id});
 			this.reviews = data.reviews;
 			this.averageMark = data.averageMark;
 		}
 
-		handleAddToCartClick() {
-			this.addItemToCart({
-				id: this.product.id,
+		/**
+		 * adds item to the cart
+		 */
+		handleAddToCart() {
+			this.checkItemExistenceInCart({
+				id: `${this.product.id}-${this.selectedColor}-${this.selectedFlower}-${this.selectedSize}`,
 				name: this.product.name,
 				price: this.product.price,
 				img: this.product.images[0],
@@ -169,22 +178,32 @@
 			});
 		}
 
+		/**
+		 * set selected image
+		 */
 		setSelectedImage(index: number) {
 			this.selectedImage = this.product.images[index];
 		}
 
+		/**
+		 * set selected color
+		 */
 		setSelectedColor(color: string) {
 			this.selectedColor = color;
 		}
 
+		/**
+		 * sets selected size
+		 * @param size
+		 */
 		setSelectedSize(size: string) {
 			this.selectedSize = size;
 		}
 	}
 </script>
 
-<style lang="stylus">
-	@import "../vars.styl";
+<style lang="stylus" scoped>
+	@import "~@/vars";
 
 	.product-page
 		padding $page-padding

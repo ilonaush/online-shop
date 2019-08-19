@@ -1,7 +1,15 @@
 import {NOTIFICATION_TYPES} from "@/services/enums";
 import {Cart, Notification} from "@/interfaces";
 
-export function getNotificationMessage(notificationType: NOTIFICATION_TYPES, notificationConfig: Notification.INotificationConfig) {
+/**
+ * get cart notification message
+ * @param notificationType
+ * @param notificationConfig
+ */
+export function getNotificationMessage(
+	notificationType: NOTIFICATION_TYPES,
+ notificationConfig: Notification.INotificationConfig
+) {
 	if (notificationType === NOTIFICATION_TYPES.addToCart) {
 		if (notificationConfig.message) {
 			return notificationConfig.message;
@@ -15,6 +23,11 @@ export function getNotificationMessage(notificationType: NOTIFICATION_TYPES, not
 	}
 }
 
+/**
+ * format notification message
+ * @param notificationType
+ * @param item
+ */
 function formNotificationMessage(notificationType: NOTIFICATION_TYPES, item: Cart.ICartItem) {
 	if (notificationType === NOTIFICATION_TYPES.addToCart) {
 		return `${item.name} added to the cart`;

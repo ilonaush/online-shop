@@ -10,22 +10,35 @@ export default class FilterModule extends VuexModule {
 	selectedFilters = {} as Record<string, string[]>;
 
 
+	/**
+	 * set filters
+	 * @param filters
+	 */
 	@Mutation
 	setFilters(filters: IFilter[]) {
 		this.filters = filters;
 	}
 
+	/**
+	 * set selected filters
+	 * @param selectedFilters
+	 */
 	@Mutation
 	setSelectedFilters(selectedFilters: Record<string, string[]>) {
 		this.selectedFilters = selectedFilters;
 	}
 
+	/**
+	 * init filter module data
+	 */
 	@Action
 	init() {
 		this.context.dispatch({type: "getFilters"});
 	}
 
-	// action 'decr' commits mutation 'decrement' when done with return value as payload
+	/**
+	 * action for getting filters data form the server
+	 */
 	@Action({rawError: true})
 	async getFilters() {
 		const {data: {filters}} = await RequestService.instance.get(REQUEST_NAME.getFilters);

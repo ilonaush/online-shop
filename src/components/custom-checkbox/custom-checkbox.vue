@@ -1,9 +1,10 @@
 <template>
 	<label class="checkbox-holder">
 		<div class="input-holder">
-			<input type="checkbox"
-						 :checked="isChecked"
-						 @change="change"
+			<input
+				type="checkbox"
+				:checked="isChecked"
+				@change="handleCheckboxChange"
 			/>
 			<span class="checked"></span>
 		</div>
@@ -31,7 +32,10 @@
 			return this.checked.includes(this.value);
 		}
 
-		change() {
+		/**
+		 * handle click on checkbox
+		 */
+		handleCheckboxChange() {
 			const checked = this.checked.slice();
 			const found = checked.indexOf(this.value);
 			if (found !== -1) {
@@ -44,7 +48,7 @@
 	}
 </script>
 
-<style lang="stylus">
+<style lang="stylus" scoped>
 
 	@import "~@/vars"
 

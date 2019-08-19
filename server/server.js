@@ -45,7 +45,6 @@ var fs = require("fs");
 var path = require("path");
 var server = express_1["default"]();
 var util = require("util");
-// const sqlite3 = require("sqlite3").verbose();
 var readFile = util.promisify(fs.readFile);
 var writeFile = util.promisify(fs.writeFile);
 var delay = function (time) { return new Promise(function (res) { return setTimeout(res, time); }); };
@@ -147,7 +146,6 @@ server.post("/add-review", function (req, res) { return __awaiter(_this, void 0,
         switch (_a.label) {
             case 0:
                 review = req.body;
-                console.log(review);
                 _a.label = 1;
             case 1:
                 _a.trys.push([1, 4, , 5]);

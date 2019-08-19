@@ -31,10 +31,17 @@
 		}
 
 		@Watch("$route")
+		/**
+		 * update tab on route change
+		 */
 		updateTabs() {
 			this.selectTab(window.location.hash);
 		}
 
+		/**
+		 * handles selecting tab
+		 * @param selectedHref
+		 */
 		selectTab(selectedHref: string) {
 			if (!selectedHref) {
 				selectedHref = "#";
@@ -42,11 +49,27 @@
 			this.tabs.forEach((tab: any) => {
 				tab["isActive"] = (tab.href === selectedHref);
 			});
+
+			if (!this.tabs.find((tab: any) => tab["isActive"])) {
+				this.setDefaultTab();
+			}
+
+		}
+
+		/**
+		 * sets default tab
+		 */
+		setDefaultTab() {
+			this.tabs.forEach((tab: any) => {
+				if (tab["defaultSelected"]) {
+					tab.isActive = true;
+				}
+			})
 		}
 	}
 </script>
 
-<style lang="stylus">
+<style lang="stylus" scoped>
 	.tabs-menu
 		margin 10px 0
 		padding 10px

@@ -19,18 +19,23 @@ const store = new Vuex.Store({
 	plugins: [LocalStorageVuexPlugin.setLocalStorageState()]
 });
 
-
-for (const moduleName of Object.keys(modules)) {
-	if (modules[moduleName as ModuleType] && "actions" in modules[moduleName as ModuleType]) {
-		const module = modules[moduleName as ModuleType];
-		if ("actions" in module) {
-			const actions = module.actions;
-			if ((actions || {}).init) {
-				store.dispatch(`${moduleName}/init`);
+/**
+ * finds all the init methods in modules and calls them
+ */
+function laucnhInitModuleMethods() {
+	for (const moduleName of Object.keys(modules)) {
+		if (modules[moduleName as ModuleType] && "actions" in modules[moduleName as ModuleType]) {
+			const module = modules[moduleName as ModuleType];
+			if ("actions" in module) {
+				const actions = module.actions;
+				if ((actions || {}).init) {
+					store.dispatch(`${moduleName}/init`);
+				}
 			}
 		}
-
 	}
 }
+
+laucnhInitModuleMethods();
 
 export default store;

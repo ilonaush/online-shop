@@ -1,18 +1,18 @@
 <template>
 	<div class="home-page">
-
+		<h2>PROMOTION</h2>
 		<product-list :products="promotionProducts"/>
 	</div>
 </template>
 
 <script lang="ts">
-	import {Component, Vue} from "vue-property-decorator";
+	import Vue from "vue";
 	import ProductList from "@/components/product-list/product-list.vue";
 	import {createNamespacedHelpers} from "vuex";
 
 	const {mapGetters} = createNamespacedHelpers("productsModule/");
 
-	@Component({
+	export default Vue.extend({
 		components: {
 			ProductList
 		},
@@ -20,12 +20,11 @@
 			...mapGetters(["promotionProducts"])
 		}
 	})
-	export default class Home extends Vue {
-	}
+
 </script>
 
-<style lang="stylus">
-	@import "../vars.styl";
+<style lang="stylus" scoped>
+	@import "~@/vars";
 
 	.home-page
 		padding $page-padding
@@ -34,4 +33,6 @@
 			margin 0 auto
 			.product-card-holder
 				width 24%
+		h2
+			text-align center
 </style>

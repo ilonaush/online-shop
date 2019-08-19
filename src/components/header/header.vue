@@ -16,6 +16,7 @@
 				class="catalogue-list">
 				<router-link
 					v-for="item in menuItems"
+					:key="item"
 					class="catalogue-list_item"
 					:to="{ name: 'catalogue', params: { category: item.split(' ')[0].toLowerCase() }}">
 					{{item}}
@@ -23,27 +24,25 @@
 			</div>
 		</v-button>
 
-		<div class="cart-icon">
+		<div class="cart-icon"  v-on:click="isCartBlockOpen = !isCartBlockOpen">
 			<font-awesome-icon :icon="['fas', 'shopping-cart']" size="2x"/>
 
 			<span class="cart-quantity">{{generalQuantity}}</span>
 
-			<div class="cart-info">
-                <span v-if="generalQuantity > 0">
-                    There is {{generalQuantity}} {{ 'item' | pluralize(generalQuantity) }}  for {{generalPrice.toFixed(2)}} $
-                    <div>
-                        <router-link :to="{name: 'checkout'}">Check out</router-link>
-                    </div>
-                    <span class="line"></span>
-                    <v-button
-											color="primary"
-											v-on:click="openModal(modalType.cart)">
-                        Go to cart
-                    </v-button>
-                </span>
+			<div :class="{'cart-info': true, 'open': isCartBlockOpen}">
+				<span v-if="generalQuantity > 0">
+					There is {{generalQuantity}} {{ 'item' | pluralize(generalQuantity) }} for {{generalPrice.toFixed(2)}} $
+					<router-link class="btn-like" :to="{name: 'checkout'}">Check out</router-link>
+					<span class="line"></span>
+					<v-button
+						color="primary"
+						v-on:click="openModal(modalType.cart)">
+							Go to cart
+					</v-button>
+				</span>
 				<span v-else>
-                    У вашому кошику ше немає замовлень
-                </span>
+					У вашому кошику ше немає замовлень
+				</span>
 			</div>
 
 		</div>
@@ -51,7 +50,7 @@
 </template>
 
 <script lang="ts">
-	import {Component, Vue} from "vue-property-decorator";
+	import Vue from "vue";
 	import {createNamespacedHelpers} from "vuex";
 	import Notification from "@/components/notification/notification.vue";
 	import VButton from "@/components/v-button/v-button.vue";
@@ -60,8 +59,23 @@
 
 	const {mapGetters} = createNamespacedHelpers("cartModule/");
 
-	@Component({
-		components: {Notification, VButton},
+	interface IHeaderData {
+		isCatalogueListShown: boolean;
+		menuItems: string[];
+		modalType: typeof MODAL_TYPE;
+		isCartBlockOpen: boolean;
+	}
+
+	export default Vue.extend({
+		data: (): IHeaderData => ({
+			isCatalogueListShown:  false,
+			menuItems:  ["Indoor plants", "Outdoor plants"],
+			modalType: MODAL_TYPE,
+			isCartBlockOpen:  false,
+		}),
+		components: {
+			Notification, VButton
+		},
 		computed: {
 			...mapGetters(["generalPrice", "generalQuantity"]),
 		},
@@ -69,15 +83,10 @@
 			openModal
 		}
 	})
-	export default class Header extends Vue {
-		isCatalogueListShown: boolean = false;
-		menuItems: string[] = ["Indoor plants", "Outdoor plants"];
-		modalType = MODAL_TYPE;
-	}
 </script>
 
-<style lang="stylus">
-	@import "~@/vars.styl"
+<style lang="stylus" scoped>
+	@import "~@/vars"
 
 	.header
 		display flex
@@ -114,9 +123,6 @@
 		cursor pointer
 		margin-left auto
 		padding 0 20px
-		&:hover
-			.cart-info
-				display block
 
 		.cart-quantity
 			position absolute
@@ -127,18 +133,23 @@
 			width 20px
 		.cart-info
 			background-color white
+			border 2px solid mediumaquamarine
 			cursor auto
 			color black
 			display none
-			border pink
 			position absolute
 			top 150%
 			right 0
 			min-width 300px
 			min-height 50px
 			padding 10px
-			pointer-events none
-			button
+
+			&.open
+				display block
+			button,
 				display block
 				margin 5px auto
+			.btn-like
+				margin 5px auto
+
 </style>

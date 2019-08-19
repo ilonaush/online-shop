@@ -1,5 +1,5 @@
 <template>
-	<form class="addReviewForm" @submit.prevent="handleAddReviewFormSubmit">
+	<form class="add-review_form" @submit.prevent="handleAddReviewFormSubmit">
 		Give a feedback
 		<custom-input label="Name" v-model="name"></custom-input>
 		<div>
@@ -20,15 +20,21 @@
 <script lang="ts">
 	import {Component, Prop, Vue} from "vue-property-decorator";
 	import {createNamespacedHelpers} from "vuex";
+
+	import RequestService from "../../services/RequestService";
+
 	import CustomInput from "@/components/custom-input/custom-input.vue";
 	import VButton from "@/components/v-button/v-button.vue";
 	import StarRating from "@/components/star-rating/star-rating.vue";
-	import RequestService from "../../services/RequestService";
 
 	const {mapMutations} = createNamespacedHelpers("cartModule/");
 
 	@Component({
-		components: {CustomInput, VButton, StarRating},
+		components: {
+			CustomInput,
+			VButton,
+			StarRating
+		},
 		methods: {
 			...mapMutations(["resetCart"])
 		}
@@ -39,16 +45,26 @@
 		mark: number = 0;
 		review: string = "";
 
+		/**
+		 * sets mark of the reviewer to the product
+		 * @param mark
+		 */
 		setMark(mark: number) {
 			this.mark = mark;
 		}
 
+		/**
+		 * resets form after sudmitting
+		 */
 		resetForm() {
 			this.mark = 0;
 			this.name = "";
 			this.review = "";
 		}
 
+		/**
+		 * handle adding new review to the product
+		 */
 		async handleAddReviewFormSubmit() {
 			const variables = {
 				id: Date.now(),
@@ -57,6 +73,7 @@
 				reviewer: this.name,
 				mark: this.mark
 			};
+
 			try {
 				await RequestService.instance.post("/add-review", variables);
 				this.resetForm();
@@ -68,8 +85,8 @@
 	}
 </script>
 
-<style lang="stylus">
-	.addReviewForm
+<style lang="stylus" scoped>
+	.add-review_form
 		width 40%
 		textarea
 			width 100%

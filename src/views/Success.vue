@@ -1,8 +1,7 @@
 <template functional>
 	<div class="success-page">
 		<div class="success-page_content">
-			Your order has been confirmed
-
+			Thank you! Your order is awaiting for confirmation
 			<div>
 				<router-link :to="{name: 'home'}">Go home</router-link>
 			</div>
@@ -10,8 +9,8 @@
 	</div>
 </template>
 
-<style lang="stylus">
-	@import "~@/vars";
+<style lang="stylus" scoped>
+	@import "~@/vars"
 
 	.success-page
 		padding $page-padding

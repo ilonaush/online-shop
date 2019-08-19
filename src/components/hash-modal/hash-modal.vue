@@ -6,8 +6,9 @@
 
 <script lang="ts">
 	import {Component, Vue} from "vue-property-decorator";
-	import CartModal from "@/components/Modal/cart-modal/cart-modal.vue";
 	import {MODAL_TYPE} from "@/store/enums";
+
+	import CartModal from "@/components/v-modal/cart-modal/cart-modal.vue";
 
 	@Component({
 		components: {

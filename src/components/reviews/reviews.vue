@@ -1,9 +1,11 @@
 <template>
 	<div class="reviews-section">
-		<div class="reviews">
+		<div class="reviews" v-if="reviews.length">
+
 			<div class="reviews_title">
 				REVIEWS
 			</div>
+
 			<div class="review" :key="review.id" v-for="review in reviews">
 				<div class="review-author-section">
 					<div class="review-author">
@@ -18,7 +20,9 @@
 				</div>
 			</div>
 		</div>
+
 		<add-review-form :productId="productId" v-on:reviewAdd="handleReviewAdding"/>
+
 	</div>
 </template>
 
@@ -52,7 +56,6 @@
 
 	@import "~@/vars"
 	.reviews-section
-		width 700px
 		display flex
 		.reviews
 			flex 1

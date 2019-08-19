@@ -38,29 +38,36 @@
 	import {MODAL_TYPE} from "../store/enums";
 	import {openModal} from "@/services/RouteService";
 
-	const {mapState, mapGetters} = createNamespacedHelpers("cartModule/");
+	const {mapState, mapGetters, mapMutations} = createNamespacedHelpers("cartModule/");
 
 	@Component({
-		components: {CheckoutForm, VButton},
+		components: {
+			CheckoutForm, VButton
+		},
 		computed: {
 			...mapState(["items"]),
 			...mapGetters(["generalPrice"])
 		},
 		methods: {
+			...mapMutations(["resetCart"]),
 			openModal
 		}
 	})
 	export default class Checkout extends Vue {
 		modalType = MODAL_TYPE;
 
+		/**
+		 * places order
+		 */
 		placeOrder() {
-			console.log("meow");
+			this.resetCart();
+			this.$router.push({name: "success"});
 		}
 	}
 </script>
 
-<style lang="stylus">
-	@import "~@/vars";
+<style lang="stylus" scoped>
+	@import "~@/vars"
 
 	.checkout-page
 		padding $page-padding

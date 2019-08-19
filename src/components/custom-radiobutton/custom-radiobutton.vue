@@ -1,8 +1,14 @@
 <template>
 	<label class="radiobutton-holder">
 		<div class="input-holder">
-			<input class="input-holder" :name="name" type="radio" :value="value"
-						 v-on:change="$emit('change', $event.target.value)" :checked="isChecked">
+			<input
+				class="input-holder"
+				:name="name"
+				type="radio"
+				:value="value"
+				v-on:change="$emit('change', $event.target.value)"
+				:checked="isChecked"
+			/>
 			<span class="checked"></span>
 		</div>
 		{{label}}
@@ -31,9 +37,9 @@
 	});
 </script>
 
-<style lang="stylus">
+<style lang="stylus" scoped>
 
-	@import "../../vars.styl"
+	@import "~@/vars"
 
 	.radiobutton-holder
 		display flex

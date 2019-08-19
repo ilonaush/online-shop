@@ -1,8 +1,10 @@
 <template>
 	<div :class="['product-list', className]">
-		<div :class="['product-card-holder', className]" v-for="product in products"
-				 :key="product.id">
-			<product-card :product="product"></product-card>
+		<div
+			:class="['product-card-holder', className]"
+			v-for="product in products"
+			 :key="product.id">
+				<product-card :product="product"></product-card>
 		</div>
 		<div v-if="!products.length">По заданным параметрам не найдена ни одна модель</div>
 	</div>
@@ -36,10 +38,6 @@
 			.fa-shopping-cart, .fa-flower-tulip
 				color white
 
-	.v-toolbar__items
-		a
-			height 100%
-
 	.product-list
 		max-width 930px
 		display flex
@@ -50,7 +48,7 @@
 			display flex
 			width 100%
 			flex-wrap wrap
-			margin-left: -20px
+			margin-left -20px
 
 			.product-card-holder
 				width calc(100% / 3)

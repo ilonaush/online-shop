@@ -1,7 +1,12 @@
 <template>
 	<div v-if="isNotificationShown" class="notification">
 		{{message}}
-		<v-button @click="openModal(modalType.cart)" class="go-cart-btn" color="primary">Go to cart</v-button>
+		<v-button
+			@click="openModal(modalType.cart)"
+			class="go-cart-btn"
+			color="primary">
+				Go to cart
+		</v-button>
 	</div>
 </template>
 
@@ -10,7 +15,6 @@
 	import {createNamespacedHelpers} from "vuex";
 	import VButton from "@/components/v-button/v-button.vue";
 	import {MODAL_TYPE} from "@/store/enums";
-	import {Notification as NotificationService} from "@/interfaces";
 	import {openModal} from "@/services/RouteService";
 
 	const {mapMutations: mapCartMutations} = createNamespacedHelpers("cartModule/");
@@ -36,6 +40,9 @@
 		}
 
 		@Watch("notifications", {immediate: true, deep: true})
+		/**
+		 * shows first notification available in the queue
+		 */
 		toggleNotification(val: string[]) {
 			if (val && val.length) {
 				this.message = this.notifications[0];
@@ -43,11 +50,17 @@
 			}
 		}
 
+		/**
+		 * hides cart notification
+		 */
 		hideNotification() {
 			this.isNotificationShown = false;
 			this.deleteFirstNotification();
 		}
 
+		/**
+		 * shows notification and sets its hiding
+		 */
 		showNotification() {
 			clearTimeout(this.timer);
 			this.isNotificationShown = true;
@@ -60,7 +73,7 @@
 	.notification
 		border 1px solid pink
 		background-color white
-		position absolute
+		position fixed
 		bottom 10%
 		border-radius 10px
 		padding 15px

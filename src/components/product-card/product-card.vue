@@ -13,12 +13,12 @@
 			<div class="product-card_name">{{ product.name.toUpperCase() }}</div>
 
 			<div class="product-card_price-section">
-                <span :class="{'product-card_price': true, sale: product.oldPrice}">
-                    {{product.price.toFixed(2)}} $
-                </span>
+				<span :class="{'product-card_price': true, sale: product.oldPrice}">
+						{{product.price.toFixed(2)}} $
+				</span>
 				<span v-if="product.oldPrice" class="product-card_oldPrice">
-                    {{product.oldPrice.toFixed(2)}} $
-                </span>
+					{{product.oldPrice.toFixed(2)}} $
+				</span>
 			</div>
 
 			<div class="stars">
@@ -26,14 +26,12 @@
 			</div>
 
 			<v-button
-				v-if="!isInCart"
 				color="primary"
-				v-on:click="handleAddToCartClick"
+				v-on:click="handleAddToCart"
 				class="add-cart-btn"
 				btnStyle="outline">
-				<font-awesome-icon :icon="['fas', 'shopping-cart']"/>
+					<font-awesome-icon :icon="['fas', 'shopping-cart']"/>
 			</v-button>
-			<div v-else class="added-product">added</div>
 		</div>
 	</div>
 </template>
@@ -45,7 +43,7 @@
 	import VButton from "@/components/v-button/v-button.vue";
 	import {Product, Cart} from "@/interfaces";
 
-	const {mapMutations} = createNamespacedHelpers("cartModule/");
+	const {mapActions: mapCartActions} = createNamespacedHelpers("cartModule/");
 
 	@Component({
 		components: {
@@ -53,22 +51,19 @@
 			VButton
 		},
 		methods: {
-			...mapMutations(["addItemToCart"]),
+			...mapCartActions(["checkItemExistenceInCart"]),
 		}
 	})
 	export default class ProductCard extends Vue {
 		@Prop({type: Object as () => Product.IProduct}) product!: Product.IProduct;
-		addItemToCart!: (item: Omit<Cart.ICartItem, "quantity">) => void;
+		checkItemExistenceInCart!: (item: Omit<Cart.ICartItem, "quantity">) => void;
 
-		get isInCart() {
-			return !!this.$store.state["cartModule"].items.find((product: Product.IProduct) => {
-				return product.id === this.product.id;
-			});
-		}
-
-		handleAddToCartClick() {
-			this.addItemToCart({
-				id: this.product.id,
+		/**
+		 * checks if item already added and if not adds item to the cart
+		 */
+		handleAddToCart() {
+			this.checkItemExistenceInCart({
+				id: `${this.product.id}-${this.product.colors[0]}-${this.product.availableFlowerType[0]}-${this.product.sizes[0]}`,
 				name: this.product.name,
 				price: this.product.price,
 				img: this.product.images[0],
@@ -82,7 +77,7 @@
 
 <style lang="stylus" scoped>
 
-	@import "~@/vars.styl"
+	@import "~@/vars"
 
 	.product-card-holder
 		&.list
@@ -93,16 +88,24 @@
 				.product-card_info
 					margin-left 20px
 					width 300px
+		&.grid
+			height 340px
+			.product-card_image-holder
+				display flex
+				align-items center
 
 	.product-card_image-holder
 		height 340px
 		background-color $milk
+		@media(max-width 992px)
+			height 300px
+
 		.product-card-image
 			display block
 			margin 0 auto
 
 	.product-card_info
-		height 115px
+		height 170px
 		display flex
 		align-items center
 		flex-direction column
@@ -116,6 +119,7 @@
 		.product-card_name
 			margin 10px 0
 			font-weight bold
+			height 40px
 		.product-card_price-section
 			margin 10px 0
 

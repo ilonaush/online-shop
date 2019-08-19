@@ -1,5 +1,7 @@
 <template functional>
-	<button :disabled="props.disabled" v-on="listeners"
+	<button
+		:disabled="props.disabled"
+		v-on="listeners"
 		:class="['btn', props.color, props.btnStyle, props.class, props.block && 'block']">
 		<slot></slot>
 	</button>
@@ -9,7 +11,7 @@
 
 	@import "~@/vars";
 
-	.btn
+	.btn, .btn-like
 		align-items center
 		border-radius 2px
 		display inline-flex

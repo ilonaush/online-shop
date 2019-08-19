@@ -2,26 +2,28 @@
 	<div class="catalogue-page">
 		<filter-navigation :shouldResetFilter="shouldResetFilter" :filters="filters"/>
 		<div class="product-list_holder">
-			<sorting v-on:viewChange="setView" v-on:sortTypeChange="setSortType"></sorting>
+			<sorting :listView="view" v-on:viewChange="setView" v-on:sortTypeChange="setSortType"></sorting>
 			<product-list :className="view" :products="sortedList"/>
 		</div>
 	</div>
 </template>
 
 <script lang="ts">
-	import FilterNavigation from "@/components/filter/filter.vue";
+	import Vue from "vue";
+	import {Component, Prop} from "vue-property-decorator";
 	import {createNamespacedHelpers} from "vuex";
-	import {Component, Vue, Prop} from "vue-property-decorator";
-	import ProductList from "@/components/product-list/product-list.vue";
-	import Sorting from "@/components/sorting/sorting.vue";
 	import {Route, RawLocation} from "vue-router";
+
 	import {IFiltersModuleState, IProductsModuleState} from "@/store/interfaces";
 	import {Product} from "@/interfaces";
 	import {sortByAscendingProperty, sortByDescendingProperty, sortProducts} from "@/services/ProductService";
 
+	import FilterNavigation from "@/components/filter/filter.vue";
+	import ProductList from "@/components/product-list/product-list.vue";
+	import Sorting from "@/components/sorting/sorting.vue";
+
 	const {mapState: filterState} = createNamespacedHelpers("filterModule/");
 	const {mapState: productState, mapMutations} = createNamespacedHelpers("productsModule/");
-
 
 	Component.registerHooks([
 		"beforeRouteUpdate"
@@ -66,17 +68,25 @@
 			return sortProducts(this.$store.getters["productsModule/filteredProducts"], this.sortType);
 		}
 
+		/**
+		 * sets view type
+		 * @param view
+		 */
 		setView(view: string) {
 			this.view = view;
 		}
 
+		/**
+		 * sets sort type
+		 * @param sortType
+		 */
 		setSortType(sortType: string) {
 			this.sortType = sortType;
 		}
 	}
 </script>
 
-<style lang="stylus">
+<style lang="stylus" scoped>
 	@import "~@/vars";
 
 	.catalogue-page

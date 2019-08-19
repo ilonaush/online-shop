@@ -1,7 +1,7 @@
 import {Cart, Product} from "@/interfaces";
 
 export interface IStore extends IProductsModuleState, IFiltersModuleState, ICartModuleState {
-
+	loading: boolean
 }
 
 export interface IFiltersModuleState {
@@ -29,11 +29,13 @@ export interface IFilterModuleActions {
 export interface IProductsModuleState {
 	products: Product.IProduct[];
 	activeCategory: string;
+	loading: boolean;
 }
 
 export interface IProductsModuleMutations {
 	setProducts: Product.IProduct[];
 	setActiveCategory: string;
+	setLoading: boolean;
 }
 
 export interface IProductsModuleGetters {

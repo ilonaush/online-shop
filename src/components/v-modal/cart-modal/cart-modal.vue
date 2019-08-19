@@ -1,6 +1,6 @@
 <template xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
 	<div class="cart-modal">
-		<modal>
+		<v-modal>
 			<template v-slot:header>Cart</template>
 
 			<template v-slot:body>
@@ -11,17 +11,17 @@
 			</template>
 
 			<template v-if="items.length" v-slot:footer>
-				<div class="cart_footer">
-					<div class="cart_total-sum">
+				<div class="cart-footer">
+					<div class="cart-total-sum">
 						Total: {{generalPrice.toFixed(2)}} $
 					</div>
-					<div class="cart_controls">
-						<v-button @click="closeModal" color="primary">Go on shopping</v-button>
-						<router-link :to="{name: 'checkout'}">Place order</router-link>
+					<div class="cart-controls">
+						<router-link class="btn-like shopping-link" :to="{name: 'catalogue',  params: { category: 'indoor'}}">Go on shopping</router-link>
+						<router-link class="btn-like place-order-link" :to="{name: 'checkout'}">Place order</router-link>
 					</div>
 				</div>
 			</template>
-		</modal>
+		</v-modal>
 	</div>
 </template>
 
@@ -29,7 +29,7 @@
 	import {Vue} from "vue-property-decorator";
 	import {createNamespacedHelpers} from "vuex";
 	import ProductCartItem from "@/components/product-cart-item/product-cart-item.vue";
-	import Modal from "../modal.vue";
+	import VModal from "../v-modal.vue";
 	import VButton from "@/components/v-button/v-button.vue";
 	import {ICartModuleState} from "@/store/interfaces";
 	import {closeModal} from "@/services/RouteService";
@@ -39,7 +39,7 @@
 	export default Vue.extend({
 		components: {
 			ProductCartItem,
-			Modal,
+			VModal,
 			VButton
 		},
 		computed: {
@@ -54,17 +54,25 @@
 	});
 </script>
 
-<style lang="stylus">
+<style lang="stylus" scoped>
+
+	@import "~@/vars"
+
 	.cart-modal
 		.modal
 			min-width 700px
 
-	.cart_footer
+	.cart-footer
 		width 100%
-		.cart_total-sum
+		.cart-total-sum
 			text-align right
 
-	.cart_controls
+	.cart-controls
 		display flex
 		justify-content space-between
+		align-items center
+		.place-order-link, .shopping-link
+			&.btn-like
+				color white
+				background-color $lighten-2
 </style>
